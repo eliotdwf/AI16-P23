@@ -1,5 +1,8 @@
 # AI16-P23
-P23 - Projet AI16 
+
+P23 - Projet AI16 : Application web de recrutement
+Membres du binôme : Eliot DEWULF et Yohan FOLLIOT
+
 
 ## Use Case
 
