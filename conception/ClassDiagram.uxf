@@ -1,0 +1,52 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>770</x><y>40</y><w>120</w><h>140</h></coordinates><panel_attributes>_Utilisateur_
+--
+nom : String
+prenom : String
+tel : String
+dateCreation : Date
+actif : boolean
+email : String
+mdp : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>360</y><w>290</w><h>110</h></coordinates><panel_attributes>_Organisation_
+--
+Siren : String
+nom : String
+type : {'ASSOCIATION', 'SARL', 'EURL', 'SASU', ... }
+siegeSocial : String </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>10</x><y>510</y><w>370</w><h>40</h></coordinates><panel_attributes>- Siren est identifiant unique
+- siegeSocial correspond à l'adresse administrative du siège
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>460</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>70</y><w>370</w><h>210</h></coordinates><panel_attributes>_OffreEmploi_
+--
+numero : int
+intitule : String
+statutPoste : String
+respHierarchique : String
+lieuMission : String
+rythme : String
+salaire : String
+description : String
+etat : {"non publié", "en cours d'édition", "publiée", "expirée"}
+dateValidite : Date
+piecesDossierCandidature : String
+nbPiecesDossierCandidature : int
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>150</x><y>270</y><w>50</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..*</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>100</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>420</x><y>180</y><w>210</w><h>70</h></coordinates><panel_attributes>_Candidature_
+--
+date : Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>420</x><y>20</y><w>210</w><h>60</h></coordinates><panel_attributes>_TypeMetier_
+--
+id: int
+nom : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>370</x><y>100</y><w>310</w><h>40</h></coordinates><panel_attributes>lt=-
+m1=0..*
+m2=0..* </panel_attributes><additional_attributes>290;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>270</x><y>30</y><w>170</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..*</panel_attributes><additional_attributes>150;10;10;10;10;40</additional_attributes></element><element><id>Relation</id><coordinates><x>820</x><y>170</y><w>80</w><h>210</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;140;60;140;60;190</additional_attributes></element><element><id>UMLClass</id><coordinates><x>820</x><y>360</y><w>100</w><h>40</h></coordinates><panel_attributes>_Administrateur_
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>90</y><w>60</w><h>40</h></coordinates><panel_attributes>_Candidat_
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>680</x><y>120</y><w>170</w><h>210</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>150;60;150;190;10;190;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>680</x><y>170</y><w>170</w><h>210</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>150;10;150;140;10;140;10;190</additional_attributes></element><element><id>UMLClass</id><coordinates><x>650</x><y>360</y><w>70</w><h>40</h></coordinates><panel_attributes>_Recruteur_
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>390</y><w>440</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..*</panel_attributes><additional_attributes>10;60;400;60;400;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>410</x><y>330</y><w>210</w><h>70</h></coordinates><panel_attributes>_PieceDossier_
+--
+id : int
+content : File</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>240</y><w>50</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..*</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element></diagram>
