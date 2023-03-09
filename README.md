@@ -6,7 +6,7 @@ P23 - Projet AI16
 ### Diagramme de cas d'utilisation
 
 ![Use Case Diagram](conception/Usecase.svg)
-
+Lien vers le diagramme de cas d'utilisation LucidChart [ici](https://lucid.app/lucidchart/ffa23c81-deb0-4253-a641-4117829dddff/edit?viewport_loc=-889%2C-50%2C4847%2C2298%2C0_0&invitationId=inv_a2330c3b-7f48-4643-b885-6ce8ba29d6a0)
 ### Description des cas d'utilisation
 | Use Case | Compte | Description |
 | -------- | ------ | ----------- |
