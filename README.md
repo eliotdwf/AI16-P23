@@ -15,5 +15,6 @@ P23 - Projet AI16
 | Ajouter une organisation | Administrateur | Permet d'ajouter une organisation |
 | Accorder des droits d'admnisitrateurs | Administrateur | Permet d'accorder des droits d'administrateurs à un compte utilisateur |
 
+
 ### Questions/Précisions
 - Y-a t'il un recruteur principal qui lui seul pourra valider les ajouts de recruteurs ? Ou tout recruteur validé pourra en accepter d'autres ?
