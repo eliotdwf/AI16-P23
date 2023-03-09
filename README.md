@@ -6,7 +6,7 @@ P23 - Projet AI16
 | -------- | ------ | ----------- |
 | Créer compte | User | L'utilisateur se crée un compte |
 | Authentification | User | Si le compte a préalablement été créé, l'utilisateur se connecte via son email mot de passe à son compte |
-| Demander à rejoindre une organisation | User/Recruteur | Demander à rejoindre une organisation, l'authorisation sera accordé par le recruteur principal de l'organisation |
+| Demander à rejoindre une organisation | User/Recruteur | Demander à rejoindre une organisation, l'authorisation sera accordé par un quelconque recruteur de l'organisation |
 | Demander la création d'une organisation | User/Admninistrateur | Demander la création d'une organisation qui sera approuvée par un Administrateur |
 | Rechercher des offres | Candidat | Permet de Rechercher et filtrer les offres d'emplois |
 | Consulter les offres | Candidat | Permet de visualiser une offre d'emploi en particulier |
