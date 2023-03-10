@@ -35,3 +35,13 @@ Lien vers le diagramme de cas d'utilisation LucidChart [ici](https://lucid.app/l
 
 ## MLD
 ![MLD](conception/MLD.png)
+
+
+## Suggestions nom du site :
+ + RecruitNow
+ + JobMatch
+ + JobWise
+ + WorkFindr
+ + EmployMe
+ + CareerFindr
+ + CareerMatch
