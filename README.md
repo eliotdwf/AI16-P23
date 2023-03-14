@@ -41,7 +41,7 @@ Lien vers le diagramme de cas d'utilisation LucidChart [ici](https://lucid.app/l
  + RecruitNow
  + JobMatch
  + JobWise
- + WorkFindr
+ + WorkFinder
  + EmployMe
- + CareerFindr
+ + CareerFinder
  + CareerMatch
