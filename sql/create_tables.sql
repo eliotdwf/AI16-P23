@@ -52,12 +52,12 @@ CREATE OR REPLACE TABLE PieceDossier(
 );
 
 CREATE OR REPLACE TABLE Organisation(
-   organisation VARCHAR(50),
+   siren VARCHAR(50),
    nom VARCHAR(50) NOT NULL,
    siege_social VARCHAR(100) NOT NULL,
    description VARCHAR(5000) NOT NULL,
    type_organisation INT NOT NULL,
-   PRIMARY KEY(organisation),
+   PRIMARY KEY(siren),
    FOREIGN KEY(type_organisation) REFERENCES TypeOrganisation(type_organisation)
 );
 
@@ -74,10 +74,10 @@ CREATE OR REPLACE TABLE OffreEmploi(
    date_validite DATE NOT NULL,
    pieces_requises_candidature VARCHAR(50) NOT NULL,
    nb_pieces_dossier_candidature INT NOT NULL,
-   organisation VARCHAR(50) NOT NULL,
+   siren VARCHAR(50) NOT NULL,
    type_metier INT,
    PRIMARY KEY(offre_emploi),
-   FOREIGN KEY(organisation) REFERENCES Organisation(organisation),
+   FOREIGN KEY(siren) REFERENCES Organisation(siren),
    FOREIGN KEY(type_metier) REFERENCES TypeMetier(type_metier)
 );
 
@@ -89,9 +89,9 @@ CREATE OR REPLACE TABLE Recruteur(
    tel VARCHAR(50),
    dateCreation DATE NOT NULL,
    actif BOOLEAN,
-   organisation VARCHAR(50) NOT NULL,
+   siren VARCHAR(50) NOT NULL,
    PRIMARY KEY(email),
-   FOREIGN KEY(organisation) REFERENCES Organisation(organisation)
+   FOREIGN KEY(siren) REFERENCES Organisation(siren)
 );
 
 CREATE OR REPLACE TABLE Candidature(
@@ -108,17 +108,17 @@ CREATE OR REPLACE TABLE Candidature(
 CREATE OR REPLACE TABLE DemandeCreationOrga(
    candidat VARCHAR(50),
    date_demande DATE NOT NULL,
-   organisation VARCHAR(50) NOT NULL,
+   siren VARCHAR(50) NOT NULL,
    PRIMARY KEY(candidat),
    FOREIGN KEY(candidat) REFERENCES Candidat(candidat),
-   FOREIGN KEY(organisation) REFERENCES Organisation(organisation)
+   FOREIGN KEY(siren) REFERENCES Organisation(siren)
 );
 
 CREATE OR REPLACE TABLE DemandeDevenirRecruteur(
    candidat VARCHAR(50),
    date_demande DATE NOT NULL,
-   organisation VARCHAR(50) NOT NULL,
+   siren VARCHAR(50) NOT NULL,
    PRIMARY KEY(candidat),
    FOREIGN KEY(candidat) REFERENCES Candidat(candidat),
-   FOREIGN KEY(organisation) REFERENCES Organisation(organisation)
+   FOREIGN KEY(siren) REFERENCES Organisation(siren)
 );
