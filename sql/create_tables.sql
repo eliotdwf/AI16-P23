@@ -12,14 +12,14 @@ DROP TABLE Candidat;
 
 
 CREATE OR REPLACE TABLE Candidat(
-   candidat VARCHAR(50),
+   email VARCHAR(50),
    mdp VARCHAR(50) NOT NULL,
    nom VARCHAR(50) NOT NULL,
    prenom VARCHAR(50) NOT NULL,
    tel VARCHAR(50),
    dateCreation DATE NOT NULL,
    actif BOOLEAN,
-   PRIMARY KEY(candidat)
+   PRIMARY KEY(email)
 );
 
 CREATE OR REPLACE TABLE Administrateur(
@@ -62,7 +62,7 @@ CREATE OR REPLACE TABLE Organisation(
 );
 
 CREATE OR REPLACE TABLE OffreEmploi(
-   offre_emploi INT,
+   id_offre INT,
    intitule VARCHAR(50) NOT NULL,
    statut_poste VARCHAR(50) NOT NULL,
    resp_hierarchique VARCHAR(50),
@@ -76,7 +76,7 @@ CREATE OR REPLACE TABLE OffreEmploi(
    nb_pieces_dossier_candidature INT NOT NULL,
    siren VARCHAR(50) NOT NULL,
    type_metier INT,
-   PRIMARY KEY(offre_emploi),
+   PRIMARY KEY(id_offre),
    FOREIGN KEY(siren) REFERENCES Organisation(siren),
    FOREIGN KEY(type_metier) REFERENCES TypeMetier(type_metier)
 );
@@ -95,30 +95,30 @@ CREATE OR REPLACE TABLE Recruteur(
 );
 
 CREATE OR REPLACE TABLE Candidature(
-   candidat VARCHAR(50),
-   offre_emploi INT,
+   email VARCHAR(50),
+   id_offre INT,
    piece_dossier INT,
    date_candidature DATE NOT NULL,
-   PRIMARY KEY(candidat, offre_emploi, piece_dossier),
-   FOREIGN KEY(candidat) REFERENCES Candidat(candidat),
-   FOREIGN KEY(offre_emploi) REFERENCES OffreEmploi(offre_emploi),
+   PRIMARY KEY(email, id_offre, piece_dossier),
+   FOREIGN KEY(email) REFERENCES Candidat(email),
+   FOREIGN KEY(id_offre) REFERENCES OffreEmploi(id_offre),
    FOREIGN KEY(piece_dossier) REFERENCES PieceDossier(piece_dossier)
 );
 
 CREATE OR REPLACE TABLE DemandeCreationOrga(
-   candidat VARCHAR(50),
+   email VARCHAR(50),
    date_demande DATE NOT NULL,
    siren VARCHAR(50) NOT NULL,
-   PRIMARY KEY(candidat),
-   FOREIGN KEY(candidat) REFERENCES Candidat(candidat),
+   PRIMARY KEY(email),
+   FOREIGN KEY(email) REFERENCES Candidat(email),
    FOREIGN KEY(siren) REFERENCES Organisation(siren)
 );
 
 CREATE OR REPLACE TABLE DemandeDevenirRecruteur(
-   candidat VARCHAR(50),
+   email VARCHAR(50),
    date_demande DATE NOT NULL,
    siren VARCHAR(50) NOT NULL,
-   PRIMARY KEY(candidat),
-   FOREIGN KEY(candidat) REFERENCES Candidat(candidat),
+   PRIMARY KEY(email),
+   FOREIGN KEY(email) REFERENCES Candidat(email),
    FOREIGN KEY(siren) REFERENCES Organisation(siren)
 );
