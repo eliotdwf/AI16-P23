@@ -1,3 +1,16 @@
+DROP TABLE DemandeDevenirRecruteur;
+DROP TABLE DemandeCreationOrga;
+DROP TABLE Candidature;
+DROP TABLE Recruteur;
+DROP TABLE OffreEmploi;
+DROP TABLE Organisation;
+DROP TABLE PieceDossier;
+DROP TABLE TypeOrganisation;
+DROP TABLE TypeMetier;
+DROP TABLE Administrateur;
+DROP TABLE Candidat;
+
+
 CREATE OR REPLACE TABLE Candidat(
    candidat VARCHAR(50),
    mdp VARCHAR(50) NOT NULL,
