@@ -34,19 +34,19 @@ CREATE OR REPLACE TABLE Administrateur(
 );
 
 CREATE OR REPLACE TABLE TypeMetier(
-   type_metier INT,
+   type_metier INT AUTO_INCREMENT,
    nom VARCHAR(50) NOT NULL,
    PRIMARY KEY(type_metier)
 );
 
 CREATE OR REPLACE TABLE TypeOrganisation(
-   type_organisation INT,
+   type_organisation INT AUTO_INCREMENT,
    nom VARCHAR(50) NOT NULL,
    PRIMARY KEY(type_organisation)
 );
 
 CREATE OR REPLACE TABLE PieceDossier(
-   piece_dossier INT,
+   piece_dossier INT AUTO_INCREMENT,
    fichier BLOB NOT NULL,
    PRIMARY KEY(piece_dossier)
 );
@@ -62,7 +62,7 @@ CREATE OR REPLACE TABLE Organisation(
 );
 
 CREATE OR REPLACE TABLE OffreEmploi(
-   id_offre INT,
+   id_offre INT AUTO_INCREMENT,
    intitule VARCHAR(50) NOT NULL,
    statut_poste VARCHAR(50) NOT NULL,
    resp_hierarchique VARCHAR(50),
@@ -82,7 +82,7 @@ CREATE OR REPLACE TABLE OffreEmploi(
 );
 
 CREATE OR REPLACE TABLE Recruteur(
-   email VARCHAR(50),
+   email VARCHAR(100),
    mdp VARCHAR(50) NOT NULL,
    nom VARCHAR(50) NOT NULL,
    prenom VARCHAR(50) NOT NULL,
