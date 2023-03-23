@@ -1,14 +1,12 @@
-DROP TABLE DemandeDevenirRecruteur;
-DROP TABLE DemandeCreationOrga;
-DROP TABLE Candidature;
-DROP TABLE Recruteur;
-DROP TABLE OffreEmploi;
-DROP TABLE Organisation;
-DROP TABLE PieceDossier;
-DROP TABLE TypeOrganisation;
-DROP TABLE TypeMetier;
-DROP TABLE Administrateur;
-DROP TABLE Candidat;
+DROP TABLE IF EXISTS DemandeDevenirRecruteur;
+DROP TABLE IF EXISTS DemandeCreationOrga;
+DROP TABLE IF EXISTS Candidature;
+DROP TABLE IF EXISTS Recruteur;
+DROP TABLE IF EXISTS OffreEmploi;
+DROP TABLE IF EXISTS Organisation;
+DROP TABLE IF EXISTS PieceDossier;
+DROP TABLE IF EXISTS TypeOrganisation;
+DROP TABLE IF EXISTS TypeMetier;
 
 
 CREATE OR REPLACE TABLE Candidat(
