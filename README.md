@@ -44,3 +44,10 @@ Lien vers le diagramme de cas d'utilisation LucidChart [ici](https://lucid.app/l
  + WorkFinder
  + EmployMe => Nom choisi
  + CareerMatch
+
+## Installation et lancement du projet
+
+1. Installer node.js
+2. Installer npm
+3. Installer les modules npm avec la commande `npm install`
+4. Lancer le projet avec la commande `npm start` dans le terminal
