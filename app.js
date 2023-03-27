@@ -24,6 +24,10 @@ app.get('/about', (req, res) => {
     res.render('pages/about')
 })
 
+app.use((req, res) => {
+    res.status(404).render('pages/404.ejs');
+})
+
 
 // Listen on Port 3001
 app.listen(port, "localhost", () => {
