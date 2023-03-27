@@ -10,7 +10,7 @@
             </select>
         </div>
         <div class="col-auto">
-            <a data-bs-toggle="collapse" href="#filtres" role="button" aria-expanded="false" aria-controls="filtres">
+            <a data-bs-toggle="collapse" href="#filtres" role="button" aria-expanded="false" aria-controls="filtres" title="Filtres">
                 <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39" fill="currentColor" class="bi bi-filter-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                     <path d="M7 11.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
@@ -22,8 +22,8 @@
 
 <div class="col-12 collapse show" id="filtres">
     <div class="card card-body">
-        <form class="row gy-2 justify-content-between">
-            <div class="col-sm-4 form-floating">
+        <form class="row gy-2 justify-content-between align-items-center">
+            <div class="col-sm-3 form-floating">
                 <select class="form-select" id="select-type-metier">
                     <option value="0" selected>Tous</option>
                     <option value="1">Agriculture</option>
@@ -32,7 +32,23 @@
                 </select>
                 <label for="select-type-metier">Type de métier</label>
             </div>
-            <div class="col-sm-4 form-floating">
+            <div id="filtre-salaire" class="card col-sm-4">
+                <label class="form-label small">Salaire</label>
+                <div class="row align-items-center">
+                    <div class="col">Entre</div>
+                    <select id="inputState" class="form-select col form-select-sm">
+                        <option selected>10</option>
+                        <option>...</option>
+                    </select>
+                    <div class="col" style="text-align: center"> et </div>
+                    <select id="inputState" class="form-select col form-select-sm">
+                        <option selected>100</option>
+                        <option>...</option>
+                    </select>
+                    <div class="col">K€ / an </div>
+                </div>
+            </div>
+            <div class="col-sm-3 form-floating">
                 <select class="form-select" id="select-teletravail">
                     <option value="0" selected>Sans filtre</option>
                     <option value="1">Jamais</option>

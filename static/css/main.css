@@ -23,12 +23,8 @@ a {
     margin: 0 !important;*/
 }
 
-.floating-select-label {
-    padding-left: 5%;
-}
-
 .form-floating label{
-    padding-left: 5%;
+    padding-left: 7%;
 }
 
 #lbl-tri {
@@ -37,6 +33,16 @@ a {
 
 #filtres {
     margin-bottom: 2%;
+}
+
+#filtre-salaire {
+    padding-bottom: .5rem;
+}
+
+#filtre-salaire label {
+    margin-bottom: -2%;
+    opacity: .65;
+    margin-top: .25rem;
 }
 
 @media(max-width: 576px){
