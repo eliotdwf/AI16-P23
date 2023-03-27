@@ -1,12 +1,43 @@
-.container{
+.container {
     margin-top: 2%;
+    margin-bottom: 2%;
 }
 
-.card-logo{
+.card-logo {
     text-align: right;
 }
 
+a {
+    color: black;
+    text-underline: none;
+}
 
+
+.hr-title {
+    height: 2px;
+    border-top: 2px solid !important;
+    color: #0085FC;
+    opacity: 1;
+    filter: drop-shadow(0 2px 4px);
+    /*padding: 0 !important;
+    margin: 0 !important;*/
+}
+
+.floating-select-label {
+    padding-left: 5%;
+}
+
+.form-floating label{
+    padding-left: 5%;
+}
+
+#lbl-tri {
+    text-align: right;
+}
+
+#filtres {
+    margin-bottom: 2%;
+}
 
 @media(max-width: 576px){
     .card-logo{
