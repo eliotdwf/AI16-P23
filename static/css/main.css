@@ -2,6 +2,18 @@
     margin-top: 2%;
 }
 
-.img-post-card{
+.card-logo{
     text-align: right;
+}
+
+
+
+@media(max-width: 576px){
+    .card-logo{
+        display: none;
+    }
+
+    .card-text-content{
+        width: 100% !important;
+    }
 }
