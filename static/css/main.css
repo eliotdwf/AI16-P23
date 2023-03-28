@@ -24,7 +24,7 @@ a {
 }
 
 .form-floating label{
-    padding-left: 7%;
+    padding-left: 5%;
 }
 
 #btn-filtrer {
@@ -47,11 +47,12 @@ a {
 }
 
 #filtre-salaire {
-    padding-bottom: .5rem;
+    padding-bottom: .3rem;
+    --bs-card-border-color: var(--bs-border-color);
 }
 
 #filtre-salaire label {
-    margin-bottom: -2%;
+    margin-bottom: -3%;
     opacity: .65;
     margin-top: .25rem;
 }

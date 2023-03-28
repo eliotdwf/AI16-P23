@@ -1,15 +1,14 @@
 <form class="col-sm-6 align-self-center">
     <div class="row justify-content-end">
-        <label id="lbl-tri" class="col-sm-2 col-form-label" for="select-tri-offres">Trier par :</label>
-        <div class="col-sm-4">
+        <label id="lbl-tri" class="col-sm-auto col-form-label" for="select-tri-offres">Trier par :</label>
+        <div class="col-sm-auto">
             <select id="select-tri-offres" class="form-select">
-                <option selected></option>
-                <option value="1">Date : les plus récentes</option>
+                <option value="1" selected>Date : les plus récentes</option>
                 <option value="2">Date : les plus anciennes</option>
                 <option value="3">Aléatoire</option>
             </select>
         </div>
-        <div class="col-auto">
+        <div class="col-sm-auto">
             <a id="btn-filtrer" data-bs-toggle="collapse" href="#filtres" role="button" aria-expanded="false" aria-controls="filtres" title="Filtres">
                 <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39" fill="currentColor" class="bi bi-filter-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -23,7 +22,7 @@
 <div class="col-12 collapse show" id="filtres">
     <div class="card card-body">
         <form class="row gy-2 justify-content-between align-items-center">
-            <div class="col-sm-3 form-floating">
+            <div class="col-sm-4 form-floating">
                 <select class="form-select" id="select-type-metier">
                     <option value="0" selected>Tous</option>
                     <option value="1">Agriculture</option>
@@ -34,21 +33,29 @@
             </div>
             <div id="filtre-salaire" class="card col-sm-4">
                 <label class="form-label small">Salaire</label>
-                <div class="row align-items-center">
-                    <div class="col">Entre</div>
-                    <select id="inputState" class="form-select col form-select-sm">
-                        <option selected>10</option>
-                        <option>...</option>
-                    </select>
-                    <div class="col" style="text-align: center"> et </div>
-                    <select id="inputState" class="form-select col form-select-sm">
-                        <option selected>100</option>
-                        <option>...</option>
-                    </select>
-                    <div class="col">K€ / an </div>
-                </div>
+<!--                <div class="col-sm-auto">-->
+                    <div class="row align-items-center justify-content-center">
+                        Entre
+                        <div class="col-auto">
+                            <select class="form-select">
+                                <option value="1" selected>25</option>
+                                <option value="2">50</option>
+                                <option value="3">75</option>
+                            </select>
+                        </div>
+                        et
+                        <div class="col-auto">
+                            <select class="form-select">
+                                <option value="1">25</option>
+                                <option value="2">50</option>
+                                <option value="3">75</option>
+                            </select>
+                        </div>
+                        K€ /an
+                    </div>
+<!--                </div>-->
             </div>
-            <div class="col-sm-3 form-floating">
+            <div class="col-sm-4 form-floating">
                 <select class="form-select" id="select-teletravail">
                     <option value="0" selected>Sans filtre</option>
                     <option value="1">Jamais</option>
