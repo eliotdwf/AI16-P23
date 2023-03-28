@@ -27,9 +27,20 @@ a {
     padding-left: 7%;
 }
 
+#btn-filtrer {
+    opacity: .50;
+}
+
+#btn-filtrer:hover {
+    color: #0085FC;
+    opacity: 1;
+}
+
 #lbl-tri {
     text-align: right;
 }
+
+
 
 #filtres {
     margin-bottom: 2%;
