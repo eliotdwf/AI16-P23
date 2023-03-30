@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body class="container">
+
+    <h1>
+        <%= title %>
+    </h1>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Tel</th>
+                <th>Date céation</th>
+                <th>Actif</th>
+                <th>Rôle</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <% users.forEach((user)=> { %>
+                <tr>
+                    <td>
+                        <%= user.email %>
+                    </td>
+                    <td>
+                        <%= user.prenom %>
+                    </td>
+                    <td>
+                        <%= user.nom %>
+                    </td>
+                    <td>
+                        <%= user.tel %>
+                    </td>
+                    <td>
+                        <%= user.dateCreation.toLocaleDateString() %>
+                    </td>
+                    <td>
+                        <%= user.actif ? "Oui" : "Non" %>
+                    </td>
+                    <td>
+                        <% let role;
+                        if(user.role === 1) {
+                            role = "Candidat";
+                        } else if(user.role === 2) {
+                            role = "Recruteur";
+                        } else if(user.role === 3) {
+                            role = "Administrateur";
+                        } else {
+                            role = "Inconnu";
+                        }%>
+                        <%= role %>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning">Désactiver</button>
+                    </td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+</body>
+</html>

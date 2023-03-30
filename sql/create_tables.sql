@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS DemandeDevenirRecruteur;
 DROP TABLE IF EXISTS DemandeCreationOrga;
 DROP TABLE IF EXISTS Candidature;
@@ -24,27 +23,27 @@ CREATE TABLE TypeOrganisation(
 );
 
 CREATE TABLE PieceDossier(
-     piece_dossier INT,
-     chemin_fichier VARCHAR(100) NOT NULL,
-     description_fichier VARCHAR(500),
-     PRIMARY KEY(piece_dossier)
+    piece_dossier INT,
+    chemin_fichier VARCHAR(100) NOT NULL,
+    description_fichier VARCHAR(500),
+    PRIMARY KEY(piece_dossier)
 );
 
 CREATE TABLE Role(
-     id INT,
-     nom VARCHAR(100) NOT NULL,
-     PRIMARY KEY(id)
+    id INT,
+    nom VARCHAR(100) NOT NULL,
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE Organisation(
-     organisation VARCHAR(50),
-     nom VARCHAR(50) NOT NULL,
-     siege_social VARCHAR(100) NOT NULL,
-     description VARCHAR(5000) NOT NULL,
-     chemin_logo VARCHAR(100),
-     type_organisation INT NOT NULL,
-     PRIMARY KEY(organisation),
-     FOREIGN KEY(type_organisation) REFERENCES TypeOrganisation(type_organisation)
+    organisation VARCHAR(50),
+    nom VARCHAR(50) NOT NULL,
+    siege_social VARCHAR(100) NOT NULL,
+    description VARCHAR(5000) NOT NULL,
+    chemin_logo VARCHAR(100),
+    type_organisation INT NOT NULL,
+    PRIMARY KEY(organisation),
+    FOREIGN KEY(type_organisation) REFERENCES TypeOrganisation(type_organisation)
 );
 
 CREATE TABLE Utilisateur(
@@ -54,9 +53,9 @@ CREATE TABLE Utilisateur(
     prenom VARCHAR(50) NOT NULL,
     tel VARCHAR(50),
     dateCreation DATE NOT NULL,
-    actif BOOLEAN,
+    actif BOOLEAN default 1,
     role INT NOT NULL,
-    organisation VARCHAR(50) NOT NULL,
+    organisation VARCHAR(50),
     PRIMARY KEY(candidat),
     FOREIGN KEY(organisation) REFERENCES Organisation(organisation)
 );
@@ -117,4 +116,3 @@ CREATE TABLE RoleUtilisateur(
     FOREIGN KEY(candidat) REFERENCES Utilisateur(candidat),
     FOREIGN KEY(id) REFERENCES Role(id)
 );
-
