@@ -1,0 +1,71 @@
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Tel</th>
+            <th>Date céation</th>
+            <th>Actif</th>
+            <th>Rôle</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <% users.forEach((user)=> { %>
+            <tr>
+                <td>
+                    <%= user.email %>
+                </td>
+                <td>
+                    <%= user.prenom %>
+                </td>
+                <td>
+                    <%= user.nom %>
+                </td>
+                <td>
+                    <%= user.tel %>
+                </td>
+                <td>
+                    <%= user.dateCreation.toLocaleDateString() %>
+                </td>
+                <td>
+                    <%= user.actif ? "Oui" : "Non" %>
+                </td>
+                <td>
+                    <%  let role;
+                        switch (user.role) {
+                            case 1 :
+                                role = "Candidat";
+                                break;
+                            case 2 :
+                                role = "Recruteur";
+                                break;
+                            case 3 :
+                                role = "Administrateur";
+                                break;
+                            default:
+                                role = "Inconnu";
+                        }%>
+                    <%= role %>
+                </td>
+                <td>
+                    <% if(user.role != 3) {%>
+<!--
+                        <a href="/users/deactivate-account/<%= user.email%>" class="btn btn-warning">Désactiver</a>
+-->                     <% if(user.actif){ %>
+                            <button onclick="deactivateUserAccount('<%= user.email %>')" class="btn btn-warning">Désactiver</button>
+                        <% } else {%>
+                            <button onclick="activateUserAccount('<%= user.email %>')" class="btn btn-warning">Activer</button>
+                        <% } %>
+                        <button class="btn btn-primary">Passer admin</button>
+                    <% } else {%>
+                        Aucune action pour ce compte
+                    <% } %>
+                </td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>

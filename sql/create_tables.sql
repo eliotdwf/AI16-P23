@@ -47,7 +47,7 @@ CREATE TABLE Organisation(
 );
 
 CREATE TABLE Utilisateur(
-    candidat VARCHAR(50),
+    email VARCHAR(50),
     mdp VARCHAR(50) NOT NULL,
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE Utilisateur(
     actif BOOLEAN default 1,
     role INT NOT NULL,
     organisation VARCHAR(50),
-    PRIMARY KEY(candidat),
+    PRIMARY KEY(email),
     FOREIGN KEY(organisation) REFERENCES Organisation(organisation)
 );
 
@@ -81,38 +81,38 @@ CREATE TABLE OffreEmploi(
 );
 
 CREATE TABLE Candidature(
-    candidat VARCHAR(50),
+    email VARCHAR(50),
     offre_emploi INT,
     piece_dossier INT,
     date_candidature DATE NOT NULL,
-    PRIMARY KEY(candidat, offre_emploi, piece_dossier),
-    FOREIGN KEY(candidat) REFERENCES Utilisateur(candidat),
+    PRIMARY KEY(email, offre_emploi, piece_dossier),
+    FOREIGN KEY(email) REFERENCES Utilisateur(email),
     FOREIGN KEY(offre_emploi) REFERENCES OffreEmploi(offre_emploi),
     FOREIGN KEY(piece_dossier) REFERENCES PieceDossier(piece_dossier)
 );
 
 CREATE TABLE DemandeCreationOrga(
-    candidat VARCHAR(50),
+    email VARCHAR(50),
     date_demande DATE NOT NULL,
     organisation VARCHAR(50) NOT NULL,
-    PRIMARY KEY(candidat),
-    FOREIGN KEY(candidat) REFERENCES Utilisateur(candidat),
+    PRIMARY KEY(email),
+    FOREIGN KEY(email) REFERENCES Utilisateur(email),
     FOREIGN KEY(organisation) REFERENCES Organisation(organisation)
 );
 
 CREATE TABLE DemandeDevenirRecruteur(
-    candidat VARCHAR(50),
+    email VARCHAR(50),
     date_demande DATE NOT NULL,
     organisation VARCHAR(50) NOT NULL,
-    PRIMARY KEY(candidat),
-    FOREIGN KEY(candidat) REFERENCES Utilisateur(candidat),
+    PRIMARY KEY(email),
+    FOREIGN KEY(email) REFERENCES Utilisateur(email),
     FOREIGN KEY(organisation) REFERENCES Organisation(organisation)
 );
 
 CREATE TABLE RoleUtilisateur(
-    candidat VARCHAR(50),
+    email VARCHAR(50),
     id INT,
-    PRIMARY KEY(candidat, id),
-    FOREIGN KEY(candidat) REFERENCES Utilisateur(candidat),
+    PRIMARY KEY(email, id),
+    FOREIGN KEY(email) REFERENCES Utilisateur(email),
     FOREIGN KEY(id) REFERENCES Role(id)
 );

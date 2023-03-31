@@ -24,9 +24,23 @@ module.exports = {
                 callback(false);
             }
         });
-    }/*,
-    create: function (email, nom, prenom, pwd, type, callback) {
+    },
+    /*create: function (email, nom, prenom, pwd, type, callback) {
         //todo
         return false;
-    }*/
+    },*/
+    deactivate : function (email, callback) {
+        sql = "UPDATE Utilisateur SET actif = 0 WHERE email = ?";
+        db.query(sql, email, function(err, results) {
+            if (err) throw err;
+            callback(true);
+        });
+    },
+    activate : function (email, callback) {
+        sql = "UPDATE Utilisateur SET actif = 1 WHERE email = ?";
+        db.query(sql, email, function(err, results) {
+            if (err) throw err;
+            callback(true);
+        });
+    }
 }
