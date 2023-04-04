@@ -36,13 +36,13 @@ CREATE TABLE Role(
 );
 
 CREATE TABLE Organisation(
-    organisation VARCHAR(50),
+    siren VARCHAR(50),
     nom VARCHAR(50) NOT NULL,
     siege_social VARCHAR(100) NOT NULL,
     description VARCHAR(5000) NOT NULL,
     chemin_logo VARCHAR(100),
     type_organisation INT NOT NULL,
-    PRIMARY KEY(organisation),
+    PRIMARY KEY(siren),
     FOREIGN KEY(type_organisation) REFERENCES TypeOrganisation(type_organisation)
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE Utilisateur(
     role INT NOT NULL,
     organisation VARCHAR(50),
     PRIMARY KEY(email),
-    FOREIGN KEY(organisation) REFERENCES Organisation(organisation)
+    FOREIGN KEY(organisation) REFERENCES Organisation(siren)
 );
 
 CREATE TABLE OffreEmploi(
@@ -76,7 +76,7 @@ CREATE TABLE OffreEmploi(
     organisation VARCHAR(50) NOT NULL,
     type_metier INT,
     PRIMARY KEY(offre_emploi),
-    FOREIGN KEY(organisation) REFERENCES Organisation(organisation),
+    FOREIGN KEY(organisation) REFERENCES Organisation(siren),
     FOREIGN KEY(type_metier) REFERENCES TypeMetier(type_metier)
 );
 
@@ -97,7 +97,7 @@ CREATE TABLE DemandeCreationOrga(
     organisation VARCHAR(50) NOT NULL,
     PRIMARY KEY(email),
     FOREIGN KEY(email) REFERENCES Utilisateur(email),
-    FOREIGN KEY(organisation) REFERENCES Organisation(organisation)
+    FOREIGN KEY(organisation) REFERENCES Organisation(siren)
 );
 
 CREATE TABLE DemandeDevenirRecruteur(
@@ -106,7 +106,7 @@ CREATE TABLE DemandeDevenirRecruteur(
     organisation VARCHAR(50) NOT NULL,
     PRIMARY KEY(email),
     FOREIGN KEY(email) REFERENCES Utilisateur(email),
-    FOREIGN KEY(organisation) REFERENCES Organisation(organisation)
+    FOREIGN KEY(organisation) REFERENCES Organisation(siren)
 );
 
 CREATE TABLE RoleUtilisateur(

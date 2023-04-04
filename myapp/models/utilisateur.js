@@ -8,8 +8,9 @@ module.exports = {
             callback(results);
         });
     },
-    getAll: function (callback) {
-        db.query("select * from Utilisateur", function (err, results) {
+    getAll: function (actif, role, callback) {
+        console.log("actif : " + actif + ", role : " + role);
+        db.query(`select * from Utilisateur WHERE actif LIKE '${actif}' AND role LIKE '${role}'`, function (err, results) {
             if (err) throw err;
             callback(results);
         });

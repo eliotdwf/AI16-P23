@@ -6,13 +6,17 @@ let router = express.Router();
 
 let alertMessages = [];
 
+actif = "%%"
+role = "%%";
+
+
 /* GET users listing. */
 /*router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });*/
 
 router.get('/', function (req, res, next) {
-  userModel.getAll(function(rows) {
+  userModel.getAll(actif, role, function(rows) {
     res.render('users', {
       title: 'Liste des utilisateurs',
       users: rows,
@@ -59,7 +63,7 @@ router.get('/activate-account/:email', function (req, res) {
 });
 
 router.get('/userslist', function (req, res, next) {
-  userModel.getAll(function(rows) {
+  userModel.getAll(actif, role, function(rows) {
     res.render('../partials/usersList', { users: rows });
   });
 });
