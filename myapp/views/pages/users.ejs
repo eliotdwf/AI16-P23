@@ -10,9 +10,20 @@
 </head>
 <body class="container">
 
-
-   <%- include('../partials/title', title="Liste des utilisateurs"); %>
-
+    <div class="justify-content-between align-items-end" style="display: flex">
+        <%- include('../partials/title', title="Liste des utilisateurs"); %>
+        <div style="display: flex; flex-direction: row; float: right">
+            <label for="filtre-role" class="col-form-label text-end" style="margin-left: calc(var(--bs-gutter-x) * .5); margin-right: calc(var(--bs-gutter-x) * .5)">Rôle :</label>
+            <div class="col-md">
+                <select id="filtre-role" class="form-select">
+                    <option value="%%" selected>Tous</option>
+                    <option value="1">Candidats</option>
+                    <option value="2">Recruteurs</option>
+                    <option value="3">Administrateurs</option>
+                </select>
+            </div>
+        </div>
+    </div>
 
     <div id="alertMessages" class="row justify-content-center"></div>
 

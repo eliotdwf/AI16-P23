@@ -62,7 +62,8 @@ router.get('/activate-account/:email', function (req, res) {
   });
 });
 
-router.get('/userslist', function (req, res, next) {
+router.post('/userslist', function (req, res, next) {
+  role = req.body.role;
   userModel.getAll(actif, role, function(rows) {
     res.render('../partials/usersList', { users: rows });
   });
