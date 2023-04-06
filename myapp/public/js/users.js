@@ -18,6 +18,10 @@ function activateUserAccount(email) {
         });
 }
 
+function giveAdminRights(email) {
+
+}
+
 function updateUsersList() {
     let role = document.getElementById("filtre-role").value;
     let usersTable = document.getElementById("usersTable");

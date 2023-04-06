@@ -43,5 +43,19 @@ module.exports = {
             if (err) throw err;
             callback(true);
         });
+    },
+    setAsAdmin : function(email, callback) {
+        sql = "SELECT Role FROM Utilisateur WHERE email = ?";
+        db.query(sql, email, function(err, results) {
+            if(err) throw err;
+            if(results === 3) {
+                callback(2);
+            }
+
+        });
+        //TODO: Supprimer toutes les demandes de candidatures,
+        // de rajout à une orga,
+        // et passer le role à 3
+        // et Recruteur
     }
 }
