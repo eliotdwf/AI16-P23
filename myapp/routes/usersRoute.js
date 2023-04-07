@@ -1,6 +1,7 @@
 let express = require('express');
 let bodyParser = require("body-parser");
 let userModel = require("../models/utilisateur");
+const {log} = require("debug");
 
 let router = express.Router();
 
@@ -68,5 +69,18 @@ router.post('/userslist', function (req, res, next) {
     res.render('../partials/usersList', { users: rows });
   });
 });
+
+router.post('/login', function (req, res, next) {
+  mail = req.body.email;
+  mdp = req.body.pwd;
+  userModel.isValid(mail, mdp, function(isValid) {
+    if(isValid != undefined) {
+      res.redirect('../');
+    }
+    else{
+      res.redirect('../connexion');
+    }
+  });
+})
 
 module.exports = router;

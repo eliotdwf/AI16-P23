@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', title='Connexion'); %>
+<body class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-sm-12 d-flex justify-content-center">
+            <%- include("../partials/title", title="Connexion"); %>
+        </div><!--
+        <div>
+
+        </div>-->
+        <div class="col-sm-4">
+            <form method="post" action="/users/login">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" id="email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mot de passe</label>
+                    <input type="password" class="form-control" name="pwd" id="password">
+                </div>
+                <div class="text-center mb-3">
+                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                    <p class="mt-3 text-center">
+                        <a href="#" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Mot de passe oublié ?</a>
+                    </p>
+                </div>
+            </form>
+            <hr class="hr-title mt-3"/>
+            <form class="mt-3">
+                <div class="text-center">
+                    <p>Pas encore de compte ?</p>
+                    <button class="btn btn-primary">Créer un compte</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
