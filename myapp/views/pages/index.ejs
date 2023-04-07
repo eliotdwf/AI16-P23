@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head', title='Accueil'); %>
-<body class="container">
 
+<%- include('../partials/head', title='Accueil'); %>
+
+<body>
+
+<%- include('../partials/header'); %>
+<div class="container">
 
 
     <div id="liste-offres" class="row justify-content-between">
         <%- include('../partials/title', title="Offres d'emploi"); %>
         <%- include('../partials/tri-filtres'); %>
     </div>
-    <!--<div class="row justify-content-center">
-        <%#- include('../partials/bs-alert', type="success", alertMessage="Tout s'est très bien passé !"); %>
-        <%#- include('../partials/bs-alert', type="danger", alertMessage="Une erreur est survenue ! C'est la cata ! "); %>
-    </div>-->
 
     <%- include('../partials/cardsRows'); %>
 
+</div>
 </body>
 </html>
