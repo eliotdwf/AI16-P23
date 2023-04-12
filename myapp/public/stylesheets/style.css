@@ -57,6 +57,20 @@
   margin-top: .25rem;
 }
 
+.navbar {
+  background-color: #0085FC !important;
+}
+
+a.text-light:hover {
+  color: #000000 !important;
+}
+
+.dropdown:hover .dropdown-menu{
+  display: block;
+  right: 0;
+  left: auto;
+}
+
 @media(max-width: 576px){
   .card-logo{
     display: none;

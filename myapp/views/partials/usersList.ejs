@@ -55,9 +55,9 @@
 <!--
                         <a href="/users/deactivate-account/<%= user.email%>" class="btn btn-warning">Désactiver</a>
 -->                     <% if(user.actif){ %>
-                            <button onclick="deactivateUserAccount('<%= user.email %>')" class="btn btn-warning col-5">Désactiver</button>
+                            <button onclick="deactivateUserAccount('<%= user.email %>')" class="btn btn-warning col-sm-5">Désactiver</button>
                         <% } else {%>
-                            <button onclick="activateUserAccount('<%= user.email %>')" class="btn btn-warning col-5">Activer</button>
+                            <button onclick="activateUserAccount('<%= user.email %>')" class="btn btn-warning col-sm-5">Activer</button>
                         <% } %>
                         <button onclick="giveAdminRights('<%= user.email %>')" class="btn btn-primary">Passer admin</button>
                     <% } else {%>
