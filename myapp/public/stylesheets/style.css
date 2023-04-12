@@ -71,6 +71,21 @@ a.text-light:hover {
   left: auto;
 }
 
+.dropdown-li {
+  margin: 3%;
+}
+
+.dropdown-item {
+  border-radius: 5px;
+}
+
+.dropdown-item:hover {
+  background-color: #0085FC !important;
+  /*margin-left: 2%;*/
+  /*margin-right: 2%;*/
+  color: #f8f9fa !important;
+}
+
 @media(max-width: 576px){
   .card-logo{
     display: none;
