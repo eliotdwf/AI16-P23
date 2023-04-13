@@ -70,15 +70,16 @@ router.post('/userslist', function (req, res, next) {
   });
 });
 
-router.post('/login', function (req, res, next) {
+router.post('/authentication', function (req, res, next) {
+  console.log("authentication ...")
   mail = req.body.email;
   mdp = req.body.pwd;
   userModel.isValid(mail, mdp, function(isValid) {
     if(isValid != undefined) {
-      res.redirect('../');
+      res.sendStatus(200);
     }
     else{
-      res.redirect('../connexion');
+      res.sendStatus(401);
     }
   });
 })

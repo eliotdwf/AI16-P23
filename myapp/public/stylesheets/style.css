@@ -28,12 +28,11 @@
 }
 
 #btn-filtrer {
-  opacity: .50;
+  color: black;
 }
 
 #btn-filtrer:hover {
   color: #0085FC;
-  opacity: 1;
 }
 
 #lbl-tri {
