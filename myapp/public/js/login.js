@@ -43,6 +43,4 @@ document.getElementById("connexion-form").addEventListener("submit", function(ev
                 }
             });
     }
-
-
 });
