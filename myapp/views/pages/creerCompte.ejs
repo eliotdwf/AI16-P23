@@ -7,33 +7,95 @@
         <div class="row justify-content-center">
             <div class="col-sm-12 d-flex justify-content-center">
                 <%- include("../partials/title", title='Créer un compte'); %>
-            </div><!--
-            <div class="col-sm-4">
-                <form method="post" action="/users/login">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="email">
+            </div>
+            <form class="col-sm-8 mt-3 row" id="create-account-form">
+                <div class="col-sm-12 row mb-4">
+                    <div class="col-12 mb-1"><b>Informations personnelles</b></div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-person"></i>
+                            </span>
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="firstname" placeholder="name@example.com">
+                                <label for="firstname">Prénom</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Mot de passe</label>
-                        <input type="password" class="form-control" name="pwd" id="password">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="lastname" placeholder="name@example.com">
+                                <label for="lastname">Nom</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-center mb-3">
-                        <button type="submit" class="btn btn-primary">Se connecter</button>
-                        <p class="mt-3 text-center">
-                            <a href="#" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Mot de passe oublié ?</a>
-                        </p>
+                </div>
+                <div class="col-sm-12 row mb-4">
+                    <div class="col-12 mb-1"><b>Contact</b></div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-telephone"></i>
+                            </span>
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="phone" placeholder="0606060606">
+                                <label for="phone">Téléphone</label>
+                            </div>
+                        </div>
                     </div>
-                </form>
-                <hr class="hr-title mt-3"/>
-                <form class="mt-3">
-                    <div class="text-center">
-                        <p>Pas encore de compte ?</p>
-                        <a class="btn btn-primary" href="/creer-compte">Créer un compte</a>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text">@</span>
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="email" placeholder="myemail@email.com">
+                                <label for="email">Email</label>
+                            </div>
+                        </div>
                     </div>
-                </form>
-            </div>-->
+                </div>
+                <div class="col-sm-12 row mb-4">
+                    <div class="col-12 mb-1"><b>Sécurité</b></div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-lock"></i>
+                            </span>
+                            <div class="form-floating">
+                                <input type="password" class="form-control" id="password" placeholder="************">
+                                <label for="password">Mot de passe</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-lock-fill"></i>
+                            </span>
+                            <div class="form-floating">
+                                <input type="password" class="form-control" id="confirmedPassword" placeholder="************">
+                                <label for="confirmedPassword">Confirmez votre mot de passe</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col justify-content-center">
+                        <div id="invalidPassword" style="display: none" class="alert alert-danger text-center" role="alert">
+                            Les mots de passes ne sont pas identiques !
+                        </div>
+                    </div>
+
+                </div>
+                <div class="text-center mb-3">
+                    <button type="submit" class="btn btn-primary">Confirmer</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>
+
+<script src="/js/createAccount.js"></script>
+
 </html>

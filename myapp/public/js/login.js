@@ -1,5 +1,4 @@
 document.getElementById("connexion-form").addEventListener("submit", function(event){
-    console.log("Dans la fonction !")
     event.preventDefault();
     let email = document.getElementById("email").value;
     let pwd = document.getElementById("password").value;
