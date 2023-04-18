@@ -8,7 +8,7 @@
             <div class="col-sm-12 d-flex justify-content-center">
                 <%- include("../partials/title", title='Créer un compte'); %>
             </div>
-            <form class="col-sm-8 mt-3 row" id="create-account-form">
+            <form class="col-sm-8 mt-3 row justify-content-center" id="create-account-form">
                 <div class="col-sm-12 row mb-4">
                     <div class="col-12 mb-1"><b>Informations personnelles</b></div>
                     <div class="col-md-6">
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 mb-2">
+                    <div class="col-md-6 mb-4">
                         <div class="input-group">
                             <span class="input-group-text">
                                 <i class="bi bi-lock-fill"></i>
@@ -82,14 +82,13 @@
                         </div>
                     </div>
                     <div class="col justify-content-center">
-                        <div id="invalidPassword" style="display: none" class="alert alert-danger text-center" role="alert">
+                        <div id="errorMessage" style="display: none" class="alert alert-danger text-center" role="alert">
                             Les mots de passes ne sont pas identiques !
                         </div>
                     </div>
-
                 </div>
                 <div class="text-center mb-3">
-                    <button type="submit" class="btn btn-primary">Confirmer</button>
+                    <button type="submit" class="btn btn-lg btn-primary">Confirmer</button>
                 </div>
             </form>
         </div>
