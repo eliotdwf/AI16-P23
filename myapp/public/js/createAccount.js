@@ -1,19 +1,57 @@
 const ERROR_REQUIRED_FIELDS = "Attention, tous les champs sont obligatoires !";
 const ERROR_INVALID_PASSWORD_CONFIRMATION = "Attention, les mots de passes doivent être identiques !";
 const ERROR_INVALID_PASSWORD = "Attention, le mot de passe doit faire au moins 8 caractères !";
+const ERROR_ALREADY_USED_EMAIL = "Erreur, cette adresse email est déjà utilisée !";
+
+let errorMessage = document.getElementById("errorMessage");
+
 
 document.getElementById("create-account-form").addEventListener("submit", function(event) {
     event.preventDefault();
-    let email = document.getElementById("email").value;
-    let pwd = document.getElementById("password").value;
-    if(!isAnyFieldEmpty() && isValidPassword(pwd) && isValidConfirmedPassword()){
-        //TODO : requette ajax pour créer un compte
-        window.location.href = "/connexion";
+    console.log("dans le submit - avant la vérififcation)");
+    errorMessage.style.display = "none";
+    if(!isAnyFieldEmpty() && areValidContactFields() && isValidPassword() && isValidConfirmedPassword()){
+        let body = {
+            email: document.getElementById("email").value,
+            pwd: document.getElementById("password").value,
+            lastname: document.getElementById("lastname").value,
+            firstname: document.getElementById("firstname").value,
+            phone: document.getElementById("phone").value
+        };
+        console.log("dans le submit)");
+        fetch("/users/create", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(body)
+        })
+            .then((response) => {
+                console.log("Dans le then du fetch");
+                if(response.status === 403){
+                    document.getElementById("email").classList.add("is-invalid");
+                    errorMessage.innerText = ERROR_ALREADY_USED_EMAIL;
+                    errorMessage.style.removeProperty("display");
+                }
+                else if(response.status === 200) {
+                    window.location.href = "/";
+                }
+                else {
+                    errorMessage.style.removeProperty("display");
+                    errorMessage.innerText = "Une erreur inconnue est survenue. Contactez les administrateurs.";
+                }
+            });
     }
 });
 
+function areValidContactFields() {
+    //TODO : valider l'adresse email avec un regexp
+    //TODO : valider le num de téléphone avec une regexp
+    return true;
+}
+
 function isValidConfirmedPassword(){
-    let errorMessage = document.getElementById("errorMessage");
     errorMessage.style.display = "none";
 
     let passwordField = document.getElementById("password");
@@ -30,13 +68,15 @@ function isValidConfirmedPassword(){
     }
 }
 
-function isValidPassword(pwd){
-    let errorMessage = document.getElementById("errorMessage");
+function isValidPassword(){
+    let pwdField = document.getElementById("password")
     errorMessage.style.display = "none";
-    if(pwd.length >= 8) {
+    if(pwdField.value.length >= 8) {
         return true;
     }
     else {
+        pwdField.classList.add("is-invalid");
+        document.getElementById("confirmedPassword").classList.add("is-invalid");
         errorMessage.innerText = ERROR_INVALID_PASSWORD;
         errorMessage.style.removeProperty("display");
         return false;
@@ -67,7 +107,17 @@ function isAnyFieldEmpty() {
     return invalidForm;
 }
 
+
 document.getElementById("create-account-form").querySelectorAll('input, select').forEach((field) => {
-    field.addEventListener("change", isAnyFieldEmpty);
+    field.addEventListener("change", () => {
+        if(field.value === ""){
+            field.classList.add("is-invalid");
+            errorMessage.innerText = ERROR_REQUIRED_FIELDS;
+            errorMessage.style.removeProperty("display");
+        }
+        else{
+            field.classList.remove("is-invalid");
+        }
+    });
 });
 

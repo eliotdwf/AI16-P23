@@ -21,20 +21,30 @@ module.exports = {
             callback(result[0]);
         });
     },
-    /*create: function (email, nom, prenom, pwd, type, callback) {
-        //todo
-        return false;
-    },*/
+    isUsedEmail: function (email, callback) {
+        sql = "SELECT 1 FROM Utilisateur WHERE email = ?";
+        db.query(sql, email, function (err, result) {
+            if (err) throw err;
+            callback(result[0]);
+        });
+    },
+    create: function (email, pwd, nom, prenom, tel, callback) {
+        sql = "INSERT INTO Utilisateur VALUES(?, ?, ?, ?, ?, curdate(), 1, 1, null)";
+        db.query(sql, [email, pwd, nom, prenom, tel], function (err) {
+            if(err) throw err;
+            callback(true);
+        })
+    },
     deactivate : function (email, callback) {
         sql = "UPDATE Utilisateur SET actif = 0 WHERE email = ?";
-        db.query(sql, email, function(err, results) {
+        db.query(sql, email, function(err) {
             if (err) throw err;
             callback(true);
         });
     },
     activate : function (email, callback) {
         sql = "UPDATE Utilisateur SET actif = 1 WHERE email = ?";
-        db.query(sql, email, function(err, results) {
+        db.query(sql, email, function(err) {
             if (err) throw err;
             callback(true);
         });

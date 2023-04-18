@@ -64,7 +64,7 @@ router.get('/activate-account/:email', function (req, res) {
 });
 
 router.post('/userslist', function (req, res, next) {
-  role = req.body.role;
+  let role = req.body.role;
   userModel.getAll(actif, role, function(rows) {
     res.render('../partials/usersList', { users: rows });
   });
@@ -72,8 +72,8 @@ router.post('/userslist', function (req, res, next) {
 
 router.post('/authentication', function (req, res, next) {
   console.log("authentication ...")
-  mail = req.body.email;
-  mdp = req.body.pwd;
+  let mail = req.body.email;
+  let mdp = req.body.pwd;
   userModel.isValid(mail, mdp, function(isValid) {
     if(isValid != undefined) {
       res.sendStatus(200);
@@ -83,5 +83,27 @@ router.post('/authentication', function (req, res, next) {
     }
   });
 })
+
+router.post('/create', function(req, res) {
+  console.log("création du compte ...");
+  let email = req.body.email;
+  let pwd = req.body.pwd;
+  let lastname = req.body.lastname;
+  let firstname = req.body.firstname;
+  let phone = req.body.phone;
+  userModel.isUsedEmail(email, function (isUsed) {
+    console.log("isUsed : " + isUsed);
+    if (isUsed != undefined) {
+      console.log("Email déjà utilisé !");
+      res.sendStatus(403);
+    }
+    else {
+      userModel.create(email, pwd, lastname, firstname, phone, (created) => {
+        let status = (created != undefined) ? 200 : 500;
+        res.sendStatus(status);
+      });
+    }
+  })
+});
 
 module.exports = router;

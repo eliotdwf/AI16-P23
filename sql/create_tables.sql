@@ -52,7 +52,7 @@ CREATE TABLE Utilisateur(
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
     tel VARCHAR(50),
-    dateCreation DATE NOT NULL,
+    dateCreation DATE NOT NULL default curdate(),
     actif BOOLEAN default 1,
     role INT NOT NULL,
     organisation VARCHAR(50),
