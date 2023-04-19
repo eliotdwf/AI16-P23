@@ -8,8 +8,68 @@
     <%- include('../partials/header-bs'); %>
 
     <div class="container">
-        <%- include('../partials/title', title="Créer une organisation"); %>
+        <div class="row justify-content-center">
+            <div class="col-sm-12 d-flex justify-content-center">
+                <%- include('../partials/title', title="Créer une organisation"); %>
+            </div>
+            <form class="col-md-8 mt-3 row g-3">
+                <div class="col-md-4">
+                    <label for="siren" class="form-label">SIREN</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <a class="a-popover" tabindex="0" data-bs-toggle="popover" role="button" data-bs-trigger="focus" data-bs-placement="bottom"
+                               data-bs-content="Le SIREN correspond à l'identifiant de l'entreprise. Il est composé d'une suite de caractères numériques">
+                                <i class="bi bi-info-circle"></i>
+                            </a>
+                        </span>
+                        <input type="text" class="form-control" id="siren" placeholder="1234567...">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" placeholder="Exemple : Carrefour">
+                </div>
+                <div class="col-md-4">
+                    <label for="type" class="form-label">Type d'organisation</label>
+                    <select id="type" class="form-select">
+                        <option selected>Choisir</option>
+                        <option value="1">Entreprise</option>
+                        <option value="2">Association</option>
+                    </select>
+                </div>
+                <div class="col-md-7">
+                    <label for="siege" class="form-label">Siège social</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <a class="a-popover" tabindex="0" data-bs-toggle="popover" role="button" data-bs-trigger="focus" data-bs-placement="bottom"
+                               data-bs-content="Saisir l'adresse du siège social de l'organisation (n° de rue, ville et code postal)">
+                                <i class="bi bi-info-circle"></i>
+                            </a>
+                        </span>
+                        <input type="text" class="form-control" id="siege" placeholder="4 rue du Chameau, 75000 Paris">
+                    </div>
+
+                </div>
+                <div class="col-md-5">
+                    <label for="logo" class="form-label">Logo</label>
+                    <input type="file" class="form-control" id="logo">
+                </div>
+                <div class="col-12">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" placeholder="Cette organisation a pour but de ..." id="description" rows="4"></textarea>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        Envoyer la demande de création <i class="bi bi-send"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+
+
     </div>
 
+    <script src="/js/createOrganisation.js"></script>
 </body>
 </html>

@@ -40,7 +40,7 @@ CREATE TABLE Organisation(
     nom VARCHAR(50) NOT NULL,
     siege_social VARCHAR(100) NOT NULL,
     description VARCHAR(5000) NOT NULL,
-    chemin_logo VARCHAR(100),
+    chemin_logo VARCHAR(100) NOT NULL,
     type_organisation INT NOT NULL,
     PRIMARY KEY(siren),
     FOREIGN KEY(type_organisation) REFERENCES TypeOrganisation(type_organisation)

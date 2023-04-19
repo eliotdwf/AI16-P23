@@ -81,6 +81,11 @@ a.text-light:hover {
   color: #f8f9fa !important;
 }
 
+.a-popover:hover {
+  color: #0085FC;
+  cursor: pointer;
+}
+
 @media(max-width: 576px){
   .card-logo{
     display: none;
