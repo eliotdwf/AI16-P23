@@ -60,7 +60,7 @@ a.text-light:hover {
   color: #000000 !important;
 }
 
-.dropdown:hover .dropdown-menu{
+#dropdown-profil:hover .dropdown-menu{
   display: block;
   right: 0;
   left: auto;

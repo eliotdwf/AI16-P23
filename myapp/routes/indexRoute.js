@@ -8,15 +8,19 @@ router.get('/', function(req, res, next) {
 
 router.get("/connexion", function(req, res, next) {
   res.render('connexion', { title: 'Connexion' });
-})
+});
 
 router.get("/creer-compte", (req, res) => {
   res.render('creerCompte', { title: 'Créer un compte'})
-})
+});
+
+router.get("/creer-organisation", (req, res) => {
+  res.render('creerOrganisation');
+});
 
 router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
-})
+});
 
 module.exports = router;

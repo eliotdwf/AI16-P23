@@ -18,8 +18,14 @@
                 <li class="nav-item">
                     <a class="nav-link text-light" href="/">Offres d'emploi</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Devenir Recruteur</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Devenir Recruteur
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-li"><a class="dropdown-item" href="/creer-organisation">Créer une organisation</a></li>
+                        <li class="dropdown-li"><a class="dropdown-item" href="/rejoindre-organisation">Rejoindre une organisation</a></li>
+                    </ul>
                 </li>
             </ul>
             <form class="d-flex" role="search">
@@ -29,7 +35,7 @@
                     <i class="bi bi-search"></i>
                 </button>
             </form>
-            <div class="ms-5 me-2 dropdown float-right">
+            <div id="dropdown-profil" class="ms-5 me-2 dropdown float-right">
                 <a aria-expanded="false">
                     <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39" fill="#f8f9fa" class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
