@@ -18,7 +18,7 @@
                             </span>
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="firstname" placeholder="name@example.com">
-                                <label for="firstname">Prénom</label>
+                                <label for="firstname">Prénom <b class="required">*</b></label>
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                             </span>
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="lastname" placeholder="name@example.com">
-                                <label for="lastname">Nom</label>
+                                <label for="lastname">Nom <b class="required">*</b></label>
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             </span>
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="phone" placeholder="0606060606">
-                                <label for="phone">Téléphone</label>
+                                <label for="phone">Téléphone <b class="required">*</b></label>
                             </div>
                         </div>
                     </div>
@@ -52,12 +52,12 @@
                             <span class="input-group-text">@</span>
                             <div class="form-floating">
                                 <input type="email" class="form-control" id="email" placeholder="myemail@email.com">
-                                <label for="email">Email</label>
+                                <label for="email">Email <b class="required">*</b></label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 row mb-4">
+                <div class="col-sm-12 row mb-2">
                     <div class="col-12 mb-1">
                         <b>Sécurité</b>
                         <a class="a-popover" tabindex="0" data-bs-toggle="popover" role="button" data-bs-trigger="focus"
@@ -65,27 +65,30 @@
                             <i class="bi bi-info-circle"></i>
                         </a>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-2">
                         <div class="input-group">
                             <span class="input-group-text">
                                 <i class="bi bi-lock"></i>
                             </span>
                             <div class="form-floating">
                                 <input type="password" class="form-control" id="password" placeholder="************">
-                                <label for="password">Mot de passe</label>
+                                <label for="password">Mot de passe <b class="required">*</b></label>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-6 mb-3">
                         <div class="input-group">
                             <span class="input-group-text">
                                 <i class="bi bi-lock-fill"></i>
                             </span>
                             <div class="form-floating">
                                 <input type="password" class="form-control" id="confirmedPassword" placeholder="************">
-                                <label for="confirmedPassword">Confirmez votre mot de passe</label>
+                                <label for="confirmedPassword">Confirmez votre mot de passe <b class="required">*</b></label>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-12">
+                        <p><small><b class="required">*</b> Champs obligatoires</small></p>
                     </div>
                     <div class="col justify-content-center">
                         <div id="errorMessage" style="display: none" class="alert alert-danger text-center" role="alert">

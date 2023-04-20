@@ -8,7 +8,6 @@ let errorMessage = document.getElementById("errorMessage");
 
 document.getElementById("create-account-form").addEventListener("submit", function(event) {
     event.preventDefault();
-    console.log("dans le submit - avant la vérififcation)");
     errorMessage.style.display = "none";
     if(!isAnyFieldEmpty() && areValidContactFields() && isValidPassword() && isValidConfirmedPassword()){
         let body = {
@@ -18,7 +17,6 @@ document.getElementById("create-account-form").addEventListener("submit", functi
             firstname: document.getElementById("firstname").value,
             phone: document.getElementById("phone").value
         };
-        console.log("dans le submit)");
         fetch("/users/create", {
             headers: {
                 'Accept': 'application/json',
@@ -28,13 +26,12 @@ document.getElementById("create-account-form").addEventListener("submit", functi
             body: JSON.stringify(body)
         })
             .then((response) => {
-                console.log("Dans le then du fetch");
                 if(response.status === 403){
                     document.getElementById("email").classList.add("is-invalid");
                     errorMessage.innerText = ERROR_ALREADY_USED_EMAIL;
                     errorMessage.style.removeProperty("display");
                 }
-                else if(response.status === 200) {
+                else if(response.status === 201) {
                     window.location.href = "/";
                 }
                 else {
@@ -98,11 +95,11 @@ function isAnyFieldEmpty() {
         }
     })
     if(invalidForm){
-        document.getElementById("errorMessage").innerText = ERROR_REQUIRED_FIELDS;
-        document.getElementById("errorMessage").style.removeProperty("display")
+        errorMessage.innerText = ERROR_REQUIRED_FIELDS;
+        errorMessage.style.removeProperty("display")
     }
     else {
-        document.getElementById("errorMessage").style.display = "none";
+        errorMessage.style.display = "none";
     }
     return invalidForm;
 }

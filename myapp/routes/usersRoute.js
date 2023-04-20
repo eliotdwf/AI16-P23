@@ -99,7 +99,7 @@ router.post('/create', function(req, res) {
     }
     else {
       userModel.create(email, pwd, lastname, firstname, phone, (created) => {
-        let status = (created != undefined) ? 200 : 500;
+        let status = (created != undefined) ? 201 : 500;
         res.sendStatus(status);
       });
     }

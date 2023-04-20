@@ -12,9 +12,9 @@
             <div class="col-sm-12 d-flex justify-content-center">
                 <%- include('../partials/title', title="Créer une organisation"); %>
             </div>
-            <form class="col-md-8 mt-3 row g-3">
+            <form id="create-orga-form" class="col-md-8 mt-3 row g-3">
                 <div class="col-md-4">
-                    <label for="siren" class="form-label">SIREN</label>
+                    <label for="siren" class="form-label">SIREN <b class="required">*</b></label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <a class="a-popover" tabindex="0" data-bs-toggle="popover" role="button" data-bs-trigger="focus" data-bs-placement="bottom"
@@ -26,11 +26,11 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="nom" class="form-label">Nom</label>
+                    <label for="nom" class="form-label">Nom <b class="required">*</b></label>
                     <input type="text" class="form-control" id="nom">
                 </div>
                 <div class="col-md-4">
-                    <label for="type" class="form-label">Type d'organisation</label>
+                    <label for="type" class="form-label">Type d'organisation <b class="required">*</b></label>
                     <select id="type" class="form-select">
                         <option selected>Choisir</option>
                         <option value="1">Entreprise</option>
@@ -38,7 +38,7 @@
                     </select>
                 </div>
                 <div class="col-md-7">
-                    <label for="siege" class="form-label">Siège social</label>
+                    <label for="siege" class="form-label">Siège social <b class="required">*</b></label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <a class="a-popover" tabindex="0" data-bs-toggle="popover" role="button" data-bs-trigger="focus" data-bs-placement="bottom"
@@ -55,10 +55,18 @@
                     <input type="file" class="form-control" id="logo">
                 </div>
                 <div class="col-12">
-                    <label for="description">Description</label>
+                    <label for="description">Description <b class="required">*</b></label>
                     <textarea class="form-control" placeholder="Cette organisation a pour but de ..." id="description" rows="4"></textarea>
                 </div>
-                <div class="text-center mt-4">
+                <div class="col-12">
+                    <div><small><b class="required">*</b> Champs obligatoires</small></div>
+                </div>
+                <div class="col-12 justify-content-center">
+                    <div id="errorMessage" style="display: none" class="alert alert-danger text-center" role="alert">
+                        Attention, tous les champs requis doivent être complétés !
+                    </div>
+                </div>
+                <div class="text-center">
                     <button type="submit" class="btn btn-lg btn-primary">
                         Envoyer la demande de création <i class="bi bi-send"></i>
                     </button>
