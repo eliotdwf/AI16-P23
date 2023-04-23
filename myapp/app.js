@@ -20,6 +20,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const cookieDuration = 60;
+app.use(sessions({
+  name: "test",
+  secret: "test",
+  saveUninitialized: true,
+  cookie: {maxAge: cookieDuration},
+  resave: false
+}));
+
+app.use(cookieParser())
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/organisations', organisationRoute);

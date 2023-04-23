@@ -32,6 +32,7 @@ router.post('/create', upload.single("logo"), function (req, res) {
     let siren = req.body.siren;
     let nom = req.body.nom;
     let siege = req.body.siege;
+    let type = req.body.type;
     let description = req.body.description;
     let logo = req.file.filename
     orgaModel.isUsedSiren(siren, function (isUsed) {

@@ -17,13 +17,8 @@ document.getElementById("create-orga-form").addEventListener("submit", function(
         formData.append('logo', document.getElementById("logo").files[0]);
         formData.append('description', document.getElementById("description").value);
         fetch("/organisations/create", {
-            ///organisations/create/
-            ///creer-organisation/create/
             method: 'POST',
-            body: formData,
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
+            body: formData
         })
             .then((response) => {
                 console.log("Dans le then du fetch");
@@ -35,10 +30,6 @@ document.getElementById("create-orga-form").addEventListener("submit", function(
                     errorMessage.style.removeProperty("display");
                 }
                 else {
-                    console.log(response.statusText)
-                    console.log(response.status)
-                    console.log(response.statusCode)
-                    console.log(response.statusMessage)
                     errorMessage.innerText = "Une erreur inconnue est survenue. Contactez les administrateurs.";
                     errorMessage.style.removeProperty("display");
                 }
