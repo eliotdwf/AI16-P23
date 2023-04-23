@@ -15,42 +15,44 @@ module.exports = {
         });
     },
     isValid: function (email, mdp, callback) {
-        sql = "SELECT 1 FROM Utilisateur WHERE email = ? AND mdp = ?";
+        let sql = "SELECT 1 FROM Utilisateur WHERE email = ? AND mdp = ?";
         db.query(sql, [email, mdp], function (err, result) {
             if (err) throw err;
             callback(result[0]);
         });
     },
     isUsedEmail: function (email, callback) {
-        sql = "SELECT 1 FROM Utilisateur WHERE email = ?";
+        let sql = "SELECT 1 FROM Utilisateur WHERE email = ?";
+        console.log("oui")
         db.query(sql, email, function (err, result) {
             if (err) throw err;
             callback(result[0]);
         });
     },
     create: function (email, pwd, nom, prenom, tel, callback) {
-        sql = "INSERT INTO Utilisateur VALUES(?, ?, ?, ?, ?, curdate(), 1, 1, null)";
+        let sql = "INSERT INTO Utilisateur VALUES(?, ?, ?, ?, ?, curdate(), 1, 1, null)";
         db.query(sql, [email, pwd, nom, prenom, tel], function (err) {
             if(err) throw err;
             callback(true);
         })
+
     },
     deactivate : function (email, callback) {
-        sql = "UPDATE Utilisateur SET actif = 0 WHERE email = ?";
+        let sql = "UPDATE Utilisateur SET actif = 0 WHERE email = ?";
         db.query(sql, email, function(err) {
             if (err) throw err;
             callback(true);
         });
     },
     activate : function (email, callback) {
-        sql = "UPDATE Utilisateur SET actif = 1 WHERE email = ?";
+        let sql = "UPDATE Utilisateur SET actif = 1 WHERE email = ?";
         db.query(sql, email, function(err) {
             if (err) throw err;
             callback(true);
         });
     },
     setAsAdmin : function(email, callback) {
-        sql = "SELECT Role FROM Utilisateur WHERE email = ?";
+        let sql = "SELECT Role FROM Utilisateur WHERE email = ?";
         db.query(sql, email, function(err, results) {
             if(err) throw err;
             if(results === 3) {

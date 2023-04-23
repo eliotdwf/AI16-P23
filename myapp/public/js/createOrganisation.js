@@ -17,8 +17,13 @@ document.getElementById("create-orga-form").addEventListener("submit", function(
         formData.append('logo', document.getElementById("logo").files[0]);
         formData.append('description', document.getElementById("description").value);
         fetch("/organisations/create", {
+            ///organisations/create/
+            ///creer-organisation/create/
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
         })
             .then((response) => {
                 console.log("Dans le then du fetch");
@@ -30,6 +35,10 @@ document.getElementById("create-orga-form").addEventListener("submit", function(
                     errorMessage.style.removeProperty("display");
                 }
                 else {
+                    console.log(response.statusText)
+                    console.log(response.status)
+                    console.log(response.statusCode)
+                    console.log(response.statusMessage)
                     errorMessage.innerText = "Une erreur inconnue est survenue. Contactez les administrateurs.";
                     errorMessage.style.removeProperty("display");
                 }
@@ -119,10 +128,11 @@ document.getElementById("create-orga-form").querySelectorAll('input, select, tex
 })
 
 
-
+/*
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
 const popover = new bootstrap.Popover('.popover-dismiss', {
     trigger: 'focus'
 })
+*/

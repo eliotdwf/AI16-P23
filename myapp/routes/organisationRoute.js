@@ -3,19 +3,37 @@ let bodyParser = require("body-parser");
 let orgaModel = require("../models/organisation");
 const {log} = require("debug");
 const userModel = require("../models/utilisateur");
-
 let router = express.Router();
+const multer = require("multer");
+const MIME_TYPES = {
+    "image/jpg": ".jpg",
+    "image/jpeg": ".jpg",
+    "image/png": ".png",
+    "image/gif": ".gif"
+}
+
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, "./myapp/public/img/logos/");
+    },
+    filename: (req, file, callback) => {
+        const name = file.originalname.split(" ").join("_");
+        const extension = MIME_TYPES[file.MIMEType];
+        console.log(file.MIMEType);
+        callback(null, Date.now() + "_" + name)
+    }
+});
+const upload = multer({storage : storage});
 
 let alertMessages = [];
 
-router.post('/create', function(req, res) {
+router.post('/create', upload.single("logo"), function (req, res) {
     console.log("création d'une organisation...");
-    let siren = req.body.get("siren");
-    let nom = req.body.get("nom");
-    let siege = req.body.get("siege");
-    let description = req.body.get("description");
-    let logo = req.files.get("logo");
-
+    let siren = req.body.siren;
+    let nom = req.body.nom;
+    let siege = req.body.siege;
+    let description = req.body.description;
+    let logo = req.file.filename
     orgaModel.isUsedSiren(siren, function (isUsed) {
         console.log("isUsed : " + isUsed);
         if (isUsed != undefined) {
@@ -23,6 +41,7 @@ router.post('/create', function(req, res) {
             res.sendStatus(403);
         }
         else {
+            console.log("Siren OK");
             orgaModel.create(siren, nom, siege, description, logo, type, (created) => {
                 let status = (created != undefined) ? 201 : 500;
                 res.sendStatus(status);
@@ -30,3 +49,6 @@ router.post('/create', function(req, res) {
         }
     })
 });
+
+module.exports = router;
+//module.exports = multer({storage}).single("image");
