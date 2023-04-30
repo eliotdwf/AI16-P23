@@ -3,8 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  session = req.session;
-  console.log(session)
+  let session = req.session;
+  console.log(session);
   if(session.userid){
     res.render('index', { title: 'Express coucou' });
   } else {

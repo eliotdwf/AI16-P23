@@ -76,8 +76,11 @@ router.post('/authentication', function (req, res, next) {
   let mdp = req.body.pwd;
   userModel.isValid(mail, mdp, function(isValid) {
     if(isValid != undefined) {
-      //req.session.userid = mail;
-      console.log(req.session)
+      req.session.loggedin = true;
+      req.session.username = mail;
+      req.session.userid = mail;
+      console.log("Successful login")
+      console.log(req.session);
       res.sendStatus(200);
     }
     else{
