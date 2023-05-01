@@ -15,10 +15,10 @@ module.exports = {
         });
     },
     isValid: function (email, mdp, callback) {
-        let sql = "SELECT 1 FROM Utilisateur WHERE email = ? AND mdp = ?";
+        let sql = "SELECT role FROM Utilisateur WHERE email = ? AND mdp = ?";
         db.query(sql, [email, mdp], function (err, result) {
             if (err) throw err;
-            callback(result[0]);
+            callback(result[0].role);
         });
     },
     isUsedEmail: function (email, callback) {

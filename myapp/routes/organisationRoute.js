@@ -30,8 +30,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage : storage});
 
-let alertMessages = [];
-
 router.post('/create', upload.single("logo"), function (req, res) {
     console.log("création d'une organisation...");
     let siren = req.body.siren;

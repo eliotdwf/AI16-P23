@@ -11,11 +11,6 @@ actif = "%%"
 role = "%%";
 
 
-/* GET users listing. */
-/*router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});*/
-
 router.get('/', function (req, res, next) {
   userModel.getAll(actif, role, function(rows) {
     res.render('users', {
@@ -30,13 +25,13 @@ router.get('/deactivate-account/:email', function (req, res) {
   let email = req.params.email;
   userModel.deactivate(email, function(result) {
     if(result){
-      res.render("../partials/bs-alert",{
+      res.status(200).render("../partials/bs-alert",{
         type: "success",
         message: `Le compte de l'utilisateur ${email} a bien été désactivé.`
       });
     }
     else {
-      res.render("../partials/bs-alert", {
+      res.status(500).render("../partials/bs-alert", {
         type : "error",
         message: `Une erreur est survenue lors de la désactivation du compte de l'utilisateur ${email}. Echec de l'opération`
       });
@@ -49,13 +44,13 @@ router.get('/activate-account/:email', function (req, res) {
   let email = req.params.email;
   userModel.activate(email, function(result) {
     if(result){
-      res.render("../partials/bs-alert",{
+      res.status(200).render("../partials/bs-alert",{
         type: "success",
         message: `Le compte de l'utilisateur ${email} a bien été activé.`
       });
     }
     else {
-      res.render("../partials/bs-alert", {
+      res.status(500).render("../partials/bs-alert", {
         type : "error",
         message: `Une erreur est survenue lors de l'activation du compte de l'utilisateur ${email}. Echec de l'opération`
       });
@@ -66,7 +61,7 @@ router.get('/activate-account/:email', function (req, res) {
 router.post('/userslist', function (req, res, next) {
   let role = req.body.role;
   userModel.getAll(actif, role, function(rows) {
-    res.render('../partials/usersList', { users: rows });
+    res.status(200).render('../partials/usersList', { users: rows });
   });
 });
 
@@ -74,8 +69,9 @@ router.post('/authentication', function (req, res, next) {
   console.log("authentication ...")
   let mail = req.body.email;
   let mdp = req.body.pwd;
-  userModel.isValid(mail, mdp, function(isValid) {
-    if(isValid != undefined) {
+  userModel.isValid(mail, mdp, function(role) {
+    if(role === 1 || role === 2 || role === 3) {
+      req.session.role = role;
       req.session.loggedin = true;
       req.session.username = mail;
       req.session.userid = mail;
@@ -84,6 +80,7 @@ router.post('/authentication', function (req, res, next) {
       res.sendStatus(200);
     }
     else{
+      console.log("Login failed")
       res.sendStatus(401);
     }
   });

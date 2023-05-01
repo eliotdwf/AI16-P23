@@ -1,21 +1,30 @@
+function handleUserAccountUpdate(response) {
+    if(response.status === 401) {
+        window.location.href = "/connexion"
+    }
+    else if(response.status === 403) {
+        response.text().then(content => {
+            document.querySelector('main').innerHTML = content;
+        })
+    }
+    else if(response.status === 200) {
+        response.text().then(content => {
+            updateAlertMessages(content);
+            updateUsersList();
+        })
+    }
+}
+
 
 function deactivateUserAccount(email) {
     fetch("/users/deactivate-account/" + email)
-        .then(response => response.text())
-        .then(response => {
-            updateAlertMessages(response);
-            updateUsersList();
-        });
+        .then(handleUserAccountUpdate)
 }
 
 
 function activateUserAccount(email) {
     fetch("/users/activate-account/" + email)
-        .then(response => response.text())
-        .then(response => {
-            updateAlertMessages(response);
-            updateUsersList();
-        });
+        .then(handleUserAccountUpdate);
 }
 
 function giveAdminRights(email) {
@@ -36,9 +45,20 @@ function updateUsersList() {
         method: 'POST',
         body: JSON.stringify(body)
     })
-        .then(response => response.text())
         .then(response => {
-            usersTable.innerHTML = response;
+            if(response.status === 401) {
+                window.href.location = "/connexion"
+            }
+            else if(response.status === 403) {
+                response.text().then(content => {
+                    document.querySelector('main').innerHTML = content;
+                })
+            }
+            else if(response.status === 200) {
+                response.text().then(content => {
+                    usersTable.innerHTML = content;
+                })
+            }
         })
 }
 
