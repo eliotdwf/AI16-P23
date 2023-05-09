@@ -5,8 +5,9 @@
 
 <body>
 
-<%- include('../partials/header-bs'); %>
-<div class="container">
+<%- include('../partials/header', role=role); %>
+
+<main class="container">
 
 
     <div id="liste-offres" class="row justify-content-between">
@@ -16,6 +17,6 @@
 
     <%- include('../partials/cardsRows'); %>
 
-</div>
+</main>
 </body>
 </html>

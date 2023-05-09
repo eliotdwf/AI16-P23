@@ -2,6 +2,7 @@ let express = require('express');
 let bodyParser = require("body-parser");
 let userModel = require("../models/utilisateur");
 const {log} = require("debug");
+const requireAdminRights = require('../requireAuth/requireAdmin');
 
 let router = express.Router();
 
@@ -11,12 +12,13 @@ actif = "%%"
 role = "%%";
 
 
-router.get('/', function (req, res, next) {
+router.get('/', requireAdminRights, function (req, res, next) {
   userModel.getAll(actif, role, function(rows) {
     res.render('users', {
       title: 'Liste des utilisateurs',
       users: rows,
-      alertMessages: alertMessages
+      alertMessages: alertMessages,
+      role: req.session.role
     });
   });
 });

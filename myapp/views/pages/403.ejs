@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>403</title>
-</head>
+<%- include('../partials/head', title='403'); %>
 <body>
-<%- include('../partials/403-content'); %>
+<%- include('../partials/header', role=role); %>
+<h1>Forbidden - 403</h1>
+<p>Vous n'avez pas les autorisations nécessaires pour accéder aux ressources !</p>
+<div class="d-flex justify-content-center">
+    <img src="/img/403-forbidden.jpg" style="max-width: 50%">
+</div>
+
 </body>
 </html>

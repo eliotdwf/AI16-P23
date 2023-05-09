@@ -1,13 +1,19 @@
-<div class="header-container">
-    <div class="logo"></div>
-    <div class="button-container">
-        <a class="header-item header-title" href="#"><div>Employ Me</div></a>
-        <a class="header-item" href="#"><div>Offres d'emploi</div></a>
-        <a class="header-item" href="#"><div>Devenir Recruteur</div></a>
-        <form class="header-item header-search-field" role="search" >
-            <input class="form-control me-2" type="search" placeholder="Poste, Organisation, Ville..." aria-label="Search">
-        </form>
-        <div class="svg-button"><div class="search"></div></div>
-        <div class="svg-button"><div class="profil"></div></div>
-    </div>
-</div>
+<%
+    switch (role) {
+    case 1:
+%>
+    <%- include('../partials/header-candidat'); %>
+<%  break;
+    case 2:
+%>
+    <%- include('../partials/header-recruteur'); %>
+<%  break;
+    case 3:
+%>
+    <%- include('../partials/header-admin'); %>
+<%  break;
+    default:
+%>
+    <%- include('../partials/header-default'); %>
+<%  break
+} %>

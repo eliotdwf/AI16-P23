@@ -18,7 +18,12 @@ module.exports = {
         let sql = "SELECT role FROM Utilisateur WHERE email = ? AND mdp = ?";
         db.query(sql, [email, mdp], function (err, result) {
             if (err) throw err;
-            callback(result[0].role);
+            if(result[0]){
+                callback(result[0].role);
+            }
+            else {
+                callback(undefined);
+            }
         });
     },
     isUsedEmail: function (email, callback) {

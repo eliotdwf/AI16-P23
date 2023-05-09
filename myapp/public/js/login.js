@@ -38,7 +38,7 @@ document.getElementById("connexion-form").addEventListener("submit", function(ev
                 }
                 else {
                     errorMessage.style.removeProperty("display");
-                    errorMessage.innerText = "Une erreur inconnue est survenue. Contactez les administrateurs.";
+                    errorMessage.innerHTML = "Une erreur est survenue. Contactez les administrateurs.";
                 }
             });
     }

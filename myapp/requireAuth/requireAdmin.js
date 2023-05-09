@@ -1,22 +1,13 @@
 module.exports =  function requireAdmin(req, res, next) {
     if (!req.session) {
-        // Si l'utilisateur n'est pas authentifié ou n'est pas admin, rediriger vers la page de connexion
-        if (req.xhr) {
-            //requete ajax
-            res.sendStatus(401);
-        } else {
-            // redirection
-            res.redirect('/connexion');
-        }
+        // Si l'utilisateur n'est pas authentifié, rediriger vers la page de connexion
+        console.log("redirection requireAdmin => connexion");
+        res.redirect('/connexion');
     }
     else if(req.session != 3){
-        if (req.xhr) {
-            //requete ajax
-            res.status(403).render("../partials/403-content");
-        } else {
-            // redirection
-            res.render('403');
-        }
+        // si l'utilisateur est authentifié mais n'est pas admin, on redirige vers la page 403
+        console.log("redirection requireAdmin => 403");
+        res.redirect('/403');
     }
     else {
         // Si l'utilisateur est authentifié, continuer vers la route demandée
