@@ -1,0 +1,21 @@
+.hr-title {
+    color: #0085FC;
+}
+
+.navbar {
+    background-color: #0085FC !important;
+}
+
+#btn-filtrer:hover {
+    color: #0085FC;
+}
+
+.dropdown-item:hover {
+    background-color: #0085FC !important;
+    color: #f8f9fa !important;
+}
+
+.a-popover:hover {
+    color: #0085FC;
+    cursor: pointer;
+}
