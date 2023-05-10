@@ -41,11 +41,11 @@
     color: #f8f9fa !important;
 }
 
-.btn-icon-recruteur {
+.btn-icon-admin {
     color: rgba(150, 67, 255, 1) !important;
 }
 
-.btn-icon-recruteur:hover {
+.btn-icon-admin:hover {
     color: rgba(150, 67, 255, 0.8) !important;
 }
 

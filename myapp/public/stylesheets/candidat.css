@@ -16,6 +16,14 @@
 }
 
 .a-popover:hover {
-    color: #0085FC;
+    color: rgba(0, 133, 252, 1);
     cursor: pointer;
+}
+
+.btn-icon-candidat {
+    color: rgba(0, 133, 252, 1) !important;
+}
+
+.btn-icon-candidat:hover {
+    color: rgba(0, 133, 252, 0.8) !important;
 }
