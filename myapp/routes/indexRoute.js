@@ -2,7 +2,7 @@ const express = require('express');
 let router = express.Router();
 let requireAuth = require('../requireAuth/requireAuth');
 let requireCandidat = require('../requireAuth/requireCandidat');
-
+let requireRecruteur = require('../requireAuth/requireRecruteur');
 
 /* GET home page. */
 router.get('/', requireAuth, function(req, res, next) {
@@ -13,7 +13,7 @@ router.get('/', requireAuth, function(req, res, next) {
       break;
     case 2:
       //TODO : redirect vers page accueil recruteur
-      res.redirect("/creer-organisation");
+      res.redirect("/offres");
       break;
     case 3:
       res.redirect("/users");
@@ -51,6 +51,10 @@ router.get("/403", requireAuth, (req, res) => {
 
 router.get("/404", requireAuth, (req, res) => {
   res.render("404", { role: req.session.role });
+})
+
+router.get("/offres", requireRecruteur, (req, res) => {
+  res.render("offres", { role : req.session.role });
 })
 
 module.exports = router;

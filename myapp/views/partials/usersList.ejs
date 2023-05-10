@@ -59,7 +59,7 @@
                         <% } else {%>
                             <button onclick="activateUserAccount('<%= user.email %>')" class="btn btn-warning col-sm-5">Activer</button>
                         <% } %>
-                        <button onclick="giveAdminRights('<%= user.email %>')" class="btn btn-primary">Passer admin</button>
+                        <button onclick="giveAdminRights('<%= user.email %>')" class="btn btn-admin">Passer admin</button>
                     <% } else {%>
                         Aucune action pour ce compte
                     <% } %>

@@ -19,3 +19,39 @@
     color: #FF8A00;
     cursor: pointer;
 }
+
+.btn-recruteur {
+    background-color: rgba(255, 138, 0, 1);
+    color: #f8f9fa;
+}
+
+.btn-recruteur:hover {
+    background-color: rgba(255, 138, 0, 0.8) !important;
+    color: #f8f9fa !important;
+}
+
+.btn-icon-recruteur {
+    color: rgba(255, 138, 0, 1) !important;
+}
+
+.btn-icon-recruteur:hover {
+    color: rgba(255, 138, 0, 0.8) !important;
+}
+
+.btn-recruteur-outline {
+    border-color: rgba(255, 138, 0, 1);
+    background-color: #f8f9fa;
+    color: rgba(255, 138, 0, 1);
+}
+
+.btn-recruteur-outline:hover {
+    background-color: rgba(255, 138, 0, 1) !important;
+    color: #f8f9fa !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.5) !important;
+    border-color: rgba(255, 138, 0, 0.8);
+}
