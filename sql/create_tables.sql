@@ -61,7 +61,7 @@ CREATE TABLE Utilisateur(
 );
 
 CREATE TABLE OffreEmploi(
-    offre_emploi INT,
+    id INT,
     intitule VARCHAR(50) NOT NULL,
     statut_poste VARCHAR(50) NOT NULL,
     resp_hierarchique VARCHAR(50),
@@ -75,7 +75,7 @@ CREATE TABLE OffreEmploi(
     nb_pieces_dossier_candidature INT NOT NULL,
     organisation VARCHAR(50) NOT NULL,
     type_metier INT,
-    PRIMARY KEY(offre_emploi),
+    PRIMARY KEY(id),
     FOREIGN KEY(organisation) REFERENCES Organisation(siren),
     FOREIGN KEY(type_metier) REFERENCES TypeMetier(type_metier)
 );
@@ -87,7 +87,7 @@ CREATE TABLE Candidature(
     date_candidature DATE NOT NULL,
     PRIMARY KEY(email, offre_emploi, piece_dossier),
     FOREIGN KEY(email) REFERENCES Utilisateur(email),
-    FOREIGN KEY(offre_emploi) REFERENCES OffreEmploi(offre_emploi),
+    FOREIGN KEY(offre_emploi) REFERENCES OffreEmploi(id),
     FOREIGN KEY(piece_dossier) REFERENCES PieceDossier(piece_dossier)
 );
 
