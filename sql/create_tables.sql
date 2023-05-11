@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS DemandeDevenirRecruteur;
 DROP TABLE IF EXISTS DemandeCreationOrga;
 DROP TABLE IF EXISTS Candidature;
 DROP TABLE IF EXISTS OffreEmploi;
+DROP TABLE IF EXISTS EtatOffre;
 DROP TABLE IF EXISTS PieceDossier;
-DROP TABLE IF EXISTS RoleUtilisateur;
 DROP TABLE IF EXISTS Utilisateur;
 DROP TABLE IF EXISTS Role;
 DROP TABLE IF EXISTS Organisation;
@@ -11,15 +11,13 @@ DROP TABLE IF EXISTS TypeOrganisation;
 DROP TABLE IF EXISTS TypeMetier;
 
 CREATE TABLE TypeMetier(
-    type_metier INT,
-    nom VARCHAR(50) NOT NULL,
-    PRIMARY KEY(type_metier)
+    id_type_metier INT PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE TypeOrganisation(
-    type_organisation INT,
-    nom VARCHAR(50) NOT NULL,
-    PRIMARY KEY(type_organisation)
+    id_type_organisation INT PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE PieceDossier(
@@ -30,9 +28,13 @@ CREATE TABLE PieceDossier(
 );
 
 CREATE TABLE Role(
-    id INT,
-    nom VARCHAR(100) NOT NULL,
-    PRIMARY KEY(id)
+    id_role INT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE EtatOffre(
+    id_etat_offre INT PRIMARY KEY,
+    label VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Organisation(
@@ -41,9 +43,9 @@ CREATE TABLE Organisation(
     siege_social VARCHAR(100) NOT NULL,
     description VARCHAR(5000) NOT NULL,
     chemin_logo VARCHAR(100) NOT NULL,
-    type_organisation INT NOT NULL,
+    id_type_organisation INT NOT NULL,
     PRIMARY KEY(siren),
-    FOREIGN KEY(type_organisation) REFERENCES TypeOrganisation(type_organisation)
+    FOREIGN KEY(id_type_organisation) REFERENCES TypeOrganisation(id_type_organisation)
 );
 
 CREATE TABLE Utilisateur(
@@ -54,65 +56,60 @@ CREATE TABLE Utilisateur(
     tel VARCHAR(50),
     dateCreation DATE NOT NULL default curdate(),
     actif BOOLEAN default 1,
-    role INT NOT NULL,
-    organisation VARCHAR(50),
+    id_role INT NOT NULL,
+    siren VARCHAR(50),
     PRIMARY KEY(email),
-    FOREIGN KEY(organisation) REFERENCES Organisation(siren)
+    FOREIGN KEY(siren) REFERENCES Organisation(siren),
+    FOREIGN KEY(id_role) REFERENCES Role(id_role)
 );
 
+
 CREATE TABLE OffreEmploi(
-    id INT,
+    id_offre INT,
     intitule VARCHAR(50) NOT NULL,
     statut_poste VARCHAR(50) NOT NULL,
-    resp_hierarchique VARCHAR(50),
+    resp_hierarchique VARCHAR(50) NOT NULL,
     lieu_mission VARCHAR(100) NOT NULL,
     rythme VARCHAR(50) NOT NULL,
     salaire VARCHAR(50) NOT NULL,
     description VARCHAR(1000) NOT NULL,
-    etat VARCHAR(50) NOT NULL,
+    id_etat_offre INT NOT NULL,
     date_validite DATE NOT NULL,
     pieces_requises_candidature VARCHAR(50) NOT NULL,
     nb_pieces_dossier_candidature INT NOT NULL,
-    organisation VARCHAR(50) NOT NULL,
-    type_metier INT,
-    PRIMARY KEY(id),
-    FOREIGN KEY(organisation) REFERENCES Organisation(siren),
-    FOREIGN KEY(type_metier) REFERENCES TypeMetier(type_metier)
+    siren VARCHAR(50) NOT NULL,
+    id_type_metier INT,
+    PRIMARY KEY(id_offre),
+    FOREIGN KEY(siren) REFERENCES Organisation(siren),
+    FOREIGN KEY(id_type_metier) REFERENCES TypeMetier(id_type_metier),
+    FOREIGN KEY(id_etat_offre) REFERENCES EtatOffre(id_etat_offre)
 );
 
 CREATE TABLE Candidature(
     email VARCHAR(50),
-    offre_emploi INT,
+    id_offre INT,
     piece_dossier INT,
     date_candidature DATE NOT NULL,
-    PRIMARY KEY(email, offre_emploi, piece_dossier),
+    PRIMARY KEY(email, id_offre, piece_dossier),
     FOREIGN KEY(email) REFERENCES Utilisateur(email),
-    FOREIGN KEY(offre_emploi) REFERENCES OffreEmploi(id),
+    FOREIGN KEY(id_offre) REFERENCES OffreEmploi(id_offre),
     FOREIGN KEY(piece_dossier) REFERENCES PieceDossier(piece_dossier)
 );
 
 CREATE TABLE DemandeCreationOrga(
     email VARCHAR(50),
     date_demande DATE NOT NULL,
-    organisation VARCHAR(50) NOT NULL,
+    siren VARCHAR(50) NOT NULL,
     PRIMARY KEY(email),
     FOREIGN KEY(email) REFERENCES Utilisateur(email),
-    FOREIGN KEY(organisation) REFERENCES Organisation(siren)
+    FOREIGN KEY(siren) REFERENCES Organisation(siren)
 );
 
 CREATE TABLE DemandeDevenirRecruteur(
     email VARCHAR(50),
     date_demande DATE NOT NULL,
-    organisation VARCHAR(50) NOT NULL,
+    siren VARCHAR(50) NOT NULL,
     PRIMARY KEY(email),
     FOREIGN KEY(email) REFERENCES Utilisateur(email),
-    FOREIGN KEY(organisation) REFERENCES Organisation(siren)
-);
-
-CREATE TABLE RoleUtilisateur(
-    email VARCHAR(50),
-    id INT,
-    PRIMARY KEY(email, id),
-    FOREIGN KEY(email) REFERENCES Utilisateur(email),
-    FOREIGN KEY(id) REFERENCES Role(id)
+    FOREIGN KEY(siren) REFERENCES Organisation(siren)
 );

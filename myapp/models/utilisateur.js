@@ -9,17 +9,17 @@ module.exports = {
         });
     },
     getAll: function (actif, role, callback) {
-        db.query(`select * from Utilisateur WHERE actif LIKE '${actif}' AND role LIKE '${role}'`, function (err, results) {
+        db.query(`select * from Utilisateur WHERE actif LIKE '${actif}' AND id_role LIKE '${role}'`, function (err, results) {
             if (err) throw err;
             callback(results);
         });
     },
     isValid: function (email, mdp, callback) {
-        let sql = "SELECT role FROM Utilisateur WHERE email = ? AND mdp = ?";
+        let sql = "SELECT id_role FROM Utilisateur WHERE email = ? AND mdp = ?";
         db.query(sql, [email, mdp], function (err, result) {
             if (err) throw err;
             if(result[0]){
-                callback(result[0].role);
+                callback(result[0].id_role);
             }
             else {
                 callback(undefined);
