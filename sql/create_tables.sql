@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS DemandeCreationOrga;
 DROP TABLE IF EXISTS Candidature;
 DROP TABLE IF EXISTS OffreEmploi;
 DROP TABLE IF EXISTS EtatOffre;
+DROP TABLE IF EXISTS TypeContrat;
 DROP TABLE IF EXISTS PieceDossier;
 DROP TABLE IF EXISTS Utilisateur;
 DROP TABLE IF EXISTS Role;
@@ -34,7 +35,7 @@ CREATE TABLE Role(
 
 CREATE TABLE EtatOffre(
     id_etat_offre INT PRIMARY KEY,
-    label VARCHAR(50) NOT NULL
+    libelle VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Organisation(
@@ -63,6 +64,10 @@ CREATE TABLE Utilisateur(
     FOREIGN KEY(id_role) REFERENCES Role(id_role)
 );
 
+CREATE TABLE TypeContrat(
+    id_type_contrat INT PRIMARY KEY,
+    libelle VARCHAR(50) NOT NULL
+);
 
 CREATE TABLE OffreEmploi(
     id_offre INT,
@@ -79,10 +84,12 @@ CREATE TABLE OffreEmploi(
     nb_pieces_dossier_candidature INT NOT NULL,
     siren VARCHAR(50) NOT NULL,
     id_type_metier INT,
+    id_type_contrat INT,
     PRIMARY KEY(id_offre),
     FOREIGN KEY(siren) REFERENCES Organisation(siren),
     FOREIGN KEY(id_type_metier) REFERENCES TypeMetier(id_type_metier),
-    FOREIGN KEY(id_etat_offre) REFERENCES EtatOffre(id_etat_offre)
+    FOREIGN KEY(id_etat_offre) REFERENCES EtatOffre(id_etat_offre),
+    FOREIGN KEY(id_type_contrat) REFERENCES TypeContrat(id_type_contrat)
 );
 
 CREATE TABLE Candidature(
