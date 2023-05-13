@@ -3,6 +3,14 @@
   margin-bottom: 2%;
 }
 
+.navbar {
+  filter: drop-shadow(0 2px 4px);
+}
+
+.logo-profil-offre {
+  max-width: 100%;
+}
+
 .card-logo {
   text-align: right;
 }

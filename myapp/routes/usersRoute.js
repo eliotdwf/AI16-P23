@@ -8,12 +8,10 @@ let router = express.Router();
 
 let alertMessages = [];
 
-actif = "%%"
-role = "%%";
-
-
 router.get('/', requireAdminRights, function (req, res, next) {
-  userModel.getAll(actif, role, function(rows) {
+  let actif = undefined;
+  let role = undefined;
+  userModel.getAll( actif, role, function(rows) {
     res.render('users', {
       title: 'Liste des utilisateurs',
       users: rows,
@@ -60,8 +58,12 @@ router.get('/activate-account/:email', function (req, res) {
   });
 });
 
-router.post('/userslist', function (req, res, next) {
+router.post('/userslist', function (req, res) {
+  let actif = undefined;
   let role = req.body.role;
+  if(role < 1 || role > 3){
+    role = undefined;  //dans l'appel au model, role prend la valeur par défaut ("%%")
+  }
   userModel.getAll(actif, role, function(rows) {
     res.status(200).render('../partials/usersList', { users: rows });
   });

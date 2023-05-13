@@ -2,12 +2,12 @@
     <div class="card">
         <div class="card-body row">
             <div class="col-sm-8">
-                <h5 class="card-title">Employé(e) commercial(e) principal(e) H/F - job post</h5>
-                <p class="card-text">91940 Les Ulis</p>
+                <h5 class="card-title"><%= offre.intitule %></h5>
+                <p class="card-text"><%= offre.lieu_mission%></p>
                 <button type="button" class="btn btn-primary btn-lg">Candidater</button>
             </div>
             <div class="col-4 card-logo">
-                <img src="img/logos/Logo_Carrefour.png" height="100">
+                <img class="logo-profil-offre" src="img/logos/<%= offre.chemin_logo %>">
             </div>
         </div>
     </div>

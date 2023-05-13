@@ -3,13 +3,22 @@ let router = express.Router();
 let requireAuth = require('../requireAuth/requireAuth');
 let requireCandidat = require('../requireAuth/requireCandidat');
 let requireRecruteur = require('../requireAuth/requireRecruteur');
+let offreModel = require("../models/offre");
+
 
 /* GET home page. */
-router.get('/', requireAuth, function(req, res, next) {
+router.get('/', requireAuth, function(req, res) {
   let session = req.session;
   switch (session.role) {
     case 1:
-      res.render('index', { role: session.role });
+      let etatOffre;
+      offreModel.getProfilsOffres(etatOffre, function(rows){
+        console.log(rows);
+        res.render('index', {
+          role: session.role,
+          offres: rows
+        });
+      })
       break;
     case 2:
       //TODO : redirect vers page accueil recruteur
@@ -24,7 +33,7 @@ router.get('/', requireAuth, function(req, res, next) {
 router.get("/connexion", function(req, res, next) {
   req.session.destroy();
   console.log(req.session);
-  res.render('connexion', { title: 'Connexion' });
+  res.render('connexion', { title: 'Connexion', role: ''});
 });
 
 router.get("/creer-compte", (req, res) => {
@@ -32,7 +41,7 @@ router.get("/creer-compte", (req, res) => {
     res.redirect("/");
   }
   else {
-    res.render('creerCompte', { title: 'Créer un compte'});
+    res.render('creerCompte', { title: 'Créer un compte', role: req.session.role});
   }
 });
 

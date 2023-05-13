@@ -51,10 +51,8 @@
                     <%= role %>
                 </td>
                 <td>
-                    <% if(user.role != 3) {%>
-<!--
-                        <a href="/users/deactivate-account/<%= user.email%>" class="btn btn-warning">Désactiver</a>
--->                     <% if(user.actif){ %>
+                    <% if(user.id_role != 3) {%>
+                     <% if(user.actif){ %>
                             <button onclick="deactivateUserAccount('<%= user.email %>')" class="btn btn-warning col-sm-5">Désactiver</button>
                         <% } else {%>
                             <button onclick="activateUserAccount('<%= user.email %>')" class="btn btn-warning col-sm-5">Activer</button>

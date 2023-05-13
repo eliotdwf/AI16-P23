@@ -8,7 +8,7 @@ module.exports = {
             callback(results);
         });
     },
-    getAll: function (actif, role, callback) {
+    getAll: function (actif= "%%", role = "%%", callback) {
         db.query(`select * from Utilisateur WHERE actif LIKE '${actif}' AND id_role LIKE '${role}'`, function (err, results) {
             if (err) throw err;
             callback(results);
@@ -28,7 +28,6 @@ module.exports = {
     },
     isUsedEmail: function (email, callback) {
         let sql = "SELECT 1 FROM Utilisateur WHERE email = ?";
-        console.log("oui")
         db.query(sql, email, function (err, result) {
             if (err) throw err;
             callback(result[0]);

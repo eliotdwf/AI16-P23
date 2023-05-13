@@ -15,7 +15,13 @@
         <%- include('../partials/tri-filtres'); %>
     </div>
 
-    <%- include('../partials/cardsRows'); %>
+    <div class="row gy-3">
+        <% offres.forEach(offreEmploi => { %>
+            <%- include('../partials/card', offre=offreEmploi); %>
+        <% })%>
+    </div>
+
+
 
 </main>
 </body>

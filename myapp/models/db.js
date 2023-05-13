@@ -1,11 +1,11 @@
-var mysql = require("mysql");
-var pool = mysql.createPool({
+let mysql = require("mysql");
+let pool = mysql.createPool({
     host: "tuxa.sme.utc",
     user: "ai16p008",
     password: "sBV5zNdx0THD",
     database: "ai16p008"
 });
-/*var pool = mysql.createPool({
+/*let pool = mysql.createPool({
     host: "localhost",
     port: "3306",
     user: "root",
