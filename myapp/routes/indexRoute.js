@@ -4,6 +4,7 @@ let requireAuth = require('../requireAuth/requireAuth');
 let requireCandidat = require('../requireAuth/requireCandidat');
 let requireRecruteur = require('../requireAuth/requireRecruteur');
 let offreModel = require("../models/offre");
+const userModel = require("../models/utilisateur");
 
 
 /* GET home page. */
@@ -66,4 +67,60 @@ router.get("/offres", requireRecruteur, (req, res) => {
   res.render("offres", { role : req.session.role });
 })
 
+//TODO : à supprimer, utile pour les tests
+router.get("/candidat", (req, res) => {
+  let mail = "candidat@mail.fr";
+  let mdp = "mdp";
+  userModel.isValid(mail, mdp, function(role) {
+    if(role === 1 || role === 2 || role === 3) {
+      req.session.role = role;
+      req.session.loggedin = true;
+      req.session.username = mail;
+      req.session.userid = mail;
+      console.log(req.session);
+      res.redirect("/");
+    }
+    else{
+      res.redirect("/connexion");
+    }
+  });
+})
+
+//TODO : à supprimer, utile pour les tests
+router.get("/recruteur", (req, res) => {
+  let mail = "amazon@mail.fr";
+  let mdp = "mdp";
+  userModel.isValid(mail, mdp, function(role) {
+    if(role === 1 || role === 2 || role === 3) {
+      req.session.role = role;
+      req.session.loggedin = true;
+      req.session.username = mail;
+      req.session.userid = mail;
+      console.log(req.session);
+      res.redirect("/");
+    }
+    else{
+      res.redirect("/connexion");
+    }
+  });
+})
+
+//TODO : à supprimer, utile pour les tests
+router.get("/admin", (req, res) => {
+  let mail = "admin@mail.fr";
+  let mdp = "mdp";
+  userModel.isValid(mail, mdp, function(role) {
+    if(role === 1 || role === 2 || role === 3) {
+      req.session.role = role;
+      req.session.loggedin = true;
+      req.session.username = mail;
+      req.session.userid = mail;
+      console.log(req.session);
+      res.redirect("/");
+    }
+    else{
+      res.redirect("/connexion");
+    }
+  });
+})
 module.exports = router;
