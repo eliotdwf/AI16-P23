@@ -1,9 +1,17 @@
 const db = require('./db.js');
 
 module.exports = {
-    find: function (siren, callback) {
-        db.query("select * from OffreEmploi where siren= ?",siren, function
-            (err, results) {
+    findById: function (id_offre, callback) {
+        const sql = `select OE.id_offre, OE.intitule, OE.statut_poste, OE.resp_hierarchique, OE.lieu_mission, OE.rythme,
+                        OE.salaire, OE.description, EO.libelle, OE.date_validite, OE.pieces_requises_candidature,
+                        OE.siren, TM.nom, O.nom, O.siege_social, O.description, O.chemin_logo, TypeO.nom
+                        from OffreEmploi OE INNER JOIN Organisation O ON O.siren = OE.siren
+                        INNER JOIN EtatOffre EO ON OE.id_etat_offre = EO.id_etat_offre
+                        INNER JOIN TypeMetier TM ON OE.id_type_metier = TM.id_type_metier
+                        INNER JOIN TypeContrat TC ON OE.id_type_contrat = TC.id_type_contrat
+                        INNER JOIN TypeOrganisation TypeO ON TypeO.id_type_organisation = O.id_type_organisation
+                        where id_offre = ?`
+        db.query(sql,id_offre, function (err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -17,9 +25,9 @@ module.exports = {
             callback(results);
         });
     },
-    isUsedSiren: function (siren, callback) {
-        let sql = "SELECT 1 FROM OffreEmploi WHERE siren = ?";
-        db.query(sql, siren, function (err, result) {
+    isUsedId: function (id, callback) {
+        let sql = "SELECT 1 FROM OffreEmploi WHERE id_offre = ?";
+        db.query(sql, id, function (err, result) {
             if (err) throw err;
             callback(result[0]);
         });

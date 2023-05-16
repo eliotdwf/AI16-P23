@@ -9,22 +9,14 @@
 
 <main class="container">
 
+    <% if(role == 1) {%>
+        <%- include('../partials/offres-candidat', offres=offresEmploi); %>
+    <% }
+    else { %>
+        <%- include('../partials/offres-recruteur', offres=offresEmploi); %>
+    <% } %>
 
-    <div id="liste-offres" class="row justify-content-between">
-        <%- include('../partials/title', title="Offres d'emploi"); %>
-        <%- include('../partials/tri-filtres'); %>
-    </div>
 
-    <div class="row gy-3">
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-    </div>
 
 </main>
 </body>

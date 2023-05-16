@@ -2,24 +2,15 @@ const express = require('express');
 let router = express.Router();
 let requireAuth = require('../requireAuth/requireAuth');
 let requireCandidat = require('../requireAuth/requireCandidat');
-let requireRecruteur = require('../requireAuth/requireRecruteur');
 let offreModel = require("../models/offre");
 const userModel = require("../models/utilisateur");
-
 
 /* GET home page. */
 router.get('/', requireAuth, function(req, res) {
   let session = req.session;
   switch (session.role) {
     case 1:
-      let etatOffre;
-      offreModel.getProfilsOffres(etatOffre, function(rows){
-        console.log(rows);
-        res.render('index', {
-          role: session.role,
-          offres: rows
-        });
-      })
+      res.redirect("/offres");
       break;
     case 2:
       //TODO : redirect vers page accueil recruteur
@@ -63,9 +54,7 @@ router.get("/404", requireAuth, (req, res) => {
   res.render("404", { role: req.session.role });
 })
 
-router.get("/offres", requireRecruteur, (req, res) => {
-  res.render("offres", { role : req.session.role });
-})
+
 
 //TODO : à supprimer, utile pour les tests
 router.get("/candidat", (req, res) => {
@@ -123,4 +112,5 @@ router.get("/admin", (req, res) => {
     }
   });
 })
+
 module.exports = router;

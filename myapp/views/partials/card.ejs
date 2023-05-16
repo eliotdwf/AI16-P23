@@ -2,7 +2,11 @@
     <div class="card">
         <div class="card-body row">
             <div class="col-sm-8">
-                <h5 class="card-title"><%= offre.intitule %></h5>
+                <h5 class="card-title">
+                    <a id="offre-link" class="text-black" href="/offres/<%= offre.id_offre%>">
+                        <%= offre.intitule %>
+                    </a>
+                </h5>
                 <p class="card-text"><%= offre.lieu_mission%></p>
                 <button type="button" class="btn btn-primary btn-lg">Candidater</button>
             </div>

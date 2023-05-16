@@ -27,3 +27,7 @@
 .btn-icon-candidat:hover {
     color: rgba(0, 133, 252, 0.8) !important;
 }
+
+a#offre-link:hover {
+    color: #0085FC !important;
+}

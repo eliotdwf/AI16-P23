@@ -71,7 +71,7 @@ CREATE TABLE TypeContrat(
 
 CREATE TABLE OffreEmploi(
     id_offre INT,
-    intitule VARCHAR(50) NOT NULL,
+    intitule VARCHAR(75) NOT NULL,
     statut_poste VARCHAR(50) NOT NULL,
     resp_hierarchique VARCHAR(50) NOT NULL,
     lieu_mission VARCHAR(100) NOT NULL,
