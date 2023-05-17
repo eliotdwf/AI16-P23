@@ -2,7 +2,7 @@ let express = require('express');
 let bodyParser = require("body-parser");
 let offreModel = require("../models/offre");
 let userModel = require("../models/utilisateur");
-
+const requireRecruteur = require('../requireAuth/requireRecruteur');
 const requireRecruteurOrCandidat = require("../requireAuth/requireRecruteurOrCandidat");
 
 let router = express.Router();
@@ -59,7 +59,9 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
                     if(sirenUser === undefined) {
                         res.redirect("../404");
                     }
-                    else if(sirenUser === sirenOffre) {
+                    else if(sirenUser != sirenOffre) {
+                        console.log("sirenOffre: " + sirenOffre)
+                        console.log("sirenUser: " + sirenUser)
                         res.redirect("../403");
                     }
                     else {
@@ -75,6 +77,32 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
             }
         })
     }
+})
+
+router.get("/supprimer/:id", requireRecruteur,  (req, res) => {
+    const id = req.params.id;
+    offreModel.getSirenById(id, function(sirenOffre) {
+        if(sirenOffre === undefined) {
+            res.redirect("../404");
+        }
+        else {
+            userModel.getSirenByEmail(req.session.userid, function(sirenUser) {
+                if(sirenUser === undefined) {
+                    res.redirect("../404");
+                }
+                else if(sirenUser != sirenOffre) {
+                    console.log("sirenOffre: " + sirenOffre)
+                    console.log("sirenUser: " + sirenUser)
+                    res.redirect("../403");
+                }
+                else {
+                    /*offreModel.deleteById(id, function(rows) {
+                        //todo : à implémenter
+                    })*/
+                }
+            })
+        }
+    })
 })
 
 

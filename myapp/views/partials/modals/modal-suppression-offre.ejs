@@ -1,0 +1,19 @@
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Suppression de l'offre <i class="role-color bi bi-trash"></i></h1>
+            </div>
+            <div class="modal-body">
+                <i class="bi bi-exclamation-triangle"></i> Attention, vous êtes sur le point de supprimer définitivement cette offre.<br />
+                Vous pouvez également modifier son état pour la marquer comme “expirée” en cliquant sur le bouton <i class="role-color bi bi-pencil-square"></i>.<br />
+                Êtes vous sûr de vouloir supprimer définitivement cette offre ?<br />
+            </div>
+            <div class="modal-footer d-flex justify-content-around">
+                    <button type="button" class="btn btn-lg btn-danger" data-bs-dismiss="modal">Annuler <i class="bi bi-x-circle"></i></button>
+                    <a href="/offres/supprimer/<%= offreEmploi.id_offre %>" class="btn btn-lg btn-success">Confirmer <i class="bi bi-check-circle"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
