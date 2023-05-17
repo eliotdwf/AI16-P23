@@ -19,6 +19,9 @@ hr {
   height: 2px;
   border-top: 2px solid !important;
   opacity: 1;
+}
+
+.drop-shadow {
   filter: drop-shadow(0 2px 4px);
 }
 
