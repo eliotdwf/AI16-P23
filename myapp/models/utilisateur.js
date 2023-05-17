@@ -8,6 +8,18 @@ module.exports = {
             callback(results);
         });
     },
+    getSirenByEmail: function(email, callback) {
+        db.query("select siren from Utilisateur where email= ?",email, function
+            (err, results) {
+            if (err) throw err;
+            if(results[0]){
+                callback(results[0].siren);
+            }
+            else {
+                callback(undefined);
+            }
+        });
+    },
     getAll: function (actif= "%%", role = "%%", callback) {
         db.query(`select * from Utilisateur WHERE actif LIKE '${actif}' AND id_role LIKE '${role}'`, function (err, results) {
             if (err) throw err;

@@ -11,6 +11,10 @@
   max-width: 100%;
 }
 
+.logo-detail-offre {
+  max-width: 50%;
+}
+
 .card-logo {
   text-align: right;
 }

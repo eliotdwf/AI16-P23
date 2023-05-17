@@ -22,7 +22,7 @@ module.exports = {
         });
     },
     create: function (siren, nom, siege, description, logo, type, callback) {
-        sql = "INSERT INTO Organisation VALUES(?, ?, ?, ?, ?, ?)";
+        sql = "INSERT INTO Organisation VALUES(?, ?, ?, ?, ?, curdate(), ?)";
         db.query(sql, [siren, nom, siege, description, logo, type], function (err) {
             if(err) throw err;
             callback(true);

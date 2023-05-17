@@ -44,6 +44,7 @@ CREATE TABLE Organisation(
     siege_social VARCHAR(100) NOT NULL,
     description VARCHAR(5000) NOT NULL,
     chemin_logo VARCHAR(100) NOT NULL,
+    date_creation DATE NOT NULL DEFAULT curdate(),
     id_type_organisation INT NOT NULL,
     PRIMARY KEY(siren),
     FOREIGN KEY(id_type_organisation) REFERENCES TypeOrganisation(id_type_organisation)
@@ -55,7 +56,7 @@ CREATE TABLE Utilisateur(
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
     tel VARCHAR(50),
-    dateCreation DATE NOT NULL default curdate(),
+    date_creation DATE NOT NULL default curdate(),
     actif BOOLEAN default 1,
     id_role INT NOT NULL,
     siren VARCHAR(50),

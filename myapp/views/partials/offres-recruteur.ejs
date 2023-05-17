@@ -4,12 +4,16 @@
 </div>
 
 <div class="row gy-3">
-    <%- include('../partials/card-recruteur'); %>
-    <%- include('../partials/card-recruteur'); %>
-    <%- include('../partials/card-recruteur'); %>
-    <%- include('../partials/card-recruteur'); %>
-    <%- include('../partials/card-recruteur'); %>
-    <%- include('../partials/card-recruteur'); %>
-    <%- include('../partials/card-recruteur'); %>
-    <%- include('../partials/card-recruteur'); %>
+    <% if(offres.length === 0) { %>
+        <div class="d-flex justify-content-center">
+                <%- include("../partials/bs-alert", type="error", message="Aucun résultat ! Votre organisation n'a pas encore publié d'offre !"); %>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a href="/offres/creer-offre" class="btn btn-role btn-lg">Créer une offre</a>
+        </div>
+    <% } else {
+        offres.forEach(offreEmploi => { %>
+        <%- include('../partials/card-recruteur', offre=offreEmploi); %>
+    <% })
+    }%>
 </div>
