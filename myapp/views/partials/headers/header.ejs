@@ -1,0 +1,19 @@
+<%
+    switch (role) {
+    case 1:
+%>
+    <%- include('header-candidat'); %>
+<%  break;
+    case 2:
+%>
+    <%- include('header-recruteur'); %>
+<%  break;
+    case 3:
+%>
+    <%- include('header-admin'); %>
+<%  break;
+    default:
+%>
+    <%- include('header-default'); %>
+<%  break
+} %>
