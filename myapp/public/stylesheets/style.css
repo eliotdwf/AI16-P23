@@ -15,7 +15,7 @@
   text-align: right;
 }
 
-.hr-title {
+hr {
   height: 2px;
   border-top: 2px solid !important;
   opacity: 1;
@@ -76,6 +76,10 @@ a.text-light:hover {
 
 .required {
   color: red;
+}
+
+.cursor-pointer:hover {
+  cursor: pointer;
 }
 
 @media(max-width: 576px){

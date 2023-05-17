@@ -8,9 +8,121 @@
 <%- include('../partials/header', role=role); %>
 
 <main class="container">
-    <div class="col-sm-12 d-flex justify-content-center">
+    <div class="col-sm-12 mb-5 d-flex justify-content-center">
         <%- include("../partials/title", title=offre.intitule); %>
+    </div>
+    <div class="row">
+        <div class="col-md-8 fixed-column" style="border-left: solid black 1px; border-right: solid black 1px">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <h3><b>Description de l'offre</b></h3>
+                </div>
+                <div class="col-4"><hr class="m-0 role-color"></div>
+            </div>
+            <div class="mt-4 mb-5" style="text-align: justify;">
+                <%= offre.description %>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <h3><b>A propos de l'<%= offre.type_organisation.toLowerCase() %></b></h3>
+                </div>
+                <div class="col-4"><hr class="m-0 role-color"></div>
+            </div>
+            <div class="mt-4 mb-5" style="text-align: justify;">
+                <%= offre.description_orga %>
+            </div>
+        </div>
+        <div class="col-md-3 ms-5 scrollable-column" style="border-left: solid black 1px; border-right: solid black 1px">
+            <hr>
+            <h5 class="role-color"><b>Information pratiques</b></h5>
+            <div class="ms-1 mt-4 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Rythme">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-week-fill" viewBox="0 0 16 16">
+                        <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM9.5 7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm3 0h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zM2 10.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <%= offre.rythme%>
+                </div>
+            </div>
+            <div class="ms-1 mt-3 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Rémunération">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-currency-euro" viewBox="0 0 16 16">
+                        <path d="M4 9.42h1.063C5.4 12.323 7.317 14 10.34 14c.622 0 1.167-.068 1.659-.185v-1.3c-.484.119-1.045.17-1.659.17-2.1 0-3.455-1.198-3.775-3.264h4.017v-.928H6.497v-.936c0-.11 0-.219.008-.329h4.078v-.927H6.618c.388-1.898 1.719-2.985 3.723-2.985.614 0 1.175.05 1.659.177V2.194A6.617 6.617 0 0 0 10.341 2c-2.928 0-4.82 1.569-5.244 4.3H4v.928h1.01v1.265H4v.928z"/>
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <%= offre.salaire%>
+                </div>
+            </div>
+            <div class="ms-1 mt-3 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Lieu de la mission">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pin-map-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
+                        <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <%= offre.lieu_mission%>
+                </div>
+            </div>
+            <div class="ms-1 mt-3 mb-3 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Pièces requises pour la candidature">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <%= offre.pieces_requises_candidature %>
+                </div>
+            </div>
+            <div class="ms-1 mt-3 mb-3 d-flex justify-content-center">
+                <a class="btn btn-lg btn-role">Candidater</a>
+            </div>
+            <hr>
+            <h5 class="role-color"><b>Fiche <%= offre.nom_orga %></b></h5>
+            <div class="ms-1 mt-4 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Siège social">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="30" height="30" viewBox="0 0 512.000000 512.000000"
+                         preserveAspectRatio="xMidYMid meet">
+
+                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                           fill="currentColor" stroke="none">
+                            <path d="M310 2710 l0 -2410 -155 0 -155 0 0 -150 0 -150 2560 0 2560 0 0 150
+                                0 150 -165 0 -165 0 0 1035 0 1035 -355 2 -356 3 152 230 c399 606 433 665
+                                465 824 21 109 15 274 -15 379 -113 393 -495 650 -894 602 -182 -22 -341 -97
+                                -474 -224 -86 -81 -141 -157 -188 -260 -55 -121 -70 -194 -69 -346 1 -116 5
+                                -147 28 -223 14 -49 38 -111 52 -139 14 -28 143 -229 285 -446 142 -217 259
+                                -396 259 -398 0 -2 -214 -4 -475 -4 l-475 0 0 1375 0 1375 -1210 0 -1210 0 0
+                                -2410z m2120 885 l0 -1225 -345 0 -345 0 0 -1035 0 -1035 -565 0 -565 0 0
+                                2260 0 2260 910 0 910 0 0 -1225z m1616 494 c222 -68 376 -296 361 -534 -10
+                                -149 -14 -157 -350 -668 l-177 -269 -116 179 c-326 497 -363 556 -384 615
+                                -123 360 163 732 540 701 36 -3 92 -14 126 -24z m444 -2239 l0 -220 -1222 2
+                                -1223 3 -3 218 -2 217 1225 0 1225 0 0 -220z m0 -670 l0 -150 -1222 2 -1223 3
+                                -3 148 -3 147 1226 0 1225 0 0 -150z m0 -665 l0 -215 -1225 0 -1225 0 0 215 0
+                                215 1225 0 1225 0 0 -215z"/>
+                            <path d="M1000 4235 l0 -265 150 0 150 0 0 265 0 265 -150 0 -150 0 0 -265z"/>
+                            <path d="M1740 4235 l0 -265 150 0 150 0 0 265 0 265 -150 0 -150 0 0 -265z"/>
+                            <path d="M1000 3170 l0 -270 150 0 150 0 -2 268 -3 267 -147 3 -148 3 0 -271z"/>
+                            <path d="M1747 3433 c-4 -3 -7 -125 -7 -270 l0 -263 150 0 150 0 0 270 0 270
+-143 0 c-79 0 -147 -3 -150 -7z"/>
+                            <path d="M1000 2100 l0 -271 148 3 147 3 3 268 2 267 -150 0 -150 0 0 -270z"/>
+                            <path d="M1000 1035 l0 -265 150 0 150 0 0 265 0 265 -150 0 -150 0 0 -265z"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <%= offre.siege_social%>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 </body>
+
+<script>
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+</script>
 </html>

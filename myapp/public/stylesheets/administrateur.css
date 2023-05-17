@@ -1,4 +1,4 @@
-.hr-title{
+.role-color {
     color: #9643FF;
 }
 
@@ -20,32 +20,32 @@
     cursor: pointer;
 }
 
-.btn-admin {
+.btn-role {
     background-color: rgba(150, 67, 255, 1);
     color: #f8f9fa;
 }
 
-.btn-admin:hover {
+.btn-role:hover {
     background-color: rgba(150, 67, 255, 0.8) !important;
     color: #f8f9fa !important;
 }
 
-.btn-admin-outline {
+.btn-role-outline {
     border-color: rgba(150, 67, 255, 1);
     background-color: #f8f9fa;
     color: rgba(150, 67, 255, 1);
 }
 
-.btn-admin-outline:hover {
+.btn-role-outline:hover {
     background-color: rgba(150, 67, 255, 1) !important;
     color: #f8f9fa !important;
 }
 
-.btn-icon-admin {
+.btn-icon-role {
     color: rgba(150, 67, 255, 1) !important;
 }
 
-.btn-icon-admin:hover {
+.btn-icon-role:hover {
     color: rgba(150, 67, 255, 0.8) !important;
 }
 
@@ -57,6 +57,6 @@
 }
 /*
 
-.btn-admin
+.btn-role
 
 */

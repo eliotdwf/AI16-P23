@@ -4,7 +4,8 @@ module.exports = {
     findById: function (id_offre, callback) {
         const sql = `select OE.id_offre, OE.intitule, OE.statut_poste, OE.resp_hierarchique, OE.lieu_mission, OE.rythme,
                         OE.salaire, OE.description, EO.libelle, OE.date_validite, OE.pieces_requises_candidature,
-                        OE.siren, TM.nom, O.nom, O.siege_social, O.description, O.chemin_logo, TypeO.nom
+                        OE.siren, TM.nom AS type_metier, O.nom AS nom_orga, O.siege_social, O.description AS description_orga, 
+                        O.chemin_logo, TypeO.nom AS type_organisation
                         from OffreEmploi OE INNER JOIN Organisation O ON O.siren = OE.siren
                         INNER JOIN EtatOffre EO ON OE.id_etat_offre = EO.id_etat_offre
                         INNER JOIN TypeMetier TM ON OE.id_type_metier = TM.id_type_metier

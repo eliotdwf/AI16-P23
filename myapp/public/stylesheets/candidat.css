@@ -1,4 +1,4 @@
-.hr-title {
+.role-color {
     color: #0085FC;
 }
 
@@ -20,13 +20,36 @@
     cursor: pointer;
 }
 
-.btn-icon-candidat {
+
+.btn-role {
+    background-color: rgba(0, 133, 252, 1);
+    color: #f8f9fa;
+}
+
+.btn-role:hover {
+    background-color: rgba(0, 133, 252, 0.8) !important;
+    color: #f8f9fa !important;
+}
+
+.btn-role-outline {
+    border-color: rgba(0, 133, 252, 1);
+    background-color: #f8f9fa;
+    color: rgba(0, 133, 252, 1);
+}
+
+.btn-role-outline:hover {
+    background-color: rgba(0, 133, 252, 1) !important;
+    color: #f8f9fa !important;
+}
+
+.btn-icon-role {
     color: rgba(0, 133, 252, 1) !important;
 }
 
-.btn-icon-candidat:hover {
+.btn-icon-role:hover {
     color: rgba(0, 133, 252, 0.8) !important;
 }
+
 
 a#offre-link:hover {
     color: #0085FC !important;
