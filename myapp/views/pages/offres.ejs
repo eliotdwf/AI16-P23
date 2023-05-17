@@ -8,6 +8,16 @@
 <%- include('../partials/headers/header', role=role); %>
 
 <main class="container">
+    <div id="liste-offres" class="row justify-content-between">
+        <%- include('../partials/title', title="Offres d'emploi"); %>
+        <%- include('../partials/tri-filtres'); %>
+    </div>
+
+    <div id="alertMessages" class="row justify-content-center mt-4">
+        <% alertMessages.forEach(alertMessage => { %>
+            <%- include("../partials/bs-alert", message=alertMessage.message, type=alertMessage.type); %>
+        <% })%>
+    </div>
 
     <% if(role == 1) {%>
         <%- include('../partials/offres-candidat', offres=offresEmploi); %>

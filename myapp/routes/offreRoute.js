@@ -7,6 +7,7 @@ const requireRecruteurOrCandidat = require("../requireAuth/requireRecruteurOrCan
 
 let router = express.Router();
 
+let alertMessages = [];
 router.get("/", requireRecruteurOrCandidat, (req, res) => {
     let etatOffre;
     let siren;
@@ -20,7 +21,8 @@ router.get("/", requireRecruteurOrCandidat, (req, res) => {
                     console.log(rows);
                     res.render('offres', {
                         role: req.session.role,
-                        offresEmploi: rows
+                        offresEmploi: rows,
+                        alertMessages: alertMessages
                     });
                 })
             }
@@ -31,7 +33,8 @@ router.get("/", requireRecruteurOrCandidat, (req, res) => {
             console.log(rows);
             res.render('offres', {
                 role: req.session.role,
-                offresEmploi: rows
+                offresEmploi: rows,
+                alertMessages: alertMessages
             });
         })
     }
@@ -96,9 +99,15 @@ router.get("/supprimer/:id", requireRecruteur,  (req, res) => {
                     res.redirect("../403");
                 }
                 else {
-                    /*offreModel.deleteById(id, function(rows) {
-                        //todo : à implémenter
-                    })*/
+                    offreModel.deleteById(id, function(rows) {
+                        successMessage = "L'offre n°" + id + " a bien été supprimée";
+                        console.log("rows : " + rows + "\nrows[0] : " + rows[0]);
+                        alertMessages.push({
+                            type: "success",
+                            message: successMessage
+                        })
+                        res.redirect("/");
+                    })
                 }
             })
         }

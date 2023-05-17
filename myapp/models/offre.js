@@ -1,5 +1,7 @@
 const db = require('./db.js');
 
+
+
 module.exports = {
     findById: function (id_offre, callback) {
         const sql = `select OE.id_offre, OE.intitule, OE.statut_poste, OE.resp_hierarchique, OE.lieu_mission, OE.rythme,
@@ -16,6 +18,13 @@ module.exports = {
             if (err) throw err;
             callback(results);
         });
+    },
+    deleteById: function(id_offre, callback) {
+        const sql = "DELETE FROM OffreEmploi WHERE id_offre = ?";
+        db.query(sql, id_offre, function(err, results) {
+            if(err) throw err;
+            callback(results);
+        })
     },
     getProfilsOffres: function (siren = "%%", etatOffre = "%%", callback) {
         let sql =`select id_offre, intitule, lieu_mission, EO.id_etat_offre, EO.libelle AS etat, O.chemin_logo
