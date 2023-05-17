@@ -3,7 +3,7 @@ const db = require('./db.js');
 module.exports = {
     findById: function (id_offre, callback) {
         const sql = `select OE.id_offre, OE.intitule, OE.statut_poste, OE.resp_hierarchique, OE.lieu_mission, OE.rythme,
-                        OE.salaire, OE.description, EO.libelle AS etat_offre, OE.date_validite, OE.pieces_requises_candidature,
+                        OE.salaire, OE.description, EO.id_etat_offre, EO.libelle AS etat_offre, OE.date_validite, OE.pieces_requises_candidature,
                         OE.siren, TM.nom AS type_metier, O.nom AS nom_orga, O.siege_social, O.description AS description_orga, 
                         O.chemin_logo, O.date_creation AS date_creation_orga, TypeO.nom AS type_organisation
                         from OffreEmploi OE INNER JOIN Organisation O ON O.siren = OE.siren
@@ -18,7 +18,7 @@ module.exports = {
         });
     },
     getProfilsOffres: function (siren = "%%", etatOffre = "%%", callback) {
-        let sql =`select id_offre, intitule, lieu_mission, EO.libelle AS etat, O.chemin_logo
+        let sql =`select id_offre, intitule, lieu_mission, EO.id_etat_offre, EO.libelle AS etat, O.chemin_logo
                     from OffreEmploi INNER JOIN Organisation O ON O.siren = OffreEmploi.siren
                     INNER JOIN EtatOffre EO ON OffreEmploi.id_etat_offre = EO.id_etat_offre
                     WHERE EO.id_etat_offre LIKE '${etatOffre}' AND O.siren LIKE '${siren}'`;

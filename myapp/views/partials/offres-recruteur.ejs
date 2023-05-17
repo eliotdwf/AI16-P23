@@ -3,7 +3,8 @@
     <%- include('../partials/tri-filtres'); %>
 </div>
 
-<div class="row gy-3">
+<div class="row gy-3 mt-2">
+    <div id="messages"></div>
     <% if(offres.length === 0) { %>
         <div class="d-flex justify-content-center">
                 <%- include("../partials/bs-alert", type="error", message="Aucun résultat ! Votre organisation n'a pas encore publié d'offre !"); %>

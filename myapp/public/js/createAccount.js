@@ -118,9 +118,7 @@ document.getElementById("create-account-form").querySelectorAll('input, select')
     });
 });
 
-const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
-
-const popover = new bootstrap.Popover('.popover-dismiss', {
-    trigger: 'focus'
-})
+document.querySelectorAll('[data-bs-toggle="popover"]')
+    .forEach(popover => {
+        new bootstrap.Popover(popover)
+    })

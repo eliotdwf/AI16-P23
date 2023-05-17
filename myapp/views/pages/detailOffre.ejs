@@ -1,31 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('../partials/head', title='Accueil'); %>
+<%- include('../partials/head', title="Détail de l'offre"); %>
 
 <body>
 
 <%- include('../partials/header', role=role); %>
 
 <main class="container">
-
-
-    <div id="liste-offres" class="row justify-content-between">
-        <%- include('../partials/title', title="Offres d'emploi"); %>
-        <%- include('../partials/tri-filtres'); %>
+    <div class="col-sm-12 mb-5 d-flex justify-content-center">
+        <%- include("../partials/title", title=offre.intitule); %>
     </div>
+    <div class="row">
+        <div class="col-md-8 fixed-column">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <h3><b>Description de l'offre</b></h3>
+                </div>
+                <div class="col-4"><hr class="m-0 role-color drop-shadow"></div>
+            </div>
+            <div class="mt-4 mb-5" style="text-align: justify;">
+                <%= offre.description %>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <h3><b>A propos de l'<%= offre.type_organisation.toLowerCase() %></b></h3>
+                </div>
+                <div class="col-4"><hr class="m-0 role-color drop-shadow"></div>
+            </div>
+            <div class="mt-4 mb-5" style="text-align: justify;">
+                <%= offre.description_orga %>
+            </div>
+        </div>
+        <div class="col-md-3 ms-5 scrollable-column">
+            <% if(role === 2) {%>
+                <div class="d-flex justify-content-evenly">
+                    <a class="btn btn-role" href="/offres/modifier/<%= offre.id_offre %>">
+                        Modifier
+                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-pencil-square ms-1 mb-1" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg>
+                    </a>
+                    <a class="btn btn-role">
+                        Supprimer
+                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-trash ms-1 mb-1" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg>
+                    </a>
+                </div>
+                <hr>
+            <% } %>
+            <h5 class="role-color"><b>Information pratiques</b></h5>
+            <div class="ms-1 mt-4 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Rythme">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-week-fill" viewBox="0 0 16 16">
+                        <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM9.5 7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm3 0h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zM2 10.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <%= offre.rythme%>
+                </div>
+            </div>
+            <div class="ms-1 mt-3 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Rémunération">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-currency-euro" viewBox="0 0 16 16">
+                        <path d="M4 9.42h1.063C5.4 12.323 7.317 14 10.34 14c.622 0 1.167-.068 1.659-.185v-1.3c-.484.119-1.045.17-1.659.17-2.1 0-3.455-1.198-3.775-3.264h4.017v-.928H6.497v-.936c0-.11 0-.219.008-.329h4.078v-.927H6.618c.388-1.898 1.719-2.985 3.723-2.985.614 0 1.175.05 1.659.177V2.194A6.617 6.617 0 0 0 10.341 2c-2.928 0-4.82 1.569-5.244 4.3H4v.928h1.01v1.265H4v.928z"/>
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <%= offre.salaire%>
+                </div>
+            </div>
+            <div class="ms-1 mt-3 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Lieu de la mission">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pin-map-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
+                        <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <%= offre.lieu_mission%>
+                </div>
+            </div>
+            <div class="ms-1 mt-3 mb-3 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Pièces requises pour la candidature">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <%= offre.pieces_requises_candidature %>
+                </div>
+            </div>
+            <% if(role===1) { %>
+                <div class="ms-1 mt-3 d-flex justify-content-center">
+                    <a class="btn btn-lg btn-role">Candidater</a>
+                </div>
+            <% } else { %>
+                <div class="ms-1 mt-3 mb-3 d-flex">
+                    <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Date validité">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-hourglass-bottom" viewBox="0 0 16 16">
+                            <path d="M2 1.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1-.5-.5zm2.5.5v1a3.5 3.5 0 0 0 1.989 3.158c.533.256 1.011.791 1.011 1.491v.702s.18.149.5.149.5-.15.5-.15v-.7c0-.701.478-1.236 1.011-1.492A3.5 3.5 0 0 0 11.5 3V2h-7z"/>
+                        </svg>
+                    </div>
+                    <div class="ms-4">
+                        <%= offre.date_validite.toLocaleDateString() %>
+                    </div>
+                </div>
+            <% } %>
+            <div class="mt-3"><hr></div>
+            <h5 class="role-color"><b>Fiche <%= offre.nom_orga %></b></h5>
+            <div class="ms-1 mt-4 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Siège social">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="30" height="30" viewBox="0 0 512.000000 512.000000"
+                         preserveAspectRatio="xMidYMid meet">
 
-    <div class="row gy-3">
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
-        <%- include('../partials/card-recruteur'); %>
+                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                           fill="currentColor" stroke="none">
+                            <path d="M310 2710 l0 -2410 -155 0 -155 0 0 -150 0 -150 2560 0 2560 0 0 150
+                                0 150 -165 0 -165 0 0 1035 0 1035 -355 2 -356 3 152 230 c399 606 433 665
+                                465 824 21 109 15 274 -15 379 -113 393 -495 650 -894 602 -182 -22 -341 -97
+                                -474 -224 -86 -81 -141 -157 -188 -260 -55 -121 -70 -194 -69 -346 1 -116 5
+                                -147 28 -223 14 -49 38 -111 52 -139 14 -28 143 -229 285 -446 142 -217 259
+                                -396 259 -398 0 -2 -214 -4 -475 -4 l-475 0 0 1375 0 1375 -1210 0 -1210 0 0
+                                -2410z m2120 885 l0 -1225 -345 0 -345 0 0 -1035 0 -1035 -565 0 -565 0 0
+                                2260 0 2260 910 0 910 0 0 -1225z m1616 494 c222 -68 376 -296 361 -534 -10
+                                -149 -14 -157 -350 -668 l-177 -269 -116 179 c-326 497 -363 556 -384 615
+                                -123 360 163 732 540 701 36 -3 92 -14 126 -24z m444 -2239 l0 -220 -1222 2
+                                -1223 3 -3 218 -2 217 1225 0 1225 0 0 -220z m0 -670 l0 -150 -1222 2 -1223 3
+                                -3 148 -3 147 1226 0 1225 0 0 -150z m0 -665 l0 -215 -1225 0 -1225 0 0 215 0
+                                215 1225 0 1225 0 0 -215z"/>
+                            <path d="M1000 4235 l0 -265 150 0 150 0 0 265 0 265 -150 0 -150 0 0 -265z"/>
+                            <path d="M1740 4235 l0 -265 150 0 150 0 0 265 0 265 -150 0 -150 0 0 -265z"/>
+                            <path d="M1000 3170 l0 -270 150 0 150 0 -2 268 -3 267 -147 3 -148 3 0 -271z"/>
+                            <path d="M1747 3433 c-4 -3 -7 -125 -7 -270 l0 -263 150 0 150 0 0 270 0 270
+-143 0 c-79 0 -147 -3 -150 -7z"/>
+                            <path d="M1000 2100 l0 -271 148 3 147 3 3 268 2 267 -150 0 -150 0 0 -270z"/>
+                            <path d="M1000 1035 l0 -265 150 0 150 0 0 265 0 265 -150 0 -150 0 0 -265z"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <%= offre.siege_social%>
+                </div>
+            </div>
+            <div class="ms-1 mt-4 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Date de création">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m15-3.38a48.474 48.474 0 00-6-.37c-2.032 0-4.034.125-6 .37m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.17c0 .62-.504 1.124-1.125 1.124H4.125A1.125 1.125 0 013 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 016 13.12M12.265 3.11a.375.375 0 11-.53 0L12 2.845l.265.265zm-3 0a.375.375 0 11-.53 0L9 2.845l.265.265zm6 0a.375.375 0 11-.53 0L15 2.845l.265.265z" />
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <%= offre.date_creation_orga.toLocaleDateString() %>
+                </div>
+            </div>
+            <div class="ms-1 mt-4 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                    </svg>
+                </div>
+                <div class="ms-4">
+                    <img src="/img/logos/<%= offre.chemin_logo%>" class="logo-detail-offre">
+                </div>
+            </div>
+        </div>
     </div>
-
 </main>
 </body>
+
+<script>
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+</script>
 </html>

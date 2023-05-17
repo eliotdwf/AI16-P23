@@ -37,10 +37,6 @@ hr {
   text-align: right;
 }
 
-#filtres {
-  margin-bottom: 2%;
-}
-
 #filtre-salaire {
   padding-bottom: .3rem;
   --bs-card-border-color: var(--bs-border-color);
@@ -87,6 +83,27 @@ a.text-light:hover {
 
 .cursor-pointer:hover {
   cursor: pointer;
+}
+
+.offre-etat-1 {
+  padding-left: 2%;
+  padding-right: 2%;
+  background-color: #fcdc8b;
+  border-radius: 15px;
+}
+
+.offre-etat-2 {
+  padding-left: 2%;
+  padding-right: 2%;
+  background-color: lightgreen;
+  border-radius: 15px;
+}
+
+.offre-etat-3 {
+  padding-left: 2%;
+  padding-right: 2%;
+  background-color: lightcoral;
+  border-radius: 15px;
 }
 
 @media(max-width: 576px){

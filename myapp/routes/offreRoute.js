@@ -43,7 +43,7 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
     if(req.session.role == 1) {
         offreModel.findById(id, function(rows) {
             console.log("offre row: " + rows[0]);
-            res.render('detail-offre', {
+            res.render('detailOffre', {
                 role: req.session.role,
                 offre: rows[0]
             });
@@ -65,7 +65,7 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
                     else {
                         offreModel.findById(id, function(rows) {
                             console.log("offre row: " + rows[0]);
-                            res.render('detail-offre', {
+                            res.render('detailOffre', {
                                 role: req.session.role,
                                 offre: rows[0]
                             });
