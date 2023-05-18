@@ -41,4 +41,9 @@ function updateIconeEtatOffre() {
     etatOffreIcone.innerHTML = svg;
 }
 
+function updateOffre(idOffre) {
+    window.location.href = "/offres/" + idOffre;
+}
+
+
 etatOffre.addEventListener("change", updateIconeEtatOffre)

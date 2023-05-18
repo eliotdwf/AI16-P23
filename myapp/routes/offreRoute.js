@@ -29,6 +29,11 @@ router.get("/", requireRecruteurOrCandidat, (req, res) => {
     })
 })
 
+router.get("/candidatsList/:id", (req, res) => {
+    // TODO : aller récupérer les candidats dans la bdd
+    res.render("../partials/candidats");
+})
+
 router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
     const id = req.params.id;
     if(req.session.role == 1) {
@@ -163,6 +168,8 @@ router.get("/modifier/:id", requireRecruteur, (req, res) => {
         }
     });
 })
+
+
 
 
 module.exports = router;

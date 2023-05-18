@@ -8,8 +8,12 @@ module.exports = {
             callback(results);
         });
     },
-    getAll: function (callback) {
-        db.query('select * from Utilisateur', function (err, results) {
+    getDescriptionBySiren: function(siren, callback) {
+        let sql = `SELECT O.description, T.nom
+                   FROM Organisation O
+                   INNER JOIN TypeOrganisation T on O.id_type_organisation = T.id_type_organisation
+                   WHERE O.siren = ?`;
+        db.query(sql,siren, function (err, results) {
             if (err) throw err;
             callback(results);
         });

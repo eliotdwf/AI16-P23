@@ -94,5 +94,14 @@ router.post('/create', upload.single("logo"), function (req, res) {
     })
 });
 
+router.get("/description/:siren", (req, res) => {
+    orgaModel.getDescriptionBySiren(req.params.siren, function(rows){
+        res.render("../partials/description-orga", {
+            type_organisation: rows[0].nom,
+            description: rows[0].description
+        })
+    })
+})
+
 module.exports = router;
 //module.exports = multer({storage}).single("image");
