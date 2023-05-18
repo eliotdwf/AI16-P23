@@ -37,7 +37,7 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
         })
     }
     else {
-        checkSirenOffreUser(id, req.session.userid, function(error, sirenUser, sirenOffre) {
+        checkSirenOffreUser(id, req.session.siren, function(error, sirenUser, sirenOffre) {
             if (error) {
                 res.redirect("../" + error);
             } else {

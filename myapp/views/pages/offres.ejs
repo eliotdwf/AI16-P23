@@ -18,11 +18,8 @@
         <% } %>
     </div>
 
-    <div id="alertMessages" class="row justify-content-center mt-4">
-        <%# alertMessages.forEach(alertMessage => { %>
-            <%#- include("../partials/bs-alert", message=alertMessage.message, type=alertMessage.type); %>
-        <%# })%>
-    </div>
+    <div id="alertMessages" class="row justify-content-center mt-4"></div>
+
     <div id="liste-offres" class="row gy-3 mt-1">
         <% if(role == 1) {%>
             <%- include('../partials/offres-candidat', offres=offresEmploi); %>

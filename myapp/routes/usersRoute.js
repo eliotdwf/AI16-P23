@@ -80,18 +80,21 @@ router.post('/authentication', function (req, res, next) {
       req.session.loggedin = true;
       req.session.username = mail;
       req.session.userid = mail;
-      let resStatus = 200;
       if(role === 2) {
         getSirenRecruteur(mail, function(status, siren) {
           if(status === 200) {
             req.session.siren = siren;
+            console.log("Successful login")
+            console.log(req.session);
           }
-          resStatus = status;
+          res.sendStatus(status)
         })
       }
-      console.log("Successful login")
-      console.log(req.session);
-      res.sendStatus(resStatus);
+      else {
+        console.log("Successful login")
+        console.log(req.session);
+        res.sendStatus(200);
+      }
     }
     else{
       console.log("Login failed")

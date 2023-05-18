@@ -1,5 +1,11 @@
 let alertMessages = document.getElementById("alertMessages");
 
+let alertMessagesContent = localStorage.getItem("alertMessages");
+if(alertMessagesContent){
+    updateAlertMessages(alertMessagesContent);
+}
+
+
 function supprimerOffre(idOffre, intituleOffre) {
     fetch("/offres/supprimer/" + idOffre, {
         headers: {
@@ -13,19 +19,12 @@ function supprimerOffre(idOffre, intituleOffre) {
             if(response.status === 200) {
                 response.text().then(content => {
                     updateAlertMessages(content);
-                    updateOffresList();/*
-
-                    let modal = document.getElementById('modalSuppressionOffre');
-                    modal.modal("hide");*/
+                    updateOffresList();
                 })
             }
             else {
                 response.text().then(content => {
-                    updateAlertMessages(content);/*
-                    let modal = document.getElementById('modalSuppressionOffre');
-                    modal.classList.remove('show');
-                    modal.setAttribute('aria-hidden', 'true');
-                    modal.style.display = 'none';*/
+                    updateAlertMessages(content);
                 })
             }
         })
