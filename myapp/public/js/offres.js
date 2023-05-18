@@ -3,6 +3,7 @@ let alertMessages = document.getElementById("alertMessages");
 let alertMessagesContent = localStorage.getItem("alertMessages");
 if(alertMessagesContent){
     updateAlertMessages(alertMessagesContent);
+    localStorage.removeItem("alertMessages");
 }
 
 

@@ -2,6 +2,10 @@ let express = require('express');
 let bodyParser = require("body-parser");
 let offreModel = require("../models/offreModel");
 let userModel = require("../models/utilisateurModel");
+let typeContratModel = require("../models/typeContratModel");
+let typeMetierModel = require("../models/typeMetierModel");
+let etatOffreModel = require("../models/etatOffreModel");
+
 const requireRecruteur = require('../requireAuth/requireRecruteur');
 const requireRecruteurOrCandidat = require("../requireAuth/requireRecruteurOrCandidat");
 
@@ -42,7 +46,6 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
                 res.redirect("../" + error);
             } else {
                 offreModel.findById(id, function(rows) {
-                    console.log("offre row: " + rows[0]);
                     res.render('detailOffre', {
                         role: req.session.role,
                         offre: rows[0]
@@ -99,7 +102,6 @@ router.post('/offresList', function (req, res) {
     let siren = req.session.siren;
     console.log("tri :" + tri)
     offreModel.getProfilsOffres(role, siren, etatOffre, tri, function (rows) {
-        console.log(rows);
         let render = (role === 1) ? "../partials/offres-candidat" : "../partials/offres-recruteur";
         res.status(200).render(render, {
             role: role,
@@ -107,6 +109,60 @@ router.post('/offresList', function (req, res) {
         });
     })
 });
+
+router.get("/modifier/:id", requireRecruteur, (req, res) => {
+    const id = req.params.id;
+    /*const intitule = req.body.intitule;
+    const statut_poste = req.body.statutPoste;
+    const resp_hierarchique = req.body.respHierarchique;
+    const lieu_mission = req.body.lieuMission;
+    const rythme = req.body.rythme;
+    const salaire = req.body.salaire;
+    const description = req.body.description;
+    const id_etat_offre = req.body.idEtatOffre;
+    const date_validite = req.body.dateValidite;
+    const pieces_requises_candidature = req.body.piecesCandidature;
+    const nb_pieces_candidatures = req.body.nbPiecesCandidature;
+    const id_type_metier = req.body.idTypeMetier;
+    const id_type_contrat = req.body.idTypeContrat
+    offreModel.updateById(id, function(result) {
+        if(result){
+            res.status(200).render("../partials/bs-alert",{
+                type: "success",
+                message: `L'offre intitulée "${intitule}" a bien été supprimée !`
+            });
+        }
+        else {
+            res.status(500).render("../partials/bs-alert", {
+                type : "error",
+                message: `Une erreur est survenue lors de la suppression de l'offre intitulée "${intitule}". Echec de l'opération`
+            });
+        }
+    })*/
+    checkSirenOffreUser(id, req.session.siren, function(error, sirenUser, sirenOffre) {
+        if (error) {
+            res.redirect("../" + error);
+        }
+        else {
+            offreModel.findById(id, function(offres) {
+                typeContratModel.getAll((typesContrat)=> {
+                    typeMetierModel.getAll(typesMetier => {
+                        console.log(typesMetier)
+                        etatOffreModel.getAll(etatsOffre =>{
+                            res.render('modificationOffre', {
+                                role: req.session.role,
+                                offre: offres[0],
+                                typesContrat: typesContrat,
+                                typesMetier: typesMetier,
+                                etatsOffre: etatsOffre
+                            });
+                        })
+                    })
+                })
+            });
+        }
+    });
+})
 
 
 module.exports = router;

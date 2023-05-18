@@ -23,7 +23,9 @@
                 <div class="col-4"><hr class="m-0 role-color drop-shadow"></div>
             </div>
             <div class="mt-4 mb-5" style="text-align: justify;">
-                <%= offre.description %>
+                <textarea id="description-offre" style="width: 100%" class="form-control">
+                    <%= offre.description %>
+                </textarea>
             </div>
             <div class="row justify-content-center">
                 <div class="col-12 text-center">
@@ -39,13 +41,14 @@
         <div class="col-md-3 ms-md-5">
             <% if(role === 2) {%>
                 <div class="row gy-2 justify-content-around">
-                    <a class="col-lg-5 btn btn-role" href="/offres/modifier/<%= offre.id_offre %>">
-                        Modifier
-                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-pencil-square ms-1 mb-1" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    <button class="col-lg-5 btn btn-role" onclick="update(<%= offre.id_offre %>)">
+                        Enregistrer
+                        <svg width="21" height="21" viewBox="0 0 39 39" fill="none" class="ms-1 mb-1" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M30.875 34.125H8.125C7.26305 34.125 6.4364 33.7826 5.8269 33.1731C5.21741 32.5636 4.875 31.737 4.875 30.875V8.125C4.875 7.26305 5.21741 6.4364 5.8269 5.8269C6.4364 5.21741 7.26305 4.875 8.125 4.875H26L34.125 13V30.875C34.125 31.737 33.7826 32.5636 33.1731 33.1731C32.5636 33.7826 31.737 34.125 30.875 34.125Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M27.625 34.125V21.125H11.375V34.125" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11.375 4.875V13H24.375" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </a>
+                    </button>
                     <a class="col-lg-5 btn btn-role" data-bs-toggle="modal" data-bs-target="#modalSuppressionOffre">
                         Supprimer
                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-trash ms-1 mb-1" viewBox="0 0 16 16">
@@ -84,8 +87,8 @@
                         <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM9.5 7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm3 0h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zM2 10.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
                     </svg>
                 </div>
-                <div class="ms-4">
-                    <%= offre.rythme%>
+                <div class="ms-4 col-md-9">
+                    <input id="rythme" class="form-control" value="<%= offre.rythme%>">
                 </div>
             </div>
             <div class="ms-1 mt-3 d-flex">
@@ -94,8 +97,8 @@
                         <path d="M4 9.42h1.063C5.4 12.323 7.317 14 10.34 14c.622 0 1.167-.068 1.659-.185v-1.3c-.484.119-1.045.17-1.659.17-2.1 0-3.455-1.198-3.775-3.264h4.017v-.928H6.497v-.936c0-.11 0-.219.008-.329h4.078v-.927H6.618c.388-1.898 1.719-2.985 3.723-2.985.614 0 1.175.05 1.659.177V2.194A6.617 6.617 0 0 0 10.341 2c-2.928 0-4.82 1.569-5.244 4.3H4v.928h1.01v1.265H4v.928z"/>
                     </svg>
                 </div>
-                <div class="ms-4">
-                    <%= offre.salaire%>
+                <div class="ms-4 col-md-9">
+                    <input id="salaire" class="form-control" value="<%= offre.salaire%>">
                 </div>
             </div>
             <div class="ms-1 mt-3 d-flex">
@@ -105,8 +108,8 @@
                         <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
                     </svg>
                 </div>
-                <div class="ms-4">
-                    <%= offre.lieu_mission%>
+                <div class="ms-4 col-md-9">
+                    <input id="lieu-mission" class="form-control" value="<%= offre.lieu_mission%>">
                 </div>
             </div>
             <div class="ms-1 mt-3 mb-3 d-flex">
@@ -115,8 +118,8 @@
                         <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
                     </svg>
                 </div>
-                <div class="ms-4">
-                    <%= offre.pieces_requises_candidature %>
+                <div class="ms-4 col-md-9">
+                    <input id="pieces-candidatures" class="form-control" value="<%= offre.pieces_requises_candidature %>">
                 </div>
             </div>
             <div class="ms-1 mt-3 mb-3 d-flex">
@@ -125,8 +128,13 @@
                         <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"/>
                     </svg>
                 </div>
-                <div class="ms-4">
-                    <%= offre.type_metier %>
+                <div class="ms-4 col-md-9">
+                    <select id="type-metier" class="form-select form-control">
+                        <% typesMetier.forEach(metier => { %>
+                            <% let selected = (metier.id_type_metier == offre.id_type_metier) ? "selected" : "" %>
+                            <option value="<%= metier.id_type_metier %>" <%=selected %>><%= metier.nom %></option>
+                        <% }) %>
+                    </select>
                 </div>
             </div>
             <div class="ms-1 mt-3 mb-3 d-flex">
@@ -168,52 +176,59 @@
 </g>
 </svg>
                 </div>
-                <div class="ms-4">
-                    <%= offre.type_contrat %>
+                <div class="ms-4 col-md-9">
+                    <select id="type-contrat" class="form-select form-control">
+                        <% typesContrat.forEach(contrat => { %>
+                            <% let selected = (contrat.id_type_contrat == offre.id_type_contrat) ? "selected" : "" %>
+                            <option value="<%= contrat.id_type_contrat %>" <%=selected %>><%= contrat.libelle %></option>
+                        <% }) %>
+                    </select>
                 </div>
             </div>
-            <% if(role===1) { %>
-                <div class="ms-1 mt-3 d-flex justify-content-center">
-                    <a class="btn btn-lg btn-role">Candidater</a>
+            <div class="ms-1 mt-3 mb-3 d-flex">
+                <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Date validité">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-hourglass-bottom" viewBox="0 0 16 16">
+                        <path d="M2 1.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1-.5-.5zm2.5.5v1a3.5 3.5 0 0 0 1.989 3.158c.533.256 1.011.791 1.011 1.491v.702s.18.149.5.149.5-.15.5-.15v-.7c0-.701.478-1.236 1.011-1.492A3.5 3.5 0 0 0 11.5 3V2h-7z"/>
+                    </svg>
                 </div>
-            <% } else { %>
-                <div class="ms-1 mt-3 mb-3 d-flex">
-                    <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Date validité">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-hourglass-bottom" viewBox="0 0 16 16">
-                            <path d="M2 1.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1-.5-.5zm2.5.5v1a3.5 3.5 0 0 0 1.989 3.158c.533.256 1.011.791 1.011 1.491v.702s.18.149.5.149.5-.15.5-.15v-.7c0-.701.478-1.236 1.011-1.492A3.5 3.5 0 0 0 11.5 3V2h-7z"/>
-                        </svg>
-                    </div>
-                    <div class="ms-4">
-                        <%= offre.date_validite.toLocaleDateString() %>
-                    </div>
+                <div class="ms-4 col-md-9">
+                    <%  let dateParts = offre.date_validite.toLocaleDateString().split("/");
+                        let dateISO = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
+                    %>
+                    <input type="date" id="date-validite" class="form-control" value="<%= dateISO %>">
                 </div>
-                <div class="ms-1 mt-3 mb-3 d-flex">
-                    <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Etat de publication">
-                        <% switch(offre.id_etat_offre) {
-                            case 1 : %>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                            <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5zm-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
-                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                        </svg>
-                        <%  break;
-                            case 2: %>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
-                            <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                        </svg>
-                        <%  break;
-                            case 3: %>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-                            <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                        </svg>
-                        <% } %>
-                    </div>
-                    <div class="ms-4 offre-etat-<%= offre.id_etat_offre%>">
-                        <%= offre.etat_offre %>
-                    </div>
+            </div>
+            <div class="ms-1 mt-3 mb-3 d-flex">
+                <div id="icon-etat-offre" class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Etat de publication">
+                    <% switch(offre.id_etat_offre) {
+                    case 1 : %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
+                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5zm-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                    </svg>
+                    <%  break;
+                    case 2: %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
+                        <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                    </svg>
+                    <%  break;
+                        case 3: %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
+                        <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                    </svg>
+                    <% } %>
                 </div>
-            <% } %>
+                <div class="ms-4 col-md-9">
+                    <select id="etat-offre" class="form-select form-control">
+                        <% etatsOffre.forEach(etat => { %>
+                            <% let selected = (etat.id_etat_offre == offre.id_etat_offre) ? "selected" : "" %>
+                            <option value="<%= etat.id_etat_offre %>" <%=selected %>><%= etat.libelle %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
             <div class="mt-3"><hr></div>
             <h5 class="role-color"><b>Fiche <%= offre.nom_orga %></b></h5>
             <div class="ms-1 mt-4 d-flex">
@@ -282,4 +297,5 @@
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 </script>
 <script src="/js/detailOffre.js"></script>
+<script src="/js/modificationOffre.js"></script>
 </html>
