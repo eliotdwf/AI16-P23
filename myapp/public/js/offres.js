@@ -1,21 +1,35 @@
 let alertMessages = document.getElementById("alertMessages");
 
-/*function supprimerOffre(idOffre) {
-    fetch("/offres/supprimer/" + idOffre)
+function supprimerOffre(idOffre, intituleOffre) {
+    fetch("/offres/supprimer/" + idOffre, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({ "intitule" : intituleOffre })
+    })
         .then(response => {
             if(response.status === 200) {
                 response.text().then(content => {
                     updateAlertMessages(content);
-                    updateOffresList();
+                    updateOffresList();/*
+
+                    let modal = document.getElementById('modalSuppressionOffre');
+                    modal.modal("hide");*/
                 })
             }
             else {
                 response.text().then(content => {
-                    updateAlertMessages(content);
+                    updateAlertMessages(content);/*
+                    let modal = document.getElementById('modalSuppressionOffre');
+                    modal.classList.remove('show');
+                    modal.setAttribute('aria-hidden', 'true');
+                    modal.style.display = 'none';*/
                 })
             }
         })
-}*/
+}
 
 function updateOffresList() {
     console.log("maj des offres en cours");
@@ -47,6 +61,11 @@ function updateOffresList() {
                 })
             }
         })
+}
+
+function updateAlertMessages(alertMessage){
+    let alertMessages = document.getElementById("alertMessages");
+    alertMessages.innerHTML += alertMessage;
 }
 
 document.getElementById("select-tri-offres").addEventListener("change", updateOffresList);

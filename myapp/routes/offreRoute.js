@@ -66,30 +66,24 @@ function checkSirenOffreUser(offreId, sirenUser, callback) {
     });
 }
 
-/*router.get("/supprimer/:id", requireRecruteur,  (req, res) => {
+router.post("/supprimer/:id", requireRecruteur,  (req, res) => {
     const id = req.params.id;
-    offreModel.getSirenById(id, function(sirenOffre) {
-        if(sirenOffre === undefined) {
-            res.sendStatus(404);
+    const intitule = req.body.intitule;
+    offreModel.deleteById(id, function(result) {
+        if(result){
+            res.status(200).render("../partials/bs-alert",{
+                type: "success",
+                message: `L'offre intitulée "${intitule}" a bien été supprimée !`
+            });
         }
         else {
-            offreModel.deleteById(id, function(result) {
-                if(result){
-                    res.status(200).render("../partials/bs-alert",{
-                        type: "success",
-                        message: `L'offre n°${id} a bien été supprimée !`
-                    });
-                }
-                else {
-                    res.status(500).render("../partials/bs-alert", {
-                        type : "error",
-                        message: `Une erreur est survenue lors de la suppression de l'offre n°${id}. Echec de l'opération`
-                    });
-                }
-            })
+            res.status(500).render("../partials/bs-alert", {
+                type : "error",
+                message: `Une erreur est survenue lors de la suppression de l'offre intitulée "${intitule}". Echec de l'opération`
+            });
         }
     })
-});*/
+});
 
 router.post('/offresList', function (req, res) {
     let tri = req.body.tri;
