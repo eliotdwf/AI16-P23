@@ -26,11 +26,19 @@ module.exports = {
             callback(results);
         })
     },
-    getProfilsOffres: function (siren = "%%", etatOffre = "%%", callback) {
+    getProfilsOffres: function (role, siren = "%%", etatOffre = "%%", tri, callback) {
         let sql =`select id_offre, intitule, lieu_mission, EO.id_etat_offre, EO.libelle AS etat, O.chemin_logo
                     from OffreEmploi INNER JOIN Organisation O ON O.siren = OffreEmploi.siren
                     INNER JOIN EtatOffre EO ON OffreEmploi.id_etat_offre = EO.id_etat_offre
                     WHERE EO.id_etat_offre LIKE '${etatOffre}' AND O.siren LIKE '${siren}'`;
+        if(role === 1) {    //candidat
+            sql += " AND EO.id_etat_offre=2 ORDER BY OffreEmploi.date_publication";
+            if(tri != undefined && tri === "2") sql += " DESC";
+        }
+        else {  //recruteur
+            sql += " ORDER BY OffreEmploi.date_creation";
+            if(tri != undefined && tri === "2") sql += " DESC";
+        }
         db.query(sql, function (err, results) {
             if (err) throw err;
             callback(results);

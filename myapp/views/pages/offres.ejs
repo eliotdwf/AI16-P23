@@ -8,26 +8,32 @@
 <%- include('../partials/headers/header', role=role); %>
 
 <main class="container">
-    <div id="liste-offres" class="row justify-content-between">
+    <div class="row justify-content-between">
         <%- include('../partials/title', title="Offres d'emploi"); %>
-        <%- include('../partials/tri-filtres'); %>
+        <% if(role == 1) {%>
+            <%- include('../partials/tri-filtres-candidat'); %>
+        <% }
+        else { %>
+            <%- include('../partials/tri-filtres-recruteur'); %>
+        <% } %>
     </div>
 
     <div id="alertMessages" class="row justify-content-center mt-4">
-        <% alertMessages.forEach(alertMessage => { %>
-            <%- include("../partials/bs-alert", message=alertMessage.message, type=alertMessage.type); %>
-        <% })%>
+        <%# alertMessages.forEach(alertMessage => { %>
+            <%#- include("../partials/bs-alert", message=alertMessage.message, type=alertMessage.type); %>
+        <%# })%>
     </div>
-
-    <% if(role == 1) {%>
-        <%- include('../partials/offres-candidat', offres=offresEmploi); %>
-    <% }
-    else { %>
-        <%- include('../partials/offres-recruteur', offres=offresEmploi); %>
-    <% } %>
-
+    <div id="liste-offres" class="row gy-3 mt-1">
+        <% if(role == 1) {%>
+            <%- include('../partials/offres-candidat', offres=offresEmploi); %>
+        <% }
+        else { %>
+            <%- include('../partials/offres-recruteur', offres=offresEmploi); %>
+        <% } %>
+    </div>
 
 
 </main>
 </body>
+<script src="/js/offres.js"></script>
 </html>

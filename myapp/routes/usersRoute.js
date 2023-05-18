@@ -1,8 +1,9 @@
 let express = require('express');
 let bodyParser = require("body-parser");
-let userModel = require("../models/utilisateur");
+let userModel = require("../models/utilisateurModel");
 const {log} = require("debug");
 const requireAdminRights = require('../requireAuth/requireAdmin');
+const offreModel = require("../models/offreModel");
 
 let router = express.Router();
 
@@ -79,9 +80,18 @@ router.post('/authentication', function (req, res, next) {
       req.session.loggedin = true;
       req.session.username = mail;
       req.session.userid = mail;
+      let resStatus = 200;
+      if(role === 2) {
+        getSirenRecruteur(mail, function(status, siren) {
+          if(status === 200) {
+            req.session.siren = siren;
+          }
+          resStatus = status;
+        })
+      }
       console.log("Successful login")
       console.log(req.session);
-      res.sendStatus(200);
+      res.sendStatus(resStatus);
     }
     else{
       console.log("Login failed")
@@ -89,6 +99,17 @@ router.post('/authentication', function (req, res, next) {
     }
   });
 })
+
+function getSirenRecruteur(email, callback) {
+  userModel.getSirenByEmail(email, function(siren){
+    if(siren === undefined) {
+      callback(404);
+    }
+    else {
+      callback(200, siren);
+    }
+  });
+}
 
 router.post('/create', function(req, res) {
   console.log("création du compte ...");
@@ -111,5 +132,74 @@ router.post('/create', function(req, res) {
     }
   })
 });
+
+
+//TODO : à supprimer, utile pour les tests
+router.get("/candidat", (req, res) => {
+  let mail = "candidat@mail.fr";
+  let mdp = "mdp";
+  userModel.isValid(mail, mdp, function(role) {
+    if(role === 1 || role === 2 || role === 3) {
+      req.session.role = role;
+      req.session.loggedin = true;
+      req.session.username = mail;
+      req.session.userid = mail;
+      console.log(req.session);
+      res.redirect("/");
+    }
+    else{
+      res.redirect("/connexion");
+    }
+  });
+})
+
+//TODO : à supprimer, utile pour les tests
+router.get("/recruteur", (req, res) => {
+  let mail = "amazon@mail.fr";
+  let mdp = "mdp";
+  userModel.isValid(mail, mdp, function(role) {
+    if(role === 1 || role === 2 || role === 3) {
+      req.session.role = role;
+      req.session.loggedin = true;
+      req.session.username = mail;
+      req.session.userid = mail;
+      if(role === 2) {
+        getSirenRecruteur(mail, function(status, siren) {
+          if(status === 200) {
+            req.session.siren = siren;
+            console.log(req.session);
+            res.redirect("/");
+          }
+        })
+      }
+      else {
+        console.log(req.session);
+        res.redirect("/");
+      }
+    }
+    else{
+      res.redirect("/connexion");
+    }
+  });
+})
+
+//TODO : à supprimer, utile pour les tests
+router.get("/admin", (req, res) => {
+  let mail = "admin@mail.fr";
+  let mdp = "mdp";
+  userModel.isValid(mail, mdp, function(role) {
+    if(role === 1 || role === 2 || role === 3) {
+      req.session.role = role;
+      req.session.loggedin = true;
+      req.session.username = mail;
+      req.session.userid = mail;
+      console.log(req.session);
+      res.redirect("/");
+    }
+    else{
+      res.redirect("/connexion");
+    }
+  });
+})
 
 module.exports = router;

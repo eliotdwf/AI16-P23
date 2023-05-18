@@ -1,0 +1,69 @@
+<form class="col-sm-6 align-self-center">
+    <div class="row justify-content-end">
+        <label id="lbl-tri" class="col-sm-auto col-form-label" for="select-tri-offres">Trier par :</label>
+        <div class="col-sm-auto">
+            <select id="select-tri-offres" class="form-select">
+                <option value="1" selected>Date publication croissante</option>
+                <option value="2">Date publication décroissante</option>
+            </select>
+        </div>
+        <div class="col-sm-auto">
+            <a id="btn-filtrer" data-bs-toggle="collapse" href="#filtres" role="button" aria-expanded="false" aria-controls="filtres" title="Filtres">
+                <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39" fill="currentColor" class="bi bi-filter-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M7 11.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</form>
+
+<div class="col-12 collapse show" id="filtres">
+    <div class="card card-body">
+        <form class="row gy-2 justify-content-between align-items-center">
+            <div class="col-sm-4 form-floating">
+                <select class="form-select" id="select-type-metier">
+                    <option value="0" selected>Tous</option>
+                    <option value="1">Agriculture</option>
+                    <option value="2">Banques/Finances</option>
+                    <option value="3">Informatique</option>
+                </select>
+                <label for="select-type-metier">Type de métier</label>
+            </div>
+            <div id="filtre-salaire" class="card col-sm-4">
+                <label class="form-label small">Salaire</label>
+<!--                <div class="col-sm-auto">-->
+                    <div class="row align-items-center justify-content-center">
+                        Entre
+                        <div class="col-auto">
+                            <select class="form-select">
+                                <option value="1" selected>25</option>
+                                <option value="2">50</option>
+                                <option value="3">75</option>
+                            </select>
+                        </div>
+                        et
+                        <div class="col-auto">
+                            <select class="form-select">
+                                <option value="1">25</option>
+                                <option value="2">50</option>
+                                <option value="3">75</option>
+                            </select>
+                        </div>
+                        K€ /an
+                    </div>
+<!--                </div>-->
+            </div>
+            <div class="col-sm-4 form-floating">
+                <select class="form-select" id="select-teletravail">
+                    <option value="0" selected>Sans filtre</option>
+                    <option value="1">Jamais</option>
+                    <option value="2">2 jours/semaine</option>
+                    <option value="3">5 jours/semaine</option>
+                    <option value="4">Non défini</option>
+                </select>
+                <label for="select-teletravail">Télétravail</label>
+            </div>
+        </form>
+    </div>
+</div>

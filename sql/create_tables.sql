@@ -71,7 +71,7 @@ CREATE TABLE TypeContrat(
 );
 
 CREATE TABLE OffreEmploi(
-    id_offre INT,
+    id_offre INT AUTO_INCREMENT,
     intitule VARCHAR(75) NOT NULL,
     statut_poste VARCHAR(50) NOT NULL,
     resp_hierarchique VARCHAR(50) NOT NULL,
@@ -83,6 +83,8 @@ CREATE TABLE OffreEmploi(
     date_validite DATE NOT NULL,
     pieces_requises_candidature VARCHAR(50) NOT NULL,
     nb_pieces_dossier_candidature INT NOT NULL,
+    date_creation DATE NOT NULL DEFAULT curdate(),
+    date_publication DATE,
     siren VARCHAR(50) NOT NULL,
     id_type_metier INT,
     id_type_contrat INT,

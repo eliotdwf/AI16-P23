@@ -1,4 +1,4 @@
-<div class="row gy-3 mt-1">
+
     <% if(offres.length === 0) { %>
         <div class="d-flex justify-content-center">
                 <%- include("../partials/bs-alert", type="error", message="Aucun résultat ! Votre organisation n'a pas encore publié d'offre !"); %>
@@ -11,4 +11,3 @@
         <%- include('../partials/card-recruteur', offre=offreEmploi); %>
     <% })
     }%>
-</div>
