@@ -106,6 +106,13 @@ a.text-light:hover {
   border-radius: 15px;
 }
 
+.btn-disabled, btn-disabled:hover {
+  color: var(--bs-btn-disabled-color);
+  background-color: var(--bs-btn-disabled-bg);
+  border-color: var(--bs-btn-disabled-border-color) !important;
+  opacity: var(--bs-btn-disabled-opacity);
+}
+
 @media(max-width: 576px){
   .card-logo{
     display: none;
