@@ -123,3 +123,15 @@ CREATE TABLE DemandeDevenirRecruteur(
     FOREIGN KEY(email) REFERENCES Utilisateur(email),
     FOREIGN KEY(siren) REFERENCES Organisation(siren)
 );
+
+/*DELIMITER $$
+CREATE TRIGGER update_date_publication
+    BEFORE UPDATE ON OffreEmploi
+    FOR EACH ROW
+BEGIN
+    IF NEW.id_etat_offre = 2 AND OLD.id_etat_offre = 1 THEN
+        SET NEW.date_publication = CURDATE();
+    END IF;
+END$$
+DELIMITER ;*/
+

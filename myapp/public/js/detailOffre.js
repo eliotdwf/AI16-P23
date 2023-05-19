@@ -1,3 +1,9 @@
+let alertMessagesContent = localStorage.getItem("alertMessages");
+if(alertMessagesContent){
+    updateAlertMessages(alertMessagesContent);
+    localStorage.removeItem("alertMessages");
+}
+
 function supprimerOffre(idOffre, intituleOffre) {
     fetch("/offres/supprimer/" + idOffre, {
         headers: {

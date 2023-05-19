@@ -8,11 +8,18 @@
 <%- include('../partials/headers/header', role=role); %>
 
 <main class="container">
-    <div class="col-sm-12 mb-3 d-flex justify-content-center">
-        <%- include("../partials/title", title=offre.intitule); %>
+    <div class="col-12 mb-3 d-flex justify-content-center">
+        <div class="col-4">
+            <input id="intitule-offre" class="form-control col-auto" value="<%= offre.intitule %>">
+            <hr class="role-color drop-shadow">
+        </div>
     </div>
 
-    <div id="alertMessages" class="row justify-content-center mt-3 mb-3"></div>
+    <div class="col-12 d-flex justify-content-center mt-3 mb-3">
+        <div id="errorMessage" class="alert alert-danger text-center col-md-8"  style="display: none" role="alert">
+            Attention, tous les champs doivent être complétés !
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-8">

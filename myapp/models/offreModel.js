@@ -28,6 +28,23 @@ module.exports = {
             callback(results);
         })
     },
+    updateById: function(id, intitule, lieu_mission, rythme, salaire, description, id_etat_offre, date_validite,
+                         pieces_requises_candidature, id_type_metier, id_type_contrat, callback) {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const today = `${year}-${month}-${day}`;
+        let datePublication = (id_etat_offre == 2) ? today : null;
+        const sql = `UPDATE OffreEmploi SET intitule=?, lieu_mission=?, rythme=?, salaire=?, description=?, id_etat_offre=?, 
+                       date_validite=?, pieces_requises_candidature=?, date_publication=?, id_type_metier=?, id_type_contrat=?
+                       WHERE id_offre=?`
+        db.query(sql, [ intitule, lieu_mission, rythme, salaire, description, id_etat_offre, date_validite,
+            pieces_requises_candidature, datePublication, id_type_metier, id_type_contrat, id], function(err, results) {
+            if(err) throw err;
+            callback(results);
+        })
+    },
     getProfilsOffres: function (role, siren = "%%", etatOffre = "%%", tri, callback) {
         let sql =`select id_offre, intitule, lieu_mission, EO.id_etat_offre, EO.libelle AS etat, O.chemin_logo
                     from OffreEmploi INNER JOIN Organisation O ON O.siren = OffreEmploi.siren

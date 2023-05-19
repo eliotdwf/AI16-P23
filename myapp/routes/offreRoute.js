@@ -117,33 +117,6 @@ router.post('/offresList', function (req, res) {
 
 router.get("/modifier/:id", requireRecruteur, (req, res) => {
     const id = req.params.id;
-    /*const intitule = req.body.intitule;
-    const statut_poste = req.body.statutPoste;
-    const resp_hierarchique = req.body.respHierarchique;
-    const lieu_mission = req.body.lieuMission;
-    const rythme = req.body.rythme;
-    const salaire = req.body.salaire;
-    const description = req.body.description;
-    const id_etat_offre = req.body.idEtatOffre;
-    const date_validite = req.body.dateValidite;
-    const pieces_requises_candidature = req.body.piecesCandidature;
-    const nb_pieces_candidatures = req.body.nbPiecesCandidature;
-    const id_type_metier = req.body.idTypeMetier;
-    const id_type_contrat = req.body.idTypeContrat
-    offreModel.updateById(id, function(result) {
-        if(result){
-            res.status(200).render("../partials/bs-alert",{
-                type: "success",
-                message: `L'offre intitulée "${intitule}" a bien été supprimée !`
-            });
-        }
-        else {
-            res.status(500).render("../partials/bs-alert", {
-                type : "error",
-                message: `Une erreur est survenue lors de la suppression de l'offre intitulée "${intitule}". Echec de l'opération`
-            });
-        }
-    })*/
     checkSirenOffreUser(id, req.session.siren, function(error, sirenUser, sirenOffre) {
         if (error) {
             res.redirect("../" + error);
@@ -152,7 +125,6 @@ router.get("/modifier/:id", requireRecruteur, (req, res) => {
             offreModel.findById(id, function(offres) {
                 typeContratModel.getAll((typesContrat)=> {
                     typeMetierModel.getAll(typesMetier => {
-                        console.log(typesMetier)
                         etatOffreModel.getAll(etatsOffre =>{
                             res.render('modificationOffre', {
                                 role: req.session.role,
@@ -169,7 +141,34 @@ router.get("/modifier/:id", requireRecruteur, (req, res) => {
     });
 })
 
-
+router.post("/update/:id", (req, res) => {
+    const id = req.params.id;
+    const intitule = req.body.intitule;
+    const lieu_mission = req.body.lieuMission;
+    const rythme = req.body.rythme;
+    const salaire = req.body.salaire;
+    const description = req.body.description;
+    const id_etat_offre = req.body.idEtatOffre;
+    const date_validite = req.body.dateValidite;
+    const pieces_requises_candidature = req.body.piecesCandidatures;
+    const id_type_metier = req.body.idTypeMetier;
+    const id_type_contrat = req.body.idTypeContrat
+    offreModel.updateById(id, intitule, lieu_mission, rythme, salaire, description, id_etat_offre, date_validite,
+        pieces_requises_candidature, id_type_metier, id_type_contrat,  function(result) {
+        if(result){
+            res.status(200).render("../partials/bs-alert",{
+                type: "success",
+                message: `Les modifications de l'offre "${intitule}" ont bien été enregistrées !`
+            });
+        }
+        else {
+            res.status(500).render("../partials/bs-alert", {
+                type : "error",
+                message: `Une erreur est survenue lors de la suppression de l'offre intitulée "${intitule}". Echec de l'opération`
+            });
+        }
+    })
+})
 
 
 module.exports = router;
