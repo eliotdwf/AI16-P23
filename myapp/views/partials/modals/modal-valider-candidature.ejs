@@ -1,0 +1,23 @@
+<!-- Modal -->
+<div class="modal fade" id="modalCandidaterOffre<%= offreEmploi.id_offre %>" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Candidater<i class="role-color bi bi-trash"></i></h1>
+            </div>
+            <div class="modal-body">
+                <i class="bi bi-exclamation-triangle required"></i> Êtes vous sûr de vouloir candidater ? Vous pourrez toujours retirer
+                votre candidature plus tard dans l'onglet <a href="#">Mes Candidatures</a><br />
+            </div>
+            <div class="modal-footer d-flex justify-content-around">
+                <button type="button" class="btn btn-lg btn-danger" data-bs-dismiss="modal">
+                    Annuler <i class="bi bi-x-circle"></i>
+                </button>
+<!--                <button class="btn btn-lg btn-success" data-bs-dismiss="modal"-->
+<!--                    onclick="candidater('<%= offreEmploi.id_offre %>', '<%= candidat %>')">-->
+<!--                    Confirmer <i class="bi bi-check-circle"></i>-->
+<!--                </button>-->
+            </div>
+        </div>
+    </div>
+</div>

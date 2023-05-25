@@ -8,11 +8,19 @@
                     </a>
                 </h5>
                 <p class="card-text"><%= offre.lieu_mission%></p>
-                <button type="button" class="btn btn-primary btn-lg">Candidater</button>
+<!--                <a class="btn btn-primary btn-lg" href="./offres/<%=offre.id_offre%>>"-->
+<!--                >Candidater</a>-->
+                <button type="button" class="btn btn-primary btn-lg"
+                onclick="openCandidaturePiece('<%=offre.id_offre%>')"
+                >Candidater</button>
+                <!--<button type="button" class="btn btn-primary btn-lg"
+                data-bs-toggle="modal" data-bs-target="#modalCandidaterOffre<%= offre.id_offre %>"
+                >Candidater</button>-->
             </div>
             <div class="col-4 card-logo">
                 <img class="logo-profil-offre" src="/img/logos/<%= offre.chemin_logo %>">
             </div>
         </div>
     </div>
+    <%- include("../partials/modals/modal-valider-candidature.ejs", offreEmploi=offre, candidat=user);%>
 </div>

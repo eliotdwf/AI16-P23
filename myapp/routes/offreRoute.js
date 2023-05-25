@@ -8,11 +8,12 @@ let etatOffreModel = require("../models/etatOffreModel");
 
 const requireRecruteur = require('../requireAuth/requireRecruteur');
 const requireRecruteurOrCandidat = require("../requireAuth/requireRecruteurOrCandidat");
+const {getPieceOffre} = require("../models/offreModel");
+const candidatureModel = require("../models/candidatureModel");
 
 let router = express.Router();
 
 router.get("/", requireRecruteurOrCandidat, (req, res) => {
-    console.log("session /users: " + req.session)
     let tri = 1;
     let etatOffre;
     let siren = req.session.siren;
@@ -24,7 +25,8 @@ router.get("/", requireRecruteurOrCandidat, (req, res) => {
         console.log(rows);
         res.render('offres', {
             role: role,
-            offresEmploi: rows
+            offresEmploi: rows,
+            user: req.session.username
         });
     })
 })
@@ -37,11 +39,16 @@ router.get("/candidatsList/:id", (req, res) => {
 router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
     const id = req.params.id;
     if(req.session.role == 1) {
+        let pieces;
+        offreModel.getPieceOffre(id, function(results) {
+            pieces = results;
+        })
         offreModel.findById(id, function(rows) {
             console.log("offre row: " + rows[0]);
             res.render('detailOffre', {
                 role: req.session.role,
-                offre: rows[0]
+                offre: rows[0],
+                pieces: pieces
             });
         })
     }
@@ -168,7 +175,16 @@ router.post("/update/:id", (req, res) => {
             });
         }
     })
-})
+});
 
+router.post("/candidater", (req, res) => {
+    const candidat = req.session.userid;
+    const offre = req.body.offre;
+    console.log(candidat + " " + offre)
+    /*candidatureModel.create(req.body.user, req.body.candidature, function(results) {
+        console.log("Ajouté")
+    });*/
+
+})
 
 module.exports = router;

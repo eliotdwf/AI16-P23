@@ -63,6 +63,27 @@ function updateOffresList() {
         })
 }
 
+/*function candidater(offreId, email) {
+    let body = {
+        "user": email,
+        "candidature": offreId,
+    }
+    fetch("/candidatures/candidater", {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(body)
+    })
+    .then(response => {
+        //console.log(response)
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}*/
+
 function updateAlertMessages(alertMessage){
     let alertMessages = document.getElementById("alertMessages");
     alertMessages.innerHTML += alertMessage;

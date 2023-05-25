@@ -88,6 +88,10 @@ router.post('/create', upload.single("logo"), function (req, res) {
 
             orgaModel.create(siren, nom, siege, description, logo, type, (created) => {
                 let status = (created != undefined) ? 201 : 500;
+                /*if(created != undefined) {
+                    console.log(__dirname);
+                    //logo.sendFile(__dirname, '../img/logo/', `${siren}-logo`);
+                }*/
                 res.sendStatus(status);
             });
         }

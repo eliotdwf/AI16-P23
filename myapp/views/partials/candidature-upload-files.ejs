@@ -1,0 +1,17 @@
+<form action="./candidater" method="POST">
+    <div class="form-group">
+        <h4>Pour candidater vous devez fournir les pièces suivantes :</h4>
+        <hr class="m-0 role-color drop-shadow">
+        <% pieces.forEach(piece => { %>
+            <div class="form-group row" style="margin-top: 4vh;">
+                <label for="<%=piece%>" class="col-sm-2 col-form-label"><%=piece%></label>
+                <div class="col-sm-10"style="margin: auto">
+                    <input class="form-control" type="file" name="" id="<%=piece%>">
+                </div>
+            </div>
+        <% })%>
+        <input type="hidden" id="offre" value="<%=id_offre%>">
+        <input style="margin-top:3vh;float:right;padding: 1vh 2vw 1vh 2vw"
+        type="submit" class="btn btn-success" value="Valider"></button>
+    </div>
+</form>

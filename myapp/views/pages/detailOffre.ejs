@@ -28,6 +28,9 @@
             <div id="organisation-candidats">
                 <%- include('../partials/description-orga', type_organisation=offre.type_organisation.toLowerCase(), description=offre.description_orga);%>
             </div>
+            <div id="pieces-offre">
+                <%- include('../partials/candidature-upload-files', pieces=pieces, id_offre=offre.id_offre); %>
+            </div>
 
         </div>
 
@@ -172,7 +175,7 @@
             </div>
             <% if(role===1) { %>
                 <div class="ms-1 mt-3 d-flex justify-content-center">
-                    <a class="btn btn-lg btn-role">Candidater</a>
+                    <button id="bouton-candidater-candidat" onclick="afficherPieces(<% offre.id_offre%>)" class="btn btn-lg btn-role">Candidater</button>
                 </div>
             <% } else { %>
                 <div class="ms-1 mt-3 mb-3 d-flex">

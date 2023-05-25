@@ -62,3 +62,17 @@ function afficherOrganisation(siren) {
             }
         })
 }
+
+
+function afficherPieces(idOffre){
+    let details = document.getElementById("organisation-candidats");
+    let bouton = document.getElementById("bouton-candidater-candidat");
+    if(details.style.display === "none") {
+        details.style.display = "block";
+        bouton.innerHTML = "Candidater";
+    }
+    else {
+        details.style.display = "none";
+        bouton.innerHTML = "Offre";
+    }
+}

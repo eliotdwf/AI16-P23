@@ -63,6 +63,13 @@ module.exports = {
             callback(results);
         });
     },
+    getPieceOffre: function(id, callback) {
+        let sql = "SELECT pieces_requises_candidature FROM OffreEmploi WHERE id_offre = ?";
+        db.query(sql, id, function (err, result) {
+            if (err) throw err;
+            callback(result[0]["pieces_requises_candidature"].split(","));
+        });
+    },
     isUsedId: function (id, callback) {
         let sql = "SELECT 1 FROM OffreEmploi WHERE id_offre = ?";
         db.query(sql, id, function (err, result) {
