@@ -38,13 +38,12 @@ router.get("/candidatsList/:id", (req, res) => {
 
 router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
     const id = req.params.id;
+    let pieces;
+    offreModel.getPieceOffre(id, function(results) {
+        pieces = results;
+    });
     if(req.session.role == 1) {
-        let pieces;
-        offreModel.getPieceOffre(id, function(results) {
-            pieces = results;
-        })
         offreModel.findById(id, function(rows) {
-            console.log("offre row: " + rows[0]);
             res.render('detailOffre', {
                 role: req.session.role,
                 offre: rows[0],
@@ -60,7 +59,8 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
                 offreModel.findById(id, function(rows) {
                     res.render('detailOffre', {
                         role: req.session.role,
-                        offre: rows[0]
+                        offre: rows[0],
+                        pieces: pieces
                     });
                 });
             }
@@ -177,10 +177,11 @@ router.post("/update/:id", (req, res) => {
     })
 });
 
-router.post("/candidater", (req, res) => {
+router.post("/candidater/:idOffre", (req, res) => {
     const candidat = req.session.userid;
-    const offre = req.body.offre;
+    const offre = req.params.idOffre;
     console.log(candidat + " " + offre)
+    console.log(req.body)
     /*candidatureModel.create(req.body.user, req.body.candidature, function(results) {
         console.log("Ajouté")
     });*/
