@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head', title='Mon compte'); %>
+
+<body>
+
+<%- include('../partials/headers/header', role=role); %>
+
+<main class="container">
+    </div>
+
+    <div class="col-12 d-flex justify-content-center">
+        <%- include("../partials/title", title='Mon compte'); %>
+    </div>
+    <div class="d-flex justify-content-center col-12">
+        <ul class="list-group">
+            <li class="list-group-item">Email : <%= user.email %></li>
+            <li class="list-group-item">Prénom : <%= user.prenom %></li>
+            <li class="list-group-item">Nom : <%= user.nom %></li>
+            <li class="list-group-item">Téléphone : <%= user.tel%></li>
+            <li class="list-group-item">Date de création du compte : <%= user.date_creation.toLocaleDateString()%></li>
+            <% switch(user.id_role) {
+                case 1: %>
+                    <li class="list-group-item">Rôle : Candidat</li>
+            <%      break;
+                case 2: %>
+                    <li class="list-group-item">Rôle : Recruteur</li>
+                    <li class="list-group-item">Siren de l'organisation : <%= user.siren %></li>
+            <%      break;
+                case 3: %>
+                    <li class="list-group-item">Rôle : Administrateur</li>
+            <%      break;
+                default: %>
+                    <li class="list-group-item">Rôle : inconnu</li>
+            <% } %>
+        </ul>
+    </div>
+</main>
+</body>
+</html>

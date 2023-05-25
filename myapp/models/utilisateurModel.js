@@ -1,11 +1,16 @@
 const db = require('./db.js');
 
 module.exports = {
-    find: function (email, callback) {
-        db.query("select * from Utilisateur where email= ?",email, function
-            (err, results) {
+    findById: function (email, callback) {
+        let sql = "select * from Utilisateur where email = ?";
+        db.query(sql, email, function (err, results) {
             if (err) throw err;
-            callback(results);
+            if(results[0]){
+                callback(results[0]);
+            }
+            else {
+                callback(undefined);
+            }
         });
     },
     getSirenByEmail: function(email, callback) {

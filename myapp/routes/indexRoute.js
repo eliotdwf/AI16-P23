@@ -55,4 +55,13 @@ router.get("/404", requireAuth, (req, res) => {
 })
 
 
+router.get("/mon-compte", requireAuth, (req, res) => {
+  userModel.findById(req.session.userid, function(user) {
+    res.render("monCompte", {
+      role: req.session.role,
+      user: user
+    });
+  })
+})
+
 module.exports = router;
