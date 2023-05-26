@@ -1,10 +1,33 @@
 let express = require('express');
 let bodyParser = require("body-parser");
+const multer = require("multer");
 let offreModel = require("../models/offreModel");
 let userModel = require("../models/utilisateurModel");
 let typeContratModel = require("../models/typeContratModel");
 let typeMetierModel = require("../models/typeMetierModel");
 let etatOffreModel = require("../models/etatOffreModel");
+const fs = require('fs');
+const path = require('path');
+
+const MIME_TYPES = {
+    "image/jpg": ".jpg",
+    "image/jpeg": ".jpg",
+    "image/png": ".png",
+    "image/gif": ".gif",
+    "application/pdf": ".pdf"
+}
+
+const storagePiece = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, "./public/files/");
+    },
+    filename: (req, file, callback) => {
+        //const extension = MIME_TYPES[file.mimetype];
+        console.log(file);
+        callback(null, req.session.username + "_" + Date.now() + "_" + file.name);
+    }
+});
+const uploadPiece = multer({storage : storagePiece});
 
 const requireRecruteur = require('../requireAuth/requireRecruteur');
 const requireRecruteurOrCandidat = require("../requireAuth/requireRecruteurOrCandidat");
@@ -42,7 +65,7 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
     offreModel.getPieceOffre(id, function(results) {
         pieces = results;
     });
-    if(req.session.role == 1) {
+    if(req.session.role === 1) {
         offreModel.findById(id, function(rows) {
             res.render('detailOffre', {
                 role: req.session.role,
@@ -177,7 +200,7 @@ router.post("/update/:id", (req, res) => {
     })
 });
 
-router.post("/candidater/:idOffre", (req, res) => {
+router.post("/candidater/:idOffre", uploadPiece.array("files"), (req, res) => {
     const candidat = req.session.userid;
     const offre = req.params.idOffre;
     console.log(candidat + " " + offre)

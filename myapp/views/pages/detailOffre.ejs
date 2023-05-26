@@ -28,7 +28,7 @@
             <div id="organisation-candidats">
                 <%- include('../partials/description-orga', type_organisation=offre.type_organisation.toLowerCase(), description=offre.description_orga);%>
             </div>
-            <div id="pieces-offre">
+            <div id="pieces-offre" style="display: none">
                 <%- include('../partials/candidature-upload-files', pieces=pieces, id_offre=offre.id_offre); %>
             </div>
 
