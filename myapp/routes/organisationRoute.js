@@ -1,8 +1,11 @@
 let express = require('express');
 let bodyParser = require("body-parser");
 let orgaModel = require("../models/organisationModel");
-const {log} = require("debug");
+let demandeCreaOrgaModel = require("../models/demandeCreaOrga");
 const userModel = require("../models/utilisateurModel");
+
+const requireAdmin = require('../requireAuth/requireAdmin');
+const {log} = require("debug");
 let router = express.Router();
 const multer = require("multer");
 const fs = require('fs');
@@ -38,8 +41,8 @@ router.post('/create', upload.single("logo"), function (req, res) {
     let type = req.body.type;
     let description = req.body.description;
     let logo = req.file.filename;
+    //on vérifie que le siren saisi par l'utilisateur n'est pas deja utilise par une autre organisation
     orgaModel.isUsedSiren(siren, function (isUsed) {
-        console.log("isUsed : " + isUsed);
         let index = logo.indexOf("_");
         let time = logo.substring(0, index);
         const directory = './public/img/logos/'; // Le dossier dans lequel se trouve le fichier à supprimer
@@ -87,12 +90,24 @@ router.post('/create', upload.single("logo"), function (req, res) {
             });
 
             orgaModel.create(siren, nom, siege, description, logo, type, (created) => {
+                console.log("created : " + created)
                 let status = (created != undefined) ? 201 : 500;
+                if(status === 201) {
+                    //TODO : vérifier que le candidat n'a pas déjà saisi une demande de création d'organisation
+                    //si l'organisation est bien cree, on l'ajoute aux demandes de creation a valider par un administrateur
+                    demandeCreaOrgaModel.insert(req.session.userid, siren, (done) => {
+                        console.log("done : " + done)
+                        status = (done != undefined) ? 201 : 500;
+                        res.sendStatus(status);
+                    })
+                }
+                else {
+                    res.sendStatus(status);
+                }
                 /*if(created != undefined) {
                     console.log(__dirname);
                     //logo.sendFile(__dirname, '../img/logo/', `${siren}-logo`);
                 }*/
-                res.sendStatus(status);
             });
         }
     })
@@ -103,6 +118,50 @@ router.get("/description/:siren", (req, res) => {
         res.render("../partials/description-orga", {
             type_organisation: rows[0].nom,
             description: rows[0].description
+        })
+    })
+})
+
+router.get("/", requireAdmin, (req, res) => {
+    let typeOrga;
+    orgaModel.getOrgasNonCrees(typeOrga, function(rows) {
+        res.render("organisations", {
+            role: req.session.role,
+            orgas: rows
+        })
+    })
+})
+
+router.post("/orgasList", requireAdmin, (req, res) => {
+    let typeOrga = req.body.typeOrga;
+    if(typeOrga == 0) typeOrga = undefined;
+    console.log("typeOrga : " + typeOrga);
+    orgaModel.getOrgasNonCrees(typeOrga, function(rows) {
+        console.log(rows)
+        res.status(200).render("../partials/organisationsList", {
+            role: req.session.role,
+            organisations: rows
+        })
+    })
+})
+
+router.post("/valider-creation", requireAdmin, (req, res) => {
+    let siren = req.body.siren;
+    let email = req.body.email;
+    orgaModel.confirmerCreation(siren, function(result) {
+        userModel.addSiren(email, siren, function(result) {
+            if(result) {
+                res.status(200).render("../partials/bs-alert",{
+                    type: "success",
+                    message: `L'organisation ${siren} a bien été créée !`
+                });
+            }
+            else {
+                res.status(500).render("../partials/bs-alert",{
+                    type: "error",
+                    message: `Une erreur est survenue lors de la création de l'organisation ${siren}.`
+                });
+            }
         })
     })
 })

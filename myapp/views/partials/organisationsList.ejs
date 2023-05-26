@@ -1,0 +1,31 @@
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+        <tr>
+            <th>Siren</th>
+            <th>Nom</th>
+            <th>Siège social</th>
+            <th>Type d'organisation</th>
+            <th>Date demande de création</th>
+            <th>Email du créateur</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <% organisations.forEach((orga)=> { %>
+            <tr>
+                <td><%= orga.siren %></td>
+                <td><%= orga.nom %></td>
+                <td><%= orga.siege_social %></td>
+                <td><%= orga.type_organisation %></td>
+                <td><%= orga.date_demande_creation.toLocaleDateString() %></td>
+                <td><%= orga.createur %></td>
+                <td>
+                    <button class="btn btn-success col-auto" onclick="creerOrga('<%= orga.siren%>','<%= orga.createur %>')">Créer</button>
+                    <button class="btn btn-danger col-auto">Supprimer</button>
+                </td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>

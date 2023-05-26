@@ -45,6 +45,7 @@ CREATE TABLE Organisation(
     description VARCHAR(5000) NOT NULL,
     chemin_logo VARCHAR(100) NOT NULL,
     date_creation DATE NOT NULL DEFAULT curdate(),
+    creation_confirmee BOOLEAN NOT NULL DEFAULT false,
     id_type_organisation INT NOT NULL,
     PRIMARY KEY(siren),
     FOREIGN KEY(id_type_organisation) REFERENCES TypeOrganisation(id_type_organisation)

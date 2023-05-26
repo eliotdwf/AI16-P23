@@ -23,7 +23,12 @@ document.getElementById("create-orga-form").addEventListener("submit", function(
             .then((response) => {
                 console.log("Dans le then du fetch");
                 if(response.status === 201){
-                    window.location.href = "/";
+                    document.getElementById("create-orga-form").reset();
+                    document.getElementById("successMessage").style.removeProperty("display");
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth' // Défilement fluide
+                    });
                 }
                 else if(response.status === 403) {
                     errorMessage.innerText = ERROR_ALREADY_USED_SIREN;
