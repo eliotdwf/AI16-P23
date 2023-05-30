@@ -1,4 +1,5 @@
 let orgasList = document.getElementById("orgasTable");
+document.getElementById("filtre-type-orga").value = "0";
 
 function creerOrga(siren, emailCreateur) {
     fetch("/organisations/valider-creation", {
@@ -28,9 +29,7 @@ function updateAlertMessages(alertMessage){
 }
 
 function updateOrgasList() {
-    console.log("maj des organisations en cours");
     let typeOrga = document.getElementById("filtre-type-orga").value;
-    console.log("typeOrga :" + typeOrga)
     fetch("/organisations/orgasList", {
         headers: {
             'Accept': 'application/json',
@@ -45,7 +44,6 @@ function updateOrgasList() {
             }
             else {
                 response.text().then(content => {
-                    console.log("content : " + content)
                     orgasList.innerHTML = content;
                 })
             }

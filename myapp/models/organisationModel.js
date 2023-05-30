@@ -8,7 +8,6 @@ module.exports = {
                     FROM DemandeCreationOrga DCO INNER JOIN Organisation O ON DCO.siren = O.siren
                     INNER JOIN TypeOrganisation TypeO ON TypeO.id_type_organisation = O.id_type_organisation
                     WHERE O.id_type_organisation LIKE ? AND O.creation_confirmee = false`;
-        console.log(sql);
         db.query(sql, typeOrga, function (err, results) {
             if (err) throw err;
             callback(results);

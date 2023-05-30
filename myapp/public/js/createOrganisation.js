@@ -21,7 +21,6 @@ document.getElementById("create-orga-form").addEventListener("submit", function(
             body: formData
         })
             .then((response) => {
-                console.log("Dans le then du fetch");
                 if(response.status === 201){
                     document.getElementById("create-orga-form").reset();
                     document.getElementById("successMessage").style.removeProperty("display");
@@ -80,10 +79,8 @@ function isAnyRequiredFieldEmpty() {
 }
 
 function isValidSiren() {
-    console.log("dans la vérification du siren")
     let sirenField = document.getElementById("siren");
     if(isNaN(sirenField.value)) {
-        console.log("Siren n'est pas numérique")
         sirenField.classList.add("is-invalid");
         errorMessage.innerText = ERROR_INVALID_SIREN;
         errorMessage.style.removeProperty("display");

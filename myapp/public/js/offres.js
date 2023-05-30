@@ -32,7 +32,6 @@ function supprimerOffre(idOffre, intituleOffre) {
 }
 
 function updateOffresList() {
-    console.log("maj des offres en cours");
     let tri = document.getElementById("select-tri-offres").value;
     let offresList = document.getElementById("liste-offres");
     //let etatOffre = document.getElementById("filtre-etat-offre");
@@ -55,9 +54,7 @@ function updateOffresList() {
             }
             else {
                 response.text().then(content => {
-                    console.log(content)
                     offresList.innerHTML = content;
-                    console.log("maj des offres terminée");
                 })
             }
         })
