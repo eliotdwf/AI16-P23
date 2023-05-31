@@ -50,5 +50,12 @@ module.exports = {
             if(err) throw err;
             callback(true);
         })
+    },
+    delete: function(siren, callback) {
+        const sql = "DELETE FROM Organisation WHERE siren=?";
+        db.query(sql, siren, function(err, result) {
+            if(err) throw err;
+            callback(true);
+        })
     }
 }

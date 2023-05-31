@@ -23,6 +23,28 @@ function creerOrga(siren, emailCreateur) {
         })
 }
 
+function supprimerOrga(siren, emailCreateur) {
+    fetch("/organisations/refuser-creation", {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            siren : siren,
+            emailCreateur: emailCreateur
+        })
+    })
+        .then(response => {
+            if(response.status === 200) {
+                response.text().then(content => {
+                    updateAlertMessages(content);
+                    updateOrgasList();
+                })
+            }
+        })
+}
+
 function updateAlertMessages(alertMessage){
     let alertMessages = document.getElementById("alertMessages");
     alertMessages.innerHTML += alertMessage;

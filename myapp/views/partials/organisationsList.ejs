@@ -23,7 +23,7 @@
                 <td><%= orga.createur %></td>
                 <td>
                     <button class="btn btn-success col-auto" onclick="creerOrga('<%= orga.siren%>','<%= orga.createur %>')">Créer</button>
-                    <button class="btn btn-danger col-auto">Supprimer</button>
+                    <button class="btn btn-danger col-auto" onclick="supprimerOrga('<%= orga.siren%>','<%= orga.createur %>')">Supprimer</button>
                 </td>
             </tr>
         <% }) %>

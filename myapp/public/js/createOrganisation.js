@@ -34,7 +34,7 @@ document.getElementById("btn-confirmer-creation").addEventListener("click", () =
                     behavior: 'smooth' // Défilement fluide
                 });
             }
-            else if(response.status === 403) {
+            else if(response.status === 400) {
                 errorMessage.innerText = ERROR_ALREADY_USED_SIREN;
                 errorMessage.style.removeProperty("display");
             }

@@ -1,7 +1,7 @@
 let express = require('express');
 let bodyParser = require("body-parser");
 let orgaModel = require("../models/organisationModel");
-let demandeCreaOrgaModel = require("../models/demandeCreaOrga");
+let demandeCreaOrgaModel = require("../models/demandeCreaOrgaModel");
 const userModel = require("../models/utilisateurModel");
 
 const requireAdmin = require('../requireAuth/requireAdmin');
@@ -62,7 +62,7 @@ router.post('/create', upload.single("logo"), function (req, res) {
                     }
                 });
             });
-            res.sendStatus(403);
+            res.sendStatus(400);
         }
         else {
             console.log("Siren OK");
@@ -169,6 +169,38 @@ router.post("/valider-creation", requireAdmin, (req, res) => {
             res.status(500).render("../partials/bs-alert",{
                 type: "error",
                 message: `Une erreur est survenue lors de la création de l'organisation ${siren}.`
+            });
+        }
+    })
+})
+
+router.post('/refuser-creation', requireAdmin, (req, res) => {
+    let siren = req.body.siren;
+    let email = req.body.emailCreateur;
+    //TODO : notifier l'utilisateur que la demande est rejetee
+    demandeCreaOrgaModel.refuserCreation(siren, email, (resultDelete) => {
+        console.log("refuserCreation fini");
+        if(resultDelete) {
+            //TODO : supprimer le logo
+            orgaModel.delete(siren, (result) => {
+                if(result) {
+                    res.status(200).render("../partials/bs-alert",{
+                    type: "success",
+                        message: `L'organisation ${siren} a bien été supprimée !`
+                    });
+                }
+                else {
+                     res.status(500).render("../partials/bs-alert",{
+                         type: "error",
+                         message: `Une erreur est survenue lors de la suppression de l'organisation ${siren}.`
+                     });
+                 }
+            })
+        }
+        else {
+            res.status(500).render("../partials/bs-alert",{
+                type: "error",
+                message: `Une erreur est survenue lors de la suppression de l'organisation ${siren}.`
             });
         }
     })
