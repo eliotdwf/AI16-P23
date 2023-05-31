@@ -85,5 +85,16 @@ module.exports = {
         // de rajout à une orga,
         // et passer le role à 3
         // et Recruteur
+    },
+    devenirRecruteur: function(email, siren, callback) {
+        console.log("dans la fonction devenirRecruteur");
+        let sql = "UPDATE Utilisateur SET siren = ?, id_role = 2 WHERE email = ?";
+        console.log("siren : " + siren);
+        console.log("email : " + email);
+        db.query(sql, [siren, email], function(err, result) {
+            //TODO : supprimer les candidatures de l'ancien candidat, les demandes de création d'orga + les demandes pour devenir recruteur
+            if(err) throw err;
+            callback(true);
+        })
     }
 }

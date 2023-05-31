@@ -1,3 +1,4 @@
+<% if(organisations.length > 0) {%>
 <div class="table-responsive">
     <table class="table align-middle">
         <thead>
@@ -29,3 +30,11 @@
         </tbody>
     </table>
 </div>
+<% }
+else { %>
+    <div class="d-flex justify-content-center">
+        <div id="errorMessage" class="alert alert-danger text-center col-8" role="alert">
+            Aucun demande de création d'organisation n'a été trouvée !
+        </div>
+    </div>
+<% } %>

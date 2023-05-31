@@ -134,10 +134,9 @@ router.get("/", requireAdmin, (req, res) => {
 
 router.post("/orgasList", requireAdmin, (req, res) => {
     let typeOrga = req.body.typeOrga;
-    if(typeOrga == 0) typeOrga = undefined;
+    if(typeOrga < 1 || typeOrga > 2) typeOrga = undefined;
     console.log("typeOrga : " + typeOrga);
     orgaModel.getOrgasNonCrees(typeOrga, function(rows) {
-        console.log(rows)
         res.status(200).render("../partials/organisationsList", {
             role: req.session.role,
             organisations: rows
@@ -147,22 +146,31 @@ router.post("/orgasList", requireAdmin, (req, res) => {
 
 router.post("/valider-creation", requireAdmin, (req, res) => {
     let siren = req.body.siren;
-    let email = req.body.email;
-    orgaModel.confirmerCreation(siren, function(result) {
-        userModel.addSiren(email, siren, function(result) {
-            if(result) {
-                res.status(200).render("../partials/bs-alert",{
-                    type: "success",
-                    message: `L'organisation ${siren} a bien été créée !`
-                });
-            }
-            else {
-                res.status(500).render("../partials/bs-alert",{
-                    type: "error",
-                    message: `Une erreur est survenue lors de la création de l'organisation ${siren}.`
-                });
-            }
-        })
+    let email = req.body.emailCreateur;
+    // TODO : supprimer les demandes du créateur (candidatures, rejoindre une orga, créer une orga)
+    orgaModel.confirmerCreation(siren, function(resultCreationOrga) {
+        if(resultCreationOrga) {
+            userModel.devenirRecruteur(email, siren, function(result) {
+                if(result) {
+                    res.status(200).render("../partials/bs-alert",{
+                        type: "success",
+                        message: `L'organisation ${siren} a bien été créée !`
+                    });
+                }
+                else {
+                    res.status(500).render("../partials/bs-alert",{
+                        type: "error",
+                        message: `Une erreur est survenue lors de la création de l'organisation ${siren}.`
+                    });
+                }
+            })
+        }
+        else {
+            res.status(500).render("../partials/bs-alert",{
+                type: "error",
+                message: `Une erreur est survenue lors de la création de l'organisation ${siren}.`
+            });
+        }
     })
 })
 
