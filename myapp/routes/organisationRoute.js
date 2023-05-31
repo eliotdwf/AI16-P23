@@ -23,92 +23,59 @@ const storage = multer.diskStorage({
         callback(null, "./public/img/logos/");
     },
     filename: (req, file, callback) => {
-        const siren = req.body.siren;
-        const nom = req.body.nom;
-        //const name = file.originalname.split(" ").join("_");
+        const siren = req.params.siren;
         const extension = MIME_TYPES[file.mimetype];
-        console.log(file);
-        callback(null, Date.now() + "_" + siren + "_" + nom + extension);
+        console.log("file : " + file);
+        callback(null, siren + extension);
     }
 });
 const upload = multer({storage : storage});
+const uploadLogo = upload.single("logo");
 
-router.post('/create', upload.single("logo"), function (req, res) {
+router.post('/create/:siren', function (req, res) {
     console.log("création d'une organisation...");
-    let siren = req.body.siren;
-    let nom = req.body.nom;
-    let siege = req.body.siege;
-    let type = req.body.type;
-    let description = req.body.description;
-    let logo = req.file.filename;
+    let siren = req.params.siren;
+    console.log("siren : " + siren)
+
     //on vérifie que le siren saisi par l'utilisateur n'est pas deja utilise par une autre organisation
     orgaModel.isUsedSiren(siren, function (isUsed) {
-        let index = logo.indexOf("_");
-        let time = logo.substring(0, index);
-        const directory = './public/img/logos/'; // Le dossier dans lequel se trouve le fichier à supprimer
-
-        if (isUsed != undefined) {
+        console.log(isUsed);
+        if (isUsed) {
             console.log("Siren déjà utilisé !");
-            //on supprime le logo
-            fs.readdir(directory, (err, files) => {
-                if (err) throw err;
-
-                files.forEach(file => {
-                    if (file.includes(time)) { // Vérifie si le fichier contient la partie du nom recherchée
-                        fs.unlink(path.join(directory, file), err => { // Supprime le fichier
-                            if (err) throw err;
-                            console.log(`Le fichier ${file} a été supprimé`);
-                        });
-                    }
-                });
-            });
             res.sendStatus(400);
         }
         else {
-            console.log("Siren OK");
-
-            //on supprime l'horodatage du nom du fichier
-            const firstUnderscoreIndex = logo.indexOf("_"); // Indice du premier underscore
-            if (firstUnderscoreIndex !== -1) {
-                logo = logo.slice(firstUnderscoreIndex + 1); // Extrait la partie de la chaîne à partir du premier underscore
-                console.log(logo);
-            } else {
-                console.log(logo); // Aucun underscore trouvé, affiche le nom de fichier d'origine
-            }
-            fs.readdir(directory, (err, files) => {
-                if (err) throw err;
-                files.forEach(file => {
-                    if (file.includes(time)) {
-                        const oldFilePath = directory + file;
-                        const logo = directory + file.replace(time + "_", "");
-                        fs.rename(oldFilePath, logo, (err) => {
-                            if (err) throw err;
-                            console.log(`Le fichier ${oldFilePath} a été renommé en ${logo}`);
-                        });
-                    }
-                });
-            });
-
-            orgaModel.create(siren, nom, siege, description, logo, type, (created) => {
-                console.log("created : " + created)
-                let status = (created != undefined) ? 201 : 500;
-                if(status === 201) {
-                    //TODO : vérifier que le candidat n'a pas déjà saisi une demande de création d'organisation
-                    //si l'organisation est bien cree, on l'ajoute aux demandes de creation a valider par un administrateur
-                    demandeCreaOrgaModel.insert(req.session.userid, siren, (done) => {
-                        console.log("done : " + done)
-                        status = (done != undefined) ? 201 : 500;
-                        res.sendStatus(status);
-                    })
+            uploadLogo(req, res, (err) => {
+                if(err) {
+                    console.error("une erreur est survenue ! \n" + err)
+                    res.sendStatus(500);
                 }
                 else {
-                    res.sendStatus(status);
+                    console.log("Siren OK");
+                    let nom = req.body.nom;
+                    let siege = req.body.siege;
+                    let type = req.body.type;
+                    let description = req.body.description;
+                    let logo = req.file.filename;
+                    orgaModel.create(siren, nom, siege, description, logo, type, (created) => {
+                        console.log("created : " + created)
+                        let status = (created != undefined) ? 201 : 500;
+                        if(status === 201) {
+                            //TODO : vérifier que le candidat n'a pas déjà saisi une demande de création d'organisation
+                            //si l'organisation est bien cree, on l'ajoute aux demandes de creation a valider par un administrateur
+                            demandeCreaOrgaModel.insert(req.session.userid, siren, (done) => {
+                                console.log("done : " + done)
+                                status = (done != undefined) ? 201 : 500;
+                                res.sendStatus(status);
+                            })
+                        }
+                        else {
+                            res.sendStatus(status);
+                        }
+                    });
                 }
-                /*if(created != undefined) {
-                    console.log(__dirname);
-                    //logo.sendFile(__dirname, '../img/logo/', `${siren}-logo`);
-                }*/
-            });
+            })
+
         }
     })
 });

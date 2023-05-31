@@ -14,14 +14,16 @@ document.getElementById("btn-envoyer-demande").addEventListener("click", functio
 
 document.getElementById("btn-confirmer-creation").addEventListener("click", () => {
     console.log("dans le click du btn-confirmer-creation");
+    let siren = document.getElementById("siren").value
     let formData = new FormData();
-    formData.append('siren', document.getElementById("siren").value);
+    formData.append('siren', siren);
     formData.append('nom', document.getElementById("nom").value);
     formData.append('type', document.getElementById("type").value);
     formData.append('siege', document.getElementById("siege").value);
     formData.append('logo', document.getElementById("logo").files[0]);
     formData.append('description', document.getElementById("description").value);
-    fetch("/organisations/create", {
+    console.log(formData)
+    fetch("/organisations/create/" + siren, {
         method: 'POST',
         body: formData
     })

@@ -31,14 +31,22 @@ module.exports = {
         });
     },
     isUsedSiren: function (siren, callback) {
-        sql = "SELECT 1 FROM Organisation WHERE siren = ?";
+        let sql = `SELECT 1 FROM Organisation WHERE siren = ?`;
         db.query(sql, siren, function (err, result) {
             if (err) throw err;
-            callback(result[0]);
+            if(result) {
+                console.log(result[0])
+                callback(result[0]);
+            }
+            else {
+                console.log(result)
+                callback(result);
+            }
+
         });
     },
     create: function (siren, nom, siege, description, logo, type, callback) {
-        sql = "INSERT INTO Organisation VALUES(?, ?, ?, ?, ?, curdate(), false, ?)";
+        let sql = "INSERT INTO Organisation VALUES(?, ?, ?, ?, ?, curdate(), false, ?)";
         db.query(sql, [siren, nom, siege, description, logo, type], function (err) {
             if(err) throw err;
             callback(true);
