@@ -4,6 +4,7 @@ let requireAuth = require('../requireAuth/requireAuth');
 let requireCandidat = require('../requireAuth/requireCandidat');
 let offreModel = require("../models/offreModel");
 const userModel = require("../models/utilisateurModel");
+let demandeCreaOrgaModel = require("../models/demandeCreaOrgaModel");
 
 /* GET home page. */
 router.get('/', requireAuth, function(req, res) {
@@ -38,7 +39,20 @@ router.get("/creer-compte", (req, res) => {
 });
 
 router.get("/creer-organisation", requireCandidat, (req, res) => {
-  res.render('creerOrganisation', { role: req.session.role });
+  //TODO : vérifier que l'utilisateur n'a pas déjà déposé une demande de creation d'orga
+  demandeCreaOrgaModel.getDemandesByEmail(req.session.userid, (row) => {
+      if(row) {
+          // l'utilisateur a deja saisi une demande
+          res.render("detailDemandeCreaOrga", {
+              role: req.session.role,
+              orga: row
+          })
+      }
+      else {
+          res.render('creerOrganisation', { role: req.session.role });
+      }
+  })
+
 });
 
 router.get('/logout', (req, res) => {

@@ -5,6 +5,8 @@ let demandeCreaOrgaModel = require("../models/demandeCreaOrgaModel");
 const userModel = require("../models/utilisateurModel");
 
 const requireAdmin = require('../requireAuth/requireAdmin');
+const requireCandidat = require('../requireAuth/requireCandidat');
+
 const {log} = require("debug");
 let router = express.Router();
 const multer = require("multer");
@@ -32,7 +34,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage : storage});
 const uploadLogo = upload.single("logo");
 
-router.post('/create/:siren', function (req, res) {
+router.post('/create/:siren', requireCandidat, function (req, res) {
     console.log("création d'une organisation...");
     let siren = req.params.siren;
     console.log("siren : " + siren)
@@ -145,8 +147,8 @@ router.post('/refuser-creation', requireAdmin, (req, res) => {
     let siren = req.body.siren;
     let email = req.body.emailCreateur;
     //TODO : notifier l'utilisateur que la demande est rejetee
-    demandeCreaOrgaModel.refuserCreation(siren, email, (resultDelete) => {
-        console.log("refuserCreation fini");
+    demandeCreaOrgaModel.deleteDemande(siren, email, (resultDelete) => {
+        console.log("deleteDemande fini");
         if(resultDelete) {
             //TODO : supprimer le logo
             orgaModel.delete(siren, (result) => {
@@ -169,6 +171,35 @@ router.post('/refuser-creation', requireAdmin, (req, res) => {
                 type: "error",
                 message: `Une erreur est survenue lors de la suppression de l'organisation ${siren}.`
             });
+        }
+    })
+})
+
+router.post("/annuler-demande-creation-orga", requireCandidat,(req, res) => {
+    let siren = req.body.siren;
+    let email = req.session.userid;
+    demandeCreaOrgaModel.deleteDemande(siren, email, resultDeleteDemande => {
+        if(resultDeleteDemande) {
+            orgaModel.delete(siren, resultDeleteOrga => {
+                if(resultDeleteOrga) {
+                    res.status(200).render("../partials/bs-alert", {
+                        type: "success",
+                        message: `La demande de création de l'organisation ${siren} a bien été supprimée !`
+                    })
+                }
+                else {
+                    res.status(500).render("../partials/bs-alert", {
+                        type: "error",
+                        message: `Une erreur est survenue lors de la suppression de la demande de création de l'organisation ${siren} !`
+                    })
+                }
+            })
+        }
+        else {
+            res.status(500).render("../partials/bs-alert", {
+                type: "error",
+                message: `Une erreur est survenue lors de la suppression de la demande de création de l'organisation ${siren} !`
+            })
         }
     })
 })

@@ -1,9 +1,15 @@
 const ERROR_REQUIRED_FIELDS_EMPTY = "Attention, tous les champs requis doivent être complétés !";
 const ERROR_INVALID_SIREN = "Attention, le siren ne doit être composé que de caractères numériques !";
 const ERROR_ALREADY_USED_SIREN = "Erreur, ce siren est déjà utilisé !"
+const ERROR_SEND_REQUEST = "Une erreur inconnue est survenue. Contactez les administrateurs.";
 
 let errorMessage = document.getElementById("errorMessage");
 
+let alertMessagesContent = localStorage.getItem("alertMessages");
+if(alertMessagesContent){
+    document.getElementById("alert-messages").innerHTML = alertMessagesContent;
+    localStorage.removeItem("alertMessages");
+}
 
 document.getElementById("btn-envoyer-demande").addEventListener("click", function() {
     errorMessage.style.display = "none";
@@ -29,19 +35,15 @@ document.getElementById("btn-confirmer-creation").addEventListener("click", () =
     })
         .then((response) => {
             if(response.status === 201){
-                document.getElementById("create-orga-form").reset();
-                document.getElementById("successMessage").style.removeProperty("display");
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth' // Défilement fluide
-                });
+                localStorage.setItem("success", "true");
+                window.location.reload();
             }
             else if(response.status === 400) {
                 errorMessage.innerText = ERROR_ALREADY_USED_SIREN;
                 errorMessage.style.removeProperty("display");
             }
             else {
-                errorMessage.innerText = "Une erreur inconnue est survenue. Contactez les administrateurs.";
+                errorMessage.innerText = ERROR_SEND_REQUEST;
                 errorMessage.style.removeProperty("display");
             }
         });
