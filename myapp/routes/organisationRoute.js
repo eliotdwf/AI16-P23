@@ -27,7 +27,6 @@ const storage = multer.diskStorage({
     filename: (req, file, callback) => {
         const siren = req.params.siren;
         const extension = MIME_TYPES[file.mimetype];
-        console.log("file : " + file);
         callback(null, siren + extension);
     }
 });
@@ -53,20 +52,17 @@ router.post('/create/:siren', requireCandidat, function (req, res) {
                     res.sendStatus(500);
                 }
                 else {
-                    console.log("Siren OK");
+                    console.log("Siren OK, logo enregistré");
                     let nom = req.body.nom;
                     let siege = req.body.siege;
                     let type = req.body.type;
                     let description = req.body.description;
                     let logo = req.file.filename;
                     orgaModel.create(siren, nom, siege, description, logo, type, (created) => {
-                        console.log("created : " + created)
                         let status = (created != undefined) ? 201 : 500;
                         if(status === 201) {
-                            //TODO : vérifier que le candidat n'a pas déjà saisi une demande de création d'organisation
                             //si l'organisation est bien cree, on l'ajoute aux demandes de creation a valider par un administrateur
                             demandeCreaOrgaModel.insert(req.session.userid, siren, (done) => {
-                                console.log("done : " + done)
                                 status = (done != undefined) ? 201 : 500;
                                 res.sendStatus(status);
                             })
@@ -77,7 +73,6 @@ router.post('/create/:siren', requireCandidat, function (req, res) {
                     });
                 }
             })
-
         }
     })
 });
@@ -148,22 +143,33 @@ router.post('/refuser-creation', requireAdmin, (req, res) => {
     let email = req.body.emailCreateur;
     //TODO : notifier l'utilisateur que la demande est rejetee
     demandeCreaOrgaModel.deleteDemande(siren, email, (resultDelete) => {
-        console.log("deleteDemande fini");
         if(resultDelete) {
-            //TODO : supprimer le logo
-            orgaModel.delete(siren, (result) => {
-                if(result) {
-                    res.status(200).render("../partials/bs-alert",{
-                    type: "success",
-                        message: `L'organisation ${siren} a bien été supprimée !`
+            orgaModel.getCheminLogo(siren, cheminLogo => {
+                if(cheminLogo) {
+                    //suppression du logo
+                    supprimerLogo(cheminLogo, result => {
+                        if(result === 200){
+                            //suppression de l'orga
+                            orgaModel.delete(siren, (result) => {
+                                if(result) {
+                                    res.status(200).render("../partials/bs-alert",{
+                                        type: "success",
+                                        message: `L'organisation ${siren} a bien été supprimée !`
+                                    });
+                                }
+                                else {
+                                    res.status(500).render("../partials/bs-alert",{
+                                        type: "error",
+                                        message: `Une erreur est survenue lors de la suppression de l'organisation ${siren}.`
+                                    });
+                                }
+                            })
+                        }
                     });
                 }
                 else {
-                     res.status(500).render("../partials/bs-alert",{
-                         type: "error",
-                         message: `Une erreur est survenue lors de la suppression de l'organisation ${siren}.`
-                     });
-                 }
+                    console.error("Echec de la récupération du chemin du logo [cheminLogo=" + cheminLogo + "]");
+                }
             })
         }
         else {
@@ -180,17 +186,26 @@ router.post("/annuler-demande-creation-orga", requireCandidat,(req, res) => {
     let email = req.session.userid;
     demandeCreaOrgaModel.deleteDemande(siren, email, resultDeleteDemande => {
         if(resultDeleteDemande) {
-            orgaModel.delete(siren, resultDeleteOrga => {
-                if(resultDeleteOrga) {
-                    res.status(200).render("../partials/bs-alert", {
-                        type: "success",
-                        message: `La demande de création de l'organisation ${siren} a bien été supprimée !`
-                    })
-                }
-                else {
-                    res.status(500).render("../partials/bs-alert", {
-                        type: "error",
-                        message: `Une erreur est survenue lors de la suppression de la demande de création de l'organisation ${siren} !`
+            orgaModel.getCheminLogo(siren, cheminLogo => {
+                if (cheminLogo) {
+                    //suppression du logo
+                    supprimerLogo(cheminLogo, result => {
+                        if (result === 200) {
+                            orgaModel.delete(siren, resultDeleteOrga => {
+                                //todo : delete le logo
+                                if (resultDeleteOrga) {
+                                    res.status(200).render("../partials/bs-alert", {
+                                        type: "success",
+                                        message: `La demande de création de l'organisation ${siren} a bien été supprimée !`
+                                    })
+                                } else {
+                                    res.status(500).render("../partials/bs-alert", {
+                                        type: "error",
+                                        message: `Une erreur est survenue lors de la suppression de la demande de création de l'organisation ${siren} !`
+                                    })
+                                }
+                            })
+                        }
                     })
                 }
             })
@@ -204,5 +219,26 @@ router.post("/annuler-demande-creation-orga", requireCandidat,(req, res) => {
     })
 })
 
+function supprimerLogo(nomLogo, callback){
+    // Chemin complet du fichier
+    const filePath = path.join(__dirname, '..', 'public', 'img', 'logos', nomLogo);
+    console.log("filepath : " + filePath);
+    // Vérifier si le fichier existe
+    if (fs.existsSync(filePath)) {
+        // Supprimer le fichier
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error(err);
+                callback(500);
+            } else {
+                console.log(`Fichier ${nomLogo} supprimé.`);
+                callback(200);
+            }
+        });
+    } else {
+        console.log(`Le fichier ${nomLogo} n'existe pas.`);
+        callback(404);
+    }
+}
 module.exports = router;
 //module.exports = multer({storage}).single("image");

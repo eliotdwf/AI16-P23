@@ -65,5 +65,17 @@ module.exports = {
             if(err) throw err;
             callback(true);
         })
+    },
+    getCheminLogo: function(siren, callback) {
+        const sql = `SELECT chemin_logo FROM Organisation WHERE siren = ?`
+        db.query(sql, siren, function(err, rows) {
+            if(err) throw err;
+            if(rows){
+                callback(rows[0].chemin_logo);
+            }
+            else {
+                callback(undefined);
+            }
+        })
     }
 }
