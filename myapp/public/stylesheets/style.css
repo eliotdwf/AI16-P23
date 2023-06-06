@@ -113,6 +113,10 @@ a.text-light:hover {
   opacity: var(--bs-btn-disabled-opacity);
 }
 
+.col-lg-5 {
+  white-space: nowrap;
+}
+
 @media(max-width: 576px){
   .card-logo{
     display: none;

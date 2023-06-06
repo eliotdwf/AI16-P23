@@ -7,14 +7,15 @@
                         <%= offre.intitule %>
                     </a>
                 </h5>
-                <p class="card-text"><%= offre.lieu_mission%></p>
-<!--                <a class="btn btn-primary btn-lg" href="./offres/<%=offre.id_offre%>>"-->
+                <div class="card-text"><i class="bi bi-buildings"> </i><%= offre.nom_orga %></div>
+                <p class="card-text"><i class="bi bi-geo-alt"></i> <%= offre.lieu_mission %></p>
+<!--                <a class="btn btn-primary btn-lg" href="./offres/<#%=offre.id_offre%>>"-->
 <!--                >Candidater</a>-->
                 <button type="button" class="btn btn-primary btn-lg"
                 onclick="openCandidaturePiece('<%=offre.id_offre%>')"
                 >Candidater</button>
                 <!--<button type="button" class="btn btn-primary btn-lg"
-                data-bs-toggle="modal" data-bs-target="#modalCandidaterOffre<%= offre.id_offre %>"
+                data-bs-toggle="modal" data-bs-target="#modalCandidaterOffre<%#= offre.id_offre %>"
                 >Candidater</button>-->
             </div>
             <div class="col-4 card-logo">
