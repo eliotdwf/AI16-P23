@@ -1,8 +1,15 @@
 const db = require('./db.js');
 
 module.exports = {
+    getOrgasCrees: function(typeOrga ='%%', callback) {
+        const sql = `SELECT O.siren, O.nom, O.id_type_organisation FROM Organisation O
+                    WHERE O.id_type_organisation LIKE ? AND O.creation_confirmee = true`;
+        db.query(sql, typeOrga, function(err, results) {
+            if(err) throw err;
+            callback(results);
+        })
+    },
     getOrgasNonCrees: function(typeOrga = "%%", callback) {
-
         let sql = `SELECT O.siren, O.nom, O.siege_social, TypeO.nom AS type_organisation, 
                     DCO.date_demande AS date_demande_creation, DCO.email AS createur
                     FROM DemandeCreationOrga DCO INNER JOIN Organisation O ON DCO.siren = O.siren
@@ -14,7 +21,7 @@ module.exports = {
         })
     },
     findBySiren: function (siren, callback) {
-        sql = "select * from Organisation where siren = ?";
+        let sql = "select * from Organisation where siren = ?";
         db.query(sql,siren, function (err, results) {
             if (err) throw err;
             callback(results);

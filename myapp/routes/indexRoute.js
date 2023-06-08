@@ -2,8 +2,8 @@ const express = require('express');
 let router = express.Router();
 let requireAuth = require('../requireAuth/requireAuth');
 let requireCandidat = require('../requireAuth/requireCandidat');
-let offreModel = require("../models/offreModel");
 const userModel = require("../models/utilisateurModel");
+let orgaModel = require("../models/organisationModel");
 let demandeCreaOrgaModel = require("../models/demandeCreaOrgaModel");
 
 /* GET home page. */
@@ -76,6 +76,16 @@ router.get("/mon-compte", requireAuth, (req, res) => {
       user: user
     });
   })
+})
+
+router.get("/rejoindre-organisation", requireCandidat, (req, res) => {
+    let typeOrga;
+    orgaModel.getOrgasCrees(typeOrga, (results) => {
+        res.render("rejoindreOrga", {
+            role: req.session.role,
+            orgas: results
+        })
+    })
 })
 
 module.exports = router;

@@ -240,5 +240,15 @@ function supprimerLogo(nomLogo, callback){
         callback(404);
     }
 }
+
+router.post("/api-orgas-crees", requireCandidat, (req, res) => {
+    let typeOrga = req.body.typeOrga;
+    if(typeOrga < 1 || typeOrga > 2) typeOrga = undefined;
+    orgaModel.getOrgasCrees(typeOrga, rows => {
+        console.log(rows);
+        res.status(200).json(rows);
+    })
+})
+
 module.exports = router;
 //module.exports = multer({storage}).single("image");

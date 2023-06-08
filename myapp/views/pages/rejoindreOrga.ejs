@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head', title='Créer une organisation'); %>
+
+<body>
+
+<%- include('../partials/headers/header', role=role); %>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 d-flex justify-content-center">
+            <%- include('../partials/title', title="Rejoindre une organisation"); %>
+        </div>
+        <div class="col-md-12 row g-3 justify-content-center align-items-center">
+            <div class="col-md-auto">
+                <label class="form-label">Organisations</label>
+                <select class="form-select" id="select-orga">
+                    <option value="" disabled selected>Choisir</option>
+                    <optgroup id="opt-grp-assos" label="Associations">
+                        <%
+                        let entreprises = orgas.filter(function(orga) {
+                            return orga.id_type_organisation === 1;
+                        });
+                        let associations = orgas.filter(function(orga) {
+                            return orga.id_type_organisation === 2;
+                        });
+                        console.log(associations);
+                        console.log(entreprises);
+
+                        associations.forEach(asso => { %>
+                            <option><%= asso.siren %> | <%= asso.nom %></option>
+                        <% }); %>
+                    </optgroup>
+                    <optgroup id="opt-grp-entreprises" label="Entreprises">
+                        <% entreprises.forEach(orga => { %>
+                        <option><%= orga.siren %> | <%= orga.nom %></option>
+                        <% }); %>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="col-md-auto">
+                <label class="form-label">Type d'organisation</label>
+                <select class="form-select" id="type-orga-select">
+                        <option value="0" selected>Tous</option>
+                        <option value="1">Entreprises</option>
+                        <option value="2">Associations</option>
+                </select>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-role-outline" id="btn-rejoindre" disabled>Rejoindre</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/rejoindreOrga.js"></script>
+</body>
+</html>
