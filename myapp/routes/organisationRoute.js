@@ -2,10 +2,12 @@ let express = require('express');
 let bodyParser = require("body-parser");
 let orgaModel = require("../models/organisationModel");
 let demandeCreaOrgaModel = require("../models/demandeCreaOrgaModel");
+let demandeDevenirRecruteurModel = require("../models/demandeDevenirRecruteurModel");
 const userModel = require("../models/utilisateurModel");
 
 const requireAdmin = require('../requireAuth/requireAdmin');
 const requireCandidat = require('../requireAuth/requireCandidat');
+const requireCandidatOrRecruteur = require("../requireAuth/requireRecruteurOrCandidat");
 
 const {log} = require("debug");
 let router = express.Router();
@@ -241,12 +243,44 @@ function supprimerLogo(nomLogo, callback){
     }
 }
 
+/*
+   WEB Service REST Method POST
+ */
 router.post("/api-orgas-crees", requireCandidat, (req, res) => {
     let typeOrga = req.body.typeOrga;
     if(typeOrga < 1 || typeOrga > 2) typeOrga = undefined;
     orgaModel.getOrgasCrees(typeOrga, rows => {
         console.log(rows);
         res.status(200).json(rows);
+    })
+})
+
+router.post("/demander-rejoindre/:siren", requireCandidat, (req, res) => {
+    let siren = req.params.siren;
+    let email = req.session.userid;
+    demandeDevenirRecruteurModel.insert(email, siren, (result) => {
+        if(result) res.sendStatus(200);
+        else res.sendStatus(500);
+    })
+})
+
+router.delete("/supprimer-demande-rejoindre-orga", requireCandidatOrRecruteur, (req, res) => {
+    let siren = req.body.siren;
+    let email = req.body.email;
+    if(!email) email = req.session.userid;
+    demandeDevenirRecruteurModel.delete(email, siren, (result) => {
+        if(result) {
+            res.status(200).render("../partials/bs-alert", {
+                type: "success",
+                message: `La demande pour rejoindre l'organisation ${siren} a bien été supprimée !`
+            })
+        }
+        else {
+            res.status(500).render("../partials/bs-alert", {
+                type: "error",
+                message: `Une erreur est survenue lors de la suppression de la demande pour rejoindre l'organisation ${siren} !`
+            })
+        }
     })
 })
 

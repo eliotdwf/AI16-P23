@@ -5,6 +5,7 @@ let requireCandidat = require('../requireAuth/requireCandidat');
 const userModel = require("../models/utilisateurModel");
 let orgaModel = require("../models/organisationModel");
 let demandeCreaOrgaModel = require("../models/demandeCreaOrgaModel");
+let demandeDevenirRecruteurModel = require("../models/demandeDevenirRecruteurModel");
 
 /* GET home page. */
 router.get('/', requireAuth, function(req, res) {
@@ -39,7 +40,7 @@ router.get("/creer-compte", (req, res) => {
 });
 
 router.get("/creer-organisation", requireCandidat, (req, res) => {
-  //TODO : vérifier que l'utilisateur n'a pas déjà déposé une demande de creation d'orga
+  //on vérifie que l'utilisateur n'a pas déjà déposé une demande de creation d'orga
   demandeCreaOrgaModel.getDemandesByEmail(req.session.userid, (row) => {
       if(row) {
           // l'utilisateur a deja saisi une demande
@@ -79,12 +80,23 @@ router.get("/mon-compte", requireAuth, (req, res) => {
 })
 
 router.get("/rejoindre-organisation", requireCandidat, (req, res) => {
-    let typeOrga;
-    orgaModel.getOrgasCrees(typeOrga, (results) => {
-        res.render("rejoindreOrga", {
-            role: req.session.role,
-            orgas: results
-        })
+    demandeDevenirRecruteurModel.getByEmail(req.session.userid, (row) => {
+        if(row) {
+            // l'utilisateur a deja saisi une demande
+            res.render("rejoindreOrgaDetail", {
+                role: req.session.role,
+                orga: row
+            })
+        }
+        else {
+            let typeOrga;
+            orgaModel.getOrgasCrees(typeOrga, (results) => {
+                res.render("rejoindreOrga", {
+                    role: req.session.role,
+                    orgas: results
+                })
+            })
+        }
     })
 })
 

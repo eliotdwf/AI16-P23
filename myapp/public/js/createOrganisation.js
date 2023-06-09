@@ -19,7 +19,6 @@ document.getElementById("btn-envoyer-demande").addEventListener("click", functio
 });
 
 document.getElementById("btn-confirmer-creation").addEventListener("click", () => {
-    console.log("dans le click du btn-confirmer-creation");
     let siren = document.getElementById("siren").value
     let formData = new FormData();
     formData.append('siren', siren);
@@ -28,7 +27,6 @@ document.getElementById("btn-confirmer-creation").addEventListener("click", () =
     formData.append('siege', document.getElementById("siege").value);
     formData.append('logo', document.getElementById("logo").files[0]);
     formData.append('description', document.getElementById("description").value);
-    console.log(formData)
     fetch("/organisations/create/" + siren, {
         method: 'POST',
         body: formData
