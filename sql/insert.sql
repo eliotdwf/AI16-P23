@@ -3,6 +3,10 @@ INSERT INTO Role VALUES (2, "Recruteur");
 INSERT INTO Role VALUES (3, "Administrateur");
 INSERT INTO Utilisateur VALUES("candidat@mail.fr", "mdp", "toto", "francis", "0606060606", curdate(), 1, 1, NULL);
 INSERT INTO Utilisateur VALUES("candidat2@mail.fr", "mdp", "albert", "Vandam", "0606060606", curdate(), 1, 1, NULL);
+INSERT INTO Utilisateur VALUES("candidat3@mail.fr", "mdp", "Bidule", "Farfadet", "0606060606", curdate(), 1, 1, NULL);
+INSERT INTO Utilisateur VALUES("candidat4@mail.fr", "mdp", "Zigzag", "Zinzin", "0606060606", curdate(), 1, 1, NULL);
+INSERT INTO Utilisateur VALUES("candidat5@mail.fr", "mdp", "Totoche", "Trouillard", "0606060606", curdate(), 1, 1, NULL);
+INSERT INTO Utilisateur VALUES("candidat6@mail.fr", "mdp", "Gribouille", "Vandam", "0606060606", curdate(), 1, 1, NULL);
 INSERT INTO Utilisateur VALUES("eliot@mail.fr", "mdp", "Dewulf", "Eliot", "0606060606", curdate(), 1, 3, NULL);
 INSERT INTO Utilisateur VALUES("admin@mail.fr", "mdp", "Admin", "Admin", "0606060606", curdate(), 1, 3, null);
 
@@ -67,3 +71,8 @@ INSERT INTO Utilisateur VALUES("carrefour@mail.fr", "mdp", "Recruteur", "Carrefo
 INSERT INTO Utilisateur VALUES("amazon@mail.fr", "mdp", "Recruteur", "Amazon", "0606060606", curdate(), 1, 2, "5678");
 
 INSERT INTO DemandeCreationOrga VALUES("candidat2@mail.fr", curdate(), "1234");
+INSERT INTO DemandeDevenirRecruteur VALUES ("candidat2@mail.fr", curdate(), "5678");
+INSERT INTO DemandeDevenirRecruteur VALUES ("candidat3@mail.fr", curdate(), "5678");
+INSERT INTO DemandeDevenirRecruteur VALUES ("candidat4@mail.fr", curdate(), "5678");
+INSERT INTO DemandeDevenirRecruteur VALUES ("candidat5@mail.fr", curdate(), "5678");
+INSERT INTO DemandeDevenirRecruteur VALUES ("candidat6@mail.fr", curdate(), "5678");

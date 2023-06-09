@@ -1,7 +1,10 @@
 const express = require('express');
 let router = express.Router();
+
 let requireAuth = require('../requireAuth/requireAuth');
 let requireCandidat = require('../requireAuth/requireCandidat');
+const requireRecruteur = require('../requireAuth/requireRecruteur');
+
 const userModel = require("../models/utilisateurModel");
 let orgaModel = require("../models/organisationModel");
 let demandeCreaOrgaModel = require("../models/demandeCreaOrgaModel");
@@ -97,6 +100,15 @@ router.get("/rejoindre-organisation", requireCandidat, (req, res) => {
                 })
             })
         }
+    })
+})
+
+router.get("/gerer-recruteurs", requireRecruteur, (req, res) => {
+    demandeDevenirRecruteurModel.getUsersBySiren(req.session.siren, (rows) => {
+        res.render("nouveauxRecruteurs", {
+            role: req.session.role,
+            futursRecruteurs: rows
+        })
     })
 })
 

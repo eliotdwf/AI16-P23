@@ -1,3 +1,10 @@
+<% if(roleReq === 2 && users.length === 0) { %>
+    <div class="d-flex justify-content-center mt-4">
+        <div class="col-8 d-flex justify-content-center">
+            <%- include("../partials/bs-alert", type="error", message="Aucune demande n'a été trouvée");%>
+        </div>
+    </div>
+<% } else { %>
 <div class="table-responsive">
     <table class="table align-middle">
         <thead>
@@ -7,8 +14,10 @@
             <th>Nom</th>
             <th>Tel</th>
             <th>Date céation</th>
+            <%if (roleReq === 3) {%>
             <th>Actif</th>
             <th>Rôle</th>
+            <% } %>
             <th>Actions</th>
         </tr>
         </thead>
@@ -30,25 +39,26 @@
                 <td>
                     <%= user.date_creation.toLocaleDateString() %>
                 </td>
+                <%if (roleReq === 3) {%>
                 <td>
                     <%= user.actif ? "Oui" : "Non" %>
                 </td>
                 <td>
-                    <%  let role;
+                    <%  let roleUser;
                         switch (user.id_role) {
                             case 1 :
-                                role = "Candidat";
+                                roleUser = "Candidat";
                                 break;
                             case 2 :
-                                role = "Recruteur";
+                                roleUser = "Recruteur";
                                 break;
                             case 3 :
-                                role = "Administrateur";
+                                roleUser = "Administrateur";
                                 break;
                             default:
-                                role = "Inconnu";
+                                roleUser = "Inconnu";
                         }%>
-                    <%= role %>
+                    <%= roleUser %>
                 </td>
                 <td>
                     <% if(user.id_role != 3) {%>
@@ -62,8 +72,15 @@
                         Aucune action pour ce compte
                     <% } %>
                 </td>
+                <% } else { %>
+                    <td>
+                        <button class="btn btn-success col-auto" onclick="accepterDemande('<%= user.email %>','<%= user.futur_siren %>')">Ajouter</button>
+                        <button class="btn btn-danger col-auto" onclick="refuserDemande('<%= user.email %>','<%= user.futur_siren %>')">Refuser</button>
+                    </td>
+                <% } %>
             </tr>
         <% }) %>
         </tbody>
     </table>
 </div>
+<% } %>

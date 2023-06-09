@@ -4,9 +4,11 @@ let orgaModel = require("../models/organisationModel");
 let demandeCreaOrgaModel = require("../models/demandeCreaOrgaModel");
 let demandeDevenirRecruteurModel = require("../models/demandeDevenirRecruteurModel");
 const userModel = require("../models/utilisateurModel");
+let ddrModel = require("../models/demandeDevenirRecruteurModel");
 
 const requireAdmin = require('../requireAuth/requireAdmin');
 const requireCandidat = require('../requireAuth/requireCandidat');
+const requireRecruteur = require('../requireAuth/requireRecruteur');
 const requireCandidatOrRecruteur = require("../requireAuth/requireRecruteurOrCandidat");
 
 const {log} = require("debug");
@@ -279,6 +281,60 @@ router.delete("/supprimer-demande-rejoindre-orga", requireCandidatOrRecruteur, (
             res.status(500).render("../partials/bs-alert", {
                 type: "error",
                 message: `Une erreur est survenue lors de la suppression de la demande pour rejoindre l'organisation ${siren} !`
+            })
+        }
+    })
+})
+
+router.get("/futurs-recruteurs-list/:siren", requireRecruteur, (req, res) => {
+    ddrModel.getUsersBySiren(req.params.siren, (rows) => {
+        res.status(200).render("../partials/usersList", {
+            roleReq: req.session.role,
+            users: rows
+        })
+    })
+})
+
+router.put("/valider-nouveau-recruteur", requireRecruteur, (req, res) => {
+    let email = req.body.email;
+    let siren = req.body.siren;
+    ddrModel.delete(email, siren, (deleted) => {
+        if(deleted) {
+            userModel.devenirRecruteur(email, siren, (result) => {
+                if(result) {
+                    res.status(200).render("../partials/bs-alert", {
+                        type: "success",
+                        message: `L'utilisateur ${email} est désormais un recruteur pour l'organisation ${siren} !`
+                    })
+                }
+                else {
+                    res.status(500).render("../partials/bs-alert", {
+                        type: "error",
+                        message: `Echec de l'opération, la demande de l'utilisateur ${email} pour rejoindre l'organisation ${siren} n'a pas pu être validée !`
+                    })
+                }
+            })
+        }
+        else {
+            console.error("Echec de la suppression de la DemandeDevenirRecruteur de l'utilisateur " + email);
+        }
+    })
+})
+
+router.put("/refuser-nouveau-recruteur", requireRecruteur, (req, res) => {
+    let email = req.body.email;
+    let siren = req.body.siren;
+    ddrModel.delete(email, siren, deleted => {
+        if(deleted) {
+            res.status(200).render("../partials/bs-alert", {
+                type: "success",
+                message: `La demande de l'utilisateur ${email} a été refusée avec succès !`
+            })
+        }
+        else {
+            res.status(500).render("../partials/bs-alert", {
+                type: "error",
+                message: `Echec de l'opération, la demande de l'utilisateur ${email} pour rejoindre l'organisation ${siren} n'a pas pu être refusée !`
             })
         }
     })

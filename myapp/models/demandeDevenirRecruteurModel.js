@@ -26,5 +26,14 @@ module.exports = {
             if (err) callback(false);
             else callback(true);
         })
+    },
+    getUsersBySiren: function(siren, callback) {
+        let sql = `SELECT U.email, U.nom, U.prenom, U.tel, U.date_creation, DDR.siren AS futur_siren
+                    FROM DemandeDevenirRecruteur DDR INNER JOIN Utilisateur U ON U.email = DDR.email
+                    WHERE DDR.siren = ?`
+        db.query(sql, siren, (err, rows) => {
+            if(err) throw err;
+            else callback(rows);
+        })
     }
 }

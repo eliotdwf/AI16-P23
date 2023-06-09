@@ -26,13 +26,14 @@ module.exports = {
         });
     },
     getAll: function (actif= "%%", role = "%%", callback) {
-        db.query(`select * from Utilisateur WHERE actif LIKE '${actif}' AND id_role LIKE '${role}'`, function (err, results) {
+        let sql = `select * from Utilisateur WHERE actif LIKE ? AND id_role LIKE ?`
+        db.query(sql, [actif, role], function (err, results) {
             if (err) throw err;
             callback(results);
         });
     },
     isValid: function (email, mdp, callback) {
-        let sql = "SELECT id_role FROM Utilisateur WHERE email = ? AND mdp = ?";
+        let sql = "SELECT id_role FROM Utilisateur WHERE email = ? AND mdp = ? AND actif = True";
         db.query(sql, [email, mdp], function (err, result) {
             if (err) throw err;
             if(result[0]){
@@ -87,10 +88,7 @@ module.exports = {
         // et Recruteur
     },
     devenirRecruteur: function(email, siren, callback) {
-        console.log("dans la fonction devenirRecruteur");
         let sql = "UPDATE Utilisateur SET siren = ?, id_role = 2 WHERE email = ?";
-        console.log("siren : " + siren);
-        console.log("email : " + email);
         db.query(sql, [siren, email], function(err, result) {
             //TODO : supprimer les candidatures de l'ancien candidat, les demandes de création d'orga + les demandes pour devenir recruteur
             if(err) throw err;
