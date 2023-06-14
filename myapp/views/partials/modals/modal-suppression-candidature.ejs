@@ -1,0 +1,23 @@
+<!-- Modal -->
+<div class="modal fade" id="modalSuppressionCandidature" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Suppression de la candidature <i class="role-color bi bi-trash"></i></h1>
+            </div>
+            <div class="modal-body">
+                <i class="bi bi-exclamation-triangle required"></i> Attention, vous allez supprimer votre candidature pour cette offre.
+                Et supprimer toutes les pièces de dossier associées
+                <br>Êtes vous sûr de vouloir supprimer définitivement votre candidature ?<br />
+            </div>
+            <div class="modal-footer d-flex justify-content-around">
+                <button type="button" class="btn btn-lg btn-danger" data-bs-dismiss="modal">
+                    Annuler <i class="bi bi-x-circle"></i>
+                </button>
+                <button onclick="supprimerCandidature('<%= offre.id_offre %>')" class="btn btn-lg btn-success" data-bs-dismiss="modal">
+                    Confirmer <i class="bi bi-check-circle"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<% if(candidatures.length > 0) {%>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+            <tr>
+                <th>Intitulé</th>
+                <th>Date</th>
+                <th>Status du poste</th>
+                <th>Lieu</th>
+                <th>Salaire</th>
+                <th>Rythme</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <% candidatures.forEach((candidature)=> { %>
+                <tr>
+                    <td style="display:none"><%= candidature.id_offre %></td>
+                    <td><%= candidature.intitule %></td>
+                    <td><%= candidature.date_candidature.toLocaleDateString() %></td>
+                    <td><%= candidature.statut_poste %></td>
+                    <td><%= candidature.lieu_mission %></td>
+                    <td><%= candidature.salaire %></td>
+                    <td><%= candidature.rythme %></td>
+                    <td>
+                        <button class="btn btn-success col-auto" onclick="window.location.href='/offres/<%= candidature.id_offre %>'">Voir</button>
+                        <button class="btn btn-danger col-auto" onclick="supprimerCandidature('<%= candidature.id_offre %>', false)">Supprimer</button>
+                    </td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+<% }
+else { %>
+    <div class="d-flex justify-content-center">
+        <div id="errorMessage" class="alert alert-danger text-center col-8" role="alert" style="margin-top:3vh;">
+            Aucune candidature n'a été trouvée !
+        </div>
+    </div>
+<% } %>

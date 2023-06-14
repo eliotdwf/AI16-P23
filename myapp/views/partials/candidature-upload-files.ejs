@@ -1,7 +1,13 @@
 <form id="candidature-form">
     <div class="form-group">
-        <h4>Pour candidater vous devez fournir les pièces suivantes :</h4>
-        <hr class="m-0 role-color drop-shadow">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <h4 style="text-align: center">Candidature</h4>
+                <hr class="m-0 role-color drop-shadow">
+            </div>
+        </div>
+        <p style="margin-top:5vh">
+        <i>Pour candidater vous devez fournir les pièces suivantes :</i>
         <% pieces.forEach(piece => { %>
             <div class="form-group row" style="margin-top: 4vh;">
                 <label for="<%=piece%>" class="col-sm-2 col-form-label"><%=piece%></label>
@@ -14,4 +20,11 @@
 </form>
 <button style="margin-top:3vh;float:right;padding: 1vh 2vw 1vh 2vw"
         class="btn btn-success"
-        onclick="candidater(<%=id_offre%>)">Valider</button>
+        onclick="candidater(<%=id_offre%>)">
+    Valider
+</button>
+
+<div id="alert-error-candidature" class="alert collapse alert-danger alert-dismissible" role="alert">
+    Une erreur est survenue et votre candidature n'a pas pu être créée.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>

@@ -99,12 +99,10 @@ CREATE TABLE OffreEmploi(
 CREATE TABLE Candidature(
     email VARCHAR(50),
     id_offre INT,
-    piece_dossier INT,
     date_candidature DATE NOT NULL,
-    PRIMARY KEY(email, id_offre, piece_dossier),
+    PRIMARY KEY(email, id_offre),
     FOREIGN KEY(email) REFERENCES Utilisateur(email),
-    FOREIGN KEY(id_offre) REFERENCES OffreEmploi(id_offre),
-    FOREIGN KEY(piece_dossier) REFERENCES PieceDossier(piece_dossier)
+    FOREIGN KEY(id_offre) REFERENCES OffreEmploi(id_offre)
 );
 
 CREATE TABLE DemandeCreationOrga(

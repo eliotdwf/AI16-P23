@@ -68,6 +68,8 @@ module.exports = {
     getPieceOffre: function(id, callback) {
         let sql = "SELECT pieces_requises_candidature FROM OffreEmploi WHERE id_offre = ?";
         db.query(sql, id, function (err, result) {
+            console.log(sql + " " + id)
+            console.log("RESULTATS " + result)
             if (err) throw err;
             callback(result[0]["pieces_requises_candidature"].split(","));
         });
@@ -97,5 +99,6 @@ module.exports = {
             if(err) throw err;
             callback(true);
         })
-    }
+    },
+
 }

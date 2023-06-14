@@ -14,6 +14,13 @@
 
     <div id="alertMessages" class="row justify-content-center mt-3 mb-3"></div>
 
+    <% if(dejaCandidat){ %>
+        <h2 class="text-success" style="margin-bottom:4vh">
+            Vous avez déjà candidaté à cette offre
+        </h2>
+
+    <% } %>
+
     <div class="row">
         <div class="col-md-8">
             <div class="row justify-content-center">
@@ -28,9 +35,12 @@
             <div id="organisation-candidats">
                 <%- include('../partials/description-orga', type_organisation=offre.type_organisation.toLowerCase(), description=offre.description_orga);%>
             </div>
-            <div id="pieces-offre" style="display: none">
-                <%- include('../partials/candidature-upload-files', pieces=pieces, id_offre=offre.id_offre); %>
-            </div>
+
+            <% if(!dejaCandidat){ %>
+                <div id="pieces-offre" style="display: none">
+                    <%- include('../partials/candidature-upload-files', pieces=pieces, id_offre=offre.id_offre); %>
+                </div>
+            <% } %>
 
         </div>
 
@@ -174,9 +184,21 @@
                 </div>
             </div>
             <% if(role===1) { %>
-                <div class="ms-1 mt-3 d-flex justify-content-center">
-                    <button id="bouton-candidater-candidat" onclick="afficherPieces(<% offre.id_offre%>)" class="btn btn-lg btn-role">Candidater</button>
-                </div>
+                <% if(!dejaCandidat) { %>
+                    <div class="ms-1 mt-3 d-flex justify-content-center">
+                        <button id="bouton-candidater-candidat" onclick="afficherPieces(<%= offre.id_offre %>, <%= dejaCandidat %>)" class="btn btn-lg btn-role">Candidater</button>
+                    </div>
+                    <% } else { %>
+                        <div class="ms-1 mt-3 d-flex justify-content-center">
+                            <button class="btn btn-lg btn-danger" id="bouton-supprimer-candidat" data-bs-toggle="modal" data-bs-target="#modalSuppressionCandidature">
+                                Retirer candidature
+                            </button>
+
+<!--                            <button id="bouton-supprimer-candidat" onclick="" class="btn btn-lg btn-danger">-->
+<!--                                -->
+<!--                            </button>-->
+                        </div>
+                    <% } %>
             <% } else { %>
                 <div class="ms-1 mt-3 mb-3 d-flex">
                     <div class="cursor-pointer role-color" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Date validité">
@@ -278,9 +300,10 @@
 </main>
 </body>
 <%- include("../partials/modals/modal-suppression-offre.ejs", offreEmploi=offre);%>
+<%- include("../partials/modals/modal-suppression-candidature.ejs", offreEmploi=offre);%>
 <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 </script>
-<script src="/js/detailOffre.js"></script>
+<script src="/js/offres.js"></script>
 </html>
