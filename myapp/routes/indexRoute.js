@@ -9,6 +9,10 @@ const userModel = require("../models/utilisateurModel");
 let orgaModel = require("../models/organisationModel");
 let demandeCreaOrgaModel = require("../models/demandeCreaOrgaModel");
 let demandeDevenirRecruteurModel = require("../models/demandeDevenirRecruteurModel");
+const offreModel = require("../models/offreModel");
+const typeContratModel = require("../models/typeContratModel");
+const typeMetierModel = require("../models/typeMetierModel");
+const etatOffreModel = require("../models/etatOffreModel");
 
 /* GET home page. */
 router.get('/', requireAuth, function(req, res) {
@@ -110,6 +114,18 @@ router.get("/gerer-recruteurs", requireRecruteur, (req, res) => {
             futursRecruteurs: rows
         })
     })
+})
+
+router.get("/creer-offre", requireRecruteur, (req, res) => {
+    typeContratModel.getAll((typesContrat)=> {
+        typeMetierModel.getAll(typesMetier => {
+            res.render('creerOffre', {
+                role: req.session.role,
+                typesContrat: typesContrat,
+                typesMetier: typesMetier
+            });
+        })
+    });
 })
 
 module.exports = router;

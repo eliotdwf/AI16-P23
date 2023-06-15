@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head', title='Créer une offre'); %>
+
+<body>
+
+<%- include('../partials/headers/header', role=role); %>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 d-flex justify-content-center">
+            <%- include('../partials/title', title="Créer une offre"); %>
+        </div>
+
+        <form id="create-orga-form" class="col-md-8 mt-3 row g-3">
+            <div id="alert-messages" class="d-flex justify-content-center"></div>
+            <div class="col-md-4">
+                <label for="intitule" class="form-label">Intitulé <b class="required">*</b></label>
+                <input type="text" class="form-control" id="intitule">
+            </div>
+            <div class="col-md-4">
+                <label for="rythme" class="form-label">Rythme <b class="required">*</b></label>
+                <input type="text" class="form-control" id="rythme">
+            </div>
+            <div class="col-md-4">
+                <label for="salaire" class="form-label">Rémunération <b class="required">*</b></label>
+                <input type="text" class="form-control" id="salaire">
+            </div>
+            <div class="col-md-7">
+                <label for="lieu-mission" class="form-label">Lieu de la mission <b class="required">*</b></label>
+                <div class="input-group">
+                        <span class="input-group-text">
+                            <a class="a-popover" tabindex="0" data-bs-toggle="popover" role="button" data-bs-trigger="hover focus" data-bs-placement="bottom"
+                               data-bs-content="Saisir l'adresse de la mission (n° de rue, ville et code postal)">
+                                <i class="bi bi-info-circle role-color"></i>
+                            </a>
+                        </span>
+                    <input type="text" class="form-control" id="lieu-mission" placeholder="4 rue du Chameau, 75000 Paris ...">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <label for="pieces-candidature" class="form-label">Pièces candidature <b class="required">*</b></label>
+                <div class="input-group">
+                        <span class="input-group-text">
+                            <a class="a-popover" tabindex="0" data-bs-toggle="popover" role="button" data-bs-trigger="hover focus" data-bs-placement="bottom"
+                               data-bs-content="Pièces à séparer par une virgule">
+                                <i class="bi bi-info-circle role-color"></i>
+                            </a>
+                        </span>
+                    <input type="text" class="form-control" id="pieces-candidature" placeholder="CV, Lettre de motivation">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="type-metier" class="form-label">Type de métier <b class="required">*</b></label>
+                <select id="type-metier" class="form-select form-control">
+                    <option value="" selected></option>
+                    <% typesMetier.forEach(metier => { %>
+                        <option value="<%= metier.id_type_metier %>"><%= metier.nom %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="type-contrat" class="form-label">Type de contrat <b class="required">*</b></label>
+                <select id="type-contrat" class="form-select form-control">
+                    <option value="" selected></option>
+                    <% typesContrat.forEach(contrat => { %>
+                        <option value="<%= contrat.id_type_contrat %>"><%= contrat.libelle %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="date-validite" class="form-label">Date de validité <b class="required">*</b></label>
+                <input type="date" id="date-validite" class="form-control">
+            </div>
+            <div class="col-12">
+                <label for="description">Description de l'offre <b class="required">*</b></label>
+                <textarea class="form-control" placeholder="Cette mission a pour objectif de ..." id="description" rows="4"></textarea>
+            </div>
+            <div class="col-12">
+                <div><small><b class="required">*</b> Champs obligatoires</small></div>
+            </div>
+            <div class="col-12 justify-content-center">
+                <div id="errorMessage" style="display: none" class="alert alert-danger text-center" role="alert">
+                    Attention, tous les champs requis doivent être complétés !
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="d-flex justify-content-around">
+                    <a href="/offres" class="btn btn-danger col-md-3" id="btn-annuler">
+                        Annuler <i class="bi bi-x-circle"></i>
+                    </a>
+                    <button type="button" class="btn btn-role col-4" id="btn-creer-brouillon">
+                        Enregistrer le brouillon <svg width="21" height="21" viewBox="0 0 39 39" fill="none" class="ms-1 mb-1" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M30.875 34.125H8.125C7.26305 34.125 6.4364 33.7826 5.8269 33.1731C5.21741 32.5636 4.875 31.737 4.875 30.875V8.125C4.875 7.26305 5.21741 6.4364 5.8269 5.8269C6.4364 5.21741 7.26305 4.875 8.125 4.875H26L34.125 13V30.875C34.125 31.737 33.7826 32.5636 33.1731 33.1731C32.5636 33.7826 31.737 34.125 30.875 34.125Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M27.625 34.125V21.125H11.375V34.125" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11.375 4.875V13H24.375" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="btn btn-success col-3" id="btn-creer-publier">
+                        Créer et publier <i class="bi bi-send"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/js/createOffre.js"></script>
+</body>
+</html>

@@ -217,4 +217,9 @@ router.post("/pieceDossier/", uploadPiece, (req, res) => {
 
 })
 
+router.post("/create", requireRecruteur, (req, res) => {
+    res.sendStatus(200);
+    //TODO
+})
+
 module.exports = router;
