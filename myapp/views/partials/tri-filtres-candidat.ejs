@@ -24,13 +24,13 @@
             <div class="col-sm-4 form-floating">
                 <select class="form-select" id="select-type-metier">
                     <option value="0" selected>Tous</option>
-                    <option value="1">Agriculture</option>
-                    <option value="2">Banques/Finances</option>
-                    <option value="3">Informatique</option>
+                    <%for(let i = 0; i < filtres.typesMetier.length; i++){%>
+                        <option value="<%=filtres.typesMetier[i].id_type_metier%>"><%=filtres.typesMetier[i].nom%></option>
+                    <%}%>
                 </select>
-                <label for="select-type-metier">Type de métier</label>
+                <label for="select-type-metier">&nbsp;Type de métier</label>
             </div>
-            <div id="filtre-salaire" class="card col-sm-4">
+            <div id="filtre-salaire" class="card col-sm-3">
                 <label class="form-label small">Salaire</label>
 <!--                <div class="col-sm-auto">-->
                     <div class="row align-items-center justify-content-center">
@@ -55,14 +55,17 @@
 <!--                </div>-->
             </div>
             <div class="col-sm-4 form-floating">
-                <select class="form-select" id="select-teletravail">
+                <select class="form-select" id="select-type-contrat">
                     <option value="0" selected>Sans filtre</option>
-                    <option value="1">Jamais</option>
-                    <option value="2">2 jours/semaine</option>
-                    <option value="3">5 jours/semaine</option>
-                    <option value="4">Non défini</option>
+                    <%for(let i = 0; i < filtres.typesContrat.length; i++){%>
+                        <option value="<%=filtres.typesContrat[i].id_type_contrat%>"><%=filtres.typesContrat[i].libelle%></option>
+                    <%}%>
                 </select>
-                <label for="select-teletravail">Télétravail</label>
+                <label for="select-teletravail">&nbsp;Type de contrat</label>
+            </div>
+
+            <div class="col-sm-2 form-floating">
+                <input type="button" value="Filtrer">
             </div>
         </form>
     </div>

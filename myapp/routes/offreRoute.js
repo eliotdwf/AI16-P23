@@ -26,12 +26,14 @@ router.get("/", requireRecruteurOrCandidat, (req, res) => {
         etatOffre = 2;
     }
     offreModel.getProfilsOffres(role, siren, etatOffre, tri, function (rows) {
-        console.log(rows);
-        res.render('offres', {
-            role: role,
-            offresEmploi: rows,
-            user: req.session.username
-        });
+        offreModel.getFiltres(function(filtres) {
+            res.render('offres', {
+                role: role,
+                offresEmploi: rows,
+                user: req.session.username,
+                filtres: filtres
+            });
+        })
     })
 })
 

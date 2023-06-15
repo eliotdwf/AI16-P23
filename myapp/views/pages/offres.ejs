@@ -11,7 +11,7 @@
     <div class="row justify-content-between">
         <%- include('../partials/title', title="Offres d'emploi"); %>
         <% if(role == 1) {%>
-            <%- include('../partials/tri-filtres-candidat'); %>
+            <%- include('../partials/tri-filtres-candidat', filtres=filtres); %>
         <% }
         else { %>
             <%- include('../partials/tri-filtres-recruteur'); %>

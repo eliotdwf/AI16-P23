@@ -13,12 +13,12 @@
     </div>
 
     <div id="alertMessages" class="row justify-content-center mt-3 mb-3"></div>
-
-    <% if(dejaCandidat){ %>
-        <h2 class="text-success" style="margin-bottom:4vh">
-            Vous avez déjà candidaté à cette offre
-        </h2>
-
+    <% if(role === 1) { %>
+        <% if(dejaCandidat){ %>
+            <h2 class="text-success" style="margin-bottom:4vh">
+                Vous avez déjà candidaté à cette offre
+            </h2>
+        <% } %>
     <% } %>
 
     <div class="row">
@@ -36,10 +36,12 @@
                 <%- include('../partials/description-orga', type_organisation=offre.type_organisation.toLowerCase(), description=offre.description_orga);%>
             </div>
 
-            <% if(!dejaCandidat){ %>
-                <div id="pieces-offre" style="display: none">
-                    <%- include('../partials/candidature-upload-files', pieces=pieces, id_offre=offre.id_offre); %>
-                </div>
+            <% if(role === 1) { %>
+                <% if(!dejaCandidat){ %>
+                    <div id="pieces-offre" style="display: none">
+                        <%- include('../partials/candidature-upload-files', pieces=pieces, id_offre=offre.id_offre); %>
+                    </div>
+                <% } %>
             <% } %>
 
         </div>

@@ -100,5 +100,26 @@ module.exports = {
             callback(true);
         })
     },
+    getFiltres: function(callback) {
+        let sqlTypeMetier = `SELECT id_type_metier, nom FROM TypeMetier;`
+        db.query(sqlTypeMetier, function(err, typeMetier) {
+            let dict = {
+                typesMetier: [],
+                typesContrat: []
+            }
+            if(err) callback(null)
+            else {
+                dict.typesMetier = typeMetier;
+                let sqlTypeContrat = `SELECT id_type_contrat, libelle FROM TypeContrat;`
+                db.query(sqlTypeContrat, function(err, typeContrat) {
+                    if(err) callback(null)
+                    else {
+                        dict.typesContrat = typeContrat;
+                        callback(dict)
+                    }
+                })
+            }
+        })
+    }
 
 }
