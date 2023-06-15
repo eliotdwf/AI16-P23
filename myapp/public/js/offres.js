@@ -216,7 +216,7 @@ function updateOffresList() {
     })
         .then(response => {
             if(response.status != 200) {
-                window.href.location = "/404"
+                window.location.href = "/404"
             }
             else {
                 response.text().then(content => {
