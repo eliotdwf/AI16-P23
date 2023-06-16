@@ -101,8 +101,9 @@ function creerOffre(etatOffre) {
             .then(response => {
                 if (response.status === 200) {
                     response.text().then(content => {
+                        console.log(content)
                         localStorage.setItem("alertMessages", content)
-                        window.location.href = "/offres/" + idOffre;
+                        window.location.href = "/offres";
                     })
                 } else {
                     errorMessage.innerText = ERROR_UPDATE;
@@ -131,3 +132,8 @@ document.getElementById("btn-creer-publier").addEventListener("click", () => cre
 document.getElementById("btn-creer-brouillon").addEventListener("click", () => creerOffre(1));
 
 dateValiditeField.addEventListener("change", dateValiditeCorrecte);
+
+document.querySelectorAll('[data-bs-toggle="popover"]')
+    .forEach(popover => {
+        new bootstrap.Popover(popover)
+    })

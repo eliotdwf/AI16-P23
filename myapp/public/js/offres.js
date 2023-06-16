@@ -1,5 +1,6 @@
 let alertMessagesContent = localStorage.getItem("alertMessages");
 if(alertMessagesContent){
+    console.log(alertMessagesContent);
     updateAlertMessages(alertMessagesContent);
     localStorage.removeItem("alertMessages");
 }

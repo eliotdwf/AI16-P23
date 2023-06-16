@@ -218,8 +218,32 @@ router.post("/pieceDossier/", uploadPiece, (req, res) => {
 })
 
 router.post("/create", requireRecruteur, (req, res) => {
-    res.sendStatus(200);
-    //TODO
+    let intitule = req.body.intitule;
+    let description = req.body.description;
+    let lieuMission = req.body.lieuMission;
+    let rythme = req.body.rythme;
+    let salaire = req.body.salaire;
+    let idEtatOffre = req.body.idEtatOffre;
+    let dateValidite = req.body.dateValidite;
+    let piecesCandidatures = req.body.piecesCandidatures;
+    let idTypeMetier = req.body.idTypeMetier;
+    let idTypeContrat = req.body.idTypeContrat;
+    let siren = req.session.siren;
+    offreModel.create(intitule, lieuMission, rythme, salaire, description, dateValidite, piecesCandidatures,
+        siren, idTypeMetier, idTypeContrat, idEtatOffre, result => {
+        if(result) {
+            res.status(200).render("../partials/bs-alert", {
+                type: "success",
+                message: `L'offre intitulée "${intitule}" a été créée avec succès !`
+            });
+        }
+        else {
+            res.status(500).render("../partials/bs-alert", {
+                type: "error",
+                message: `Une erreur est survenue lors de la creation de l'offre intitulée "${intitule}" !`
+            });
+        }
+    })
 })
 
 module.exports = router;

@@ -93,9 +93,19 @@ module.exports = {
             }
         });
     },
-    create: function (id_offre, intitule, statut_poste, resp_hierarchique, lieu_mission, rythme, salaire, description, id_etat_offre, date_validite, pieces_requises_candidature, nb_pieces_dossier_candidature, siren, id_type_metier, id_type_contrat, callback) {
-        let sql = "INSERT INTO OffreEmploi VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        db.query(sql, [id_offre, intitule, statut_poste, resp_hierarchique, lieu_mission, rythme, salaire, description, id_etat_offre, date_validite, pieces_requises_candidature, nb_pieces_dossier_candidature, siren, id_type_metier, id_type_contrat], function (err) {
+    create: function (intitule, lieuMission, rythme, salaire, description, dateValidite, piecesCandidatures, siren,
+                      idTypeMetier, idTypeContrat, idEtatOffre, callback) {
+        let sql = `INSERT INTO OffreEmploi (intitule, lieu_mission, rythme, salaire, description, id_etat_offre,
+                    date_validite, pieces_requises_candidature, date_creation, date_publication, siren, id_type_metier, 
+                    id_type_contrat) VALUES(?, ?, ?, ?, ?, 2, ?, ?, curdate(), curdate(), ?, ?, ?)`;
+        if(idEtatOffre == 1) {
+            //offre non publiee, brouillon, on ne met pas de date de creation
+            sql = `INSERT INTO OffreEmploi (intitule, lieu_mission, rythme, salaire, description, id_etat_offre,
+                    date_validite, pieces_requises_candidature, date_creation, siren, id_type_metier, id_type_contrat) 
+                    VALUES(?, ?, ?, ?, ?, 1, ?, ?, curdate(), ?, ?, ?)`;
+        }
+        db.query(sql, [intitule, lieuMission, rythme, salaire, description, dateValidite, piecesCandidatures,
+            siren, idTypeMetier, idTypeContrat], function (err) {
             if(err) throw err;
             callback(true);
         })
