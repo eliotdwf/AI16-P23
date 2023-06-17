@@ -53,8 +53,8 @@ module.exports = {
                     WHERE EO.id_etat_offre LIKE ? AND O.siren LIKE ?`;
         //TODO : gerer le filtre
         if(role === 1) {    //candidat
-            sql += " AND EO.id_etat_offre=2 ORDER BY OffreEmploi.date_publication";
-            if(tri != undefined && tri === "2") sql += " DESC";
+            sql += " ORDER BY OffreEmploi.date_publication";
+            if(tri != undefined && tri === "2") sql += " DESC"; //la + récente en premier
         }
         else {  //recruteur
             sql += " ORDER BY OffreEmploi.date_creation";

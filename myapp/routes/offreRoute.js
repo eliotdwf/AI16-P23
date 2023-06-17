@@ -114,20 +114,17 @@ router.post('/offresList', function (req, res) {
     if(tri < 1 || tri > 2){
         tri = 1;
     }
-    let etatOffre
+    console.log("tri :" + tri);
+    let etatOffre;
     const role = req.session.role;
     if(role === 1) etatOffre = 2;
     if(etatOffre < 1 || etatOffre > 3){
         etatOffre = undefined;  //dans l'appel au model, etatOffre prend la valeur par défaut ("%%")
     }
     let siren = req.session.siren;
-    console.log("tri :" + tri)
     offreModel.getProfilsOffres(role, siren, etatOffre, tri, function (rows) {
         let render = (role === 1) ? "../partials/offres-candidat" : "../partials/offres-recruteur";
-        res.status(200).render(render, {
-            role: role,
-            offres: rows
-        });
+        res.status(200).render(render, { offres: rows });
     })
 });
 

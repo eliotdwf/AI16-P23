@@ -204,8 +204,8 @@ function updateOffresList() {
     //let etatOffre = document.getElementById("filtre-etat-offre");
     let etatOffre = 0;
     let body = {
-        "tri": tri,
-        "etatOffre": etatOffre
+        tri: tri,
+        etatOffre: etatOffre
     }
     fetch("/offres/offresList", {
         headers: {
