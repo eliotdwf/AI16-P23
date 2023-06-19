@@ -248,7 +248,7 @@ function supprimerLogo(nomLogo, callback){
 /*
    WEB Service REST Method POST
  */
-router.post("/api-orgas-crees", requireCandidat, (req, res) => {
+router.post("/api-orgas-crees", (req, res) => {
     let typeOrga = req.body.typeOrga;
     if(typeOrga < 1 || typeOrga > 2) typeOrga = undefined;
     orgaModel.getOrgasCrees(typeOrga, rows => {
