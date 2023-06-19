@@ -45,20 +45,51 @@ module.exports = {
             callback(results);
         })
     },
-    getProfilsOffres: function (role, siren = "%%", etatOffre = "%%", tri, callback) {
+    getProfilsOffresFiltres: function (role, siren = "%%",
+                                etatOffre = "%%",
+                                tri,
+                                filtres,
+                                callback) {
+        let sql =`select id_offre, intitule, lieu_mission, EO.id_etat_offre, EO.libelle AS etat, 
+                    O.chemin_logo, O.nom AS nom_orga
+                    from OffreEmploi INNER JOIN Organisation O ON O.siren = OffreEmploi.siren
+                    INNER JOIN EtatOffre EO ON OffreEmploi.id_etat_offre = EO.id_etat_offre
+                    WHERE EO.id_etat_offre LIKE ? AND O.siren LIKE ?`;
+
+        filtres.tm !== "0" ? sql += ` AND id_type_metier = ?` : sql += " AND id_type_metier != ?";
+        filtres.tc !== "0" ? sql += ` AND id_type_contrat = ?` : sql += " AND id_type_contrat != ?";
+
+        if(role === 1) {
+            sql += " ORDER BY OffreEmploi.date_publication";
+            if(tri !== undefined && tri === "2") sql += " DESC"; //la + récente en premier
+        }
+        else {  //recruteur
+            sql += " ORDER BY OffreEmploi.date_creation";
+            if(tri !== undefined && tri === "2") sql += " DESC";
+        }
+        db.query(sql, [etatOffre, siren, filtres.tm, filtres.tc], function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+    getProfilsOffres: function (role, siren = "%%",
+                                etatOffre = "%%",
+                                tri,
+                                callback) {
         let sql =`select id_offre, intitule, lieu_mission, EO.id_etat_offre, EO.libelle AS etat, 
                     O.chemin_logo, O.nom AS nom_orga
                     from OffreEmploi INNER JOIN Organisation O ON O.siren = OffreEmploi.siren
                     INNER JOIN EtatOffre EO ON OffreEmploi.id_etat_offre = EO.id_etat_offre
                     WHERE EO.id_etat_offre LIKE ? AND O.siren LIKE ?`;
         //TODO : gerer le filtre
+
         if(role === 1) {    //candidat
-            sql += " ORDER BY OffreEmploi.date_publication";
-            if(tri != undefined && tri === "2") sql += " DESC"; //la + récente en premier
+            sql += " AND EO.id_etat_offre=2 ORDER BY OffreEmploi.date_publication";
+            if(tri !== undefined && tri === "2") sql += " DESC";
         }
         else {  //recruteur
             sql += " ORDER BY OffreEmploi.date_creation";
-            if(tri != undefined && tri === "2") sql += " DESC";
+            if(tri !== undefined && tri === "2") sql += " DESC";
         }
         db.query(sql, [etatOffre, siren], function (err, results) {
             if (err) throw err;

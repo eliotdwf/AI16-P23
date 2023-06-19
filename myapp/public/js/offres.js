@@ -1,6 +1,5 @@
 let alertMessagesContent = localStorage.getItem("alertMessages");
 if(alertMessagesContent){
-    console.log(alertMessagesContent);
     updateAlertMessages(alertMessagesContent);
     localStorage.removeItem("alertMessages");
 }
@@ -199,13 +198,20 @@ function candidater(id) {
 // }
 //
 function updateOffresList() {
+    let tm = document.getElementById("select-type-metier").value
+    let tc = document.getElementById("select-type-contrat").value
+    let sal1 = document.getElementById("select-salaire-1").value
+    let sal2 = document.getElementById("select-salaire-2").value
     let tri = document.getElementById("select-tri-offres").value;
     let offresList = document.getElementById("liste-offres");
-    //let etatOffre = document.getElementById("filtre-etat-offre");
     let etatOffre = 0;
     let body = {
-        tri: tri,
-        etatOffre: etatOffre
+        "tri": tri,
+        "tm": tm,
+        "tc": tc,
+        "sal1": sal1,
+        "sal2": sal2,
+        "etatOffre": etatOffre
     }
     fetch("/offres/offresList", {
         headers: {
@@ -216,7 +222,7 @@ function updateOffresList() {
         body: JSON.stringify(body)
     })
         .then(response => {
-            if(response.status != 200) {
+            if(response.status !== 200) {
                 window.location.href = "/404"
             }
             else {

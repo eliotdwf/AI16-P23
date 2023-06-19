@@ -17,8 +17,59 @@
         </div>
     </div>
 </form>
-
 <div class="col-12 collapse show" id="filtres">
+    <div class="card card-body">
+        <form class="row gy-2 justify-content-between align-items-center">
+            <div class="col-sm-4 form-floating">
+                <select class="form-select" id="select-type-metier" onchange="updateOffresList()">
+                    <option value="0" selected>Tous</option>
+                    <%for(let i = 0; i < filtres.typesMetier.length; i++){%>
+                    <option value="<%=filtres.typesMetier[i].id_type_metier%>"><%=filtres.typesMetier[i].nom%></option>
+                    <%}%>
+                </select>
+                <label for="select-type-metier">&nbsp;Type de métier</label>
+            </div>
+            <div id="filtre-salaire" class="card col-sm-3">
+                <label class="form-label small">Salaire</label>
+                <!--                <div class="col-sm-auto">-->
+                <div class="row align-items-center justify-content-center">
+                    Entre
+                    <div class="col-auto">
+                        <select class="form-select" id="select-salaire-1" onchange="updateOffresList()">
+                            <option value="null" selected> </option>
+                            <option value="0">0</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="75">75</option>
+                        </select>
+                    </div>
+                    et
+                    <div class="col-auto">
+                        <select class="form-select" id="select-salaire-2" onchange="updateOffresList()">
+                            <option value="null" selected> </option>
+                            <option value="0">0</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="75">75</option>
+                        </select>
+                    </div>
+                    K€ /an
+                </div>
+                <!--                </div>-->
+            </div>
+            <div class="col-sm-4 form-floating">
+                <select class="form-select" id="select-type-contrat" onchange="updateOffresList()">
+                    <option value="0" selected>Sans filtre</option>
+                    <%for(let i = 0; i < filtres.typesContrat.length; i++){%>
+                    <option value="<%=filtres.typesContrat[i].id_type_contrat%>"><%=filtres.typesContrat[i].libelle%></option>
+                    <%}%>
+                </select>
+                <label for="select-teletravail">&nbsp;Type de contrat</label>
+            </div>
+        </form>
+    </div>
+</div>
+<!--<div class="col-12 collapse show" id="filtres">
     <div class="card card-body">
         <form class="row gy-2 justify-content-between align-items-center">
             <div class="col-sm-4 form-floating">
@@ -32,7 +83,7 @@
             </div>
             <div id="filtre-salaire" class="card col-sm-4">
                 <label class="form-label small">Salaire</label>
-                <!--                <div class="col-sm-auto">-->
+                &lt;!&ndash;                <div class="col-sm-auto">&ndash;&gt;
                 <div class="row align-items-center justify-content-center">
                     Entre
                     <div class="col-auto">
@@ -52,7 +103,7 @@
                     </div>
                     K€ /an
                 </div>
-                <!--                </div>-->
+                &lt;!&ndash;                </div>&ndash;&gt;
             </div>
             <div class="col-sm-4 form-floating">
                 <select class="form-select" id="select-teletravail">
@@ -66,4 +117,4 @@
             </div>
         </form>
     </div>
-</div>
+</div>-->

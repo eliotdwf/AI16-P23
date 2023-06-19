@@ -110,7 +110,8 @@ router.post("/supprimer/:id", requireRecruteur,  (req, res) => {
 });
 
 router.post('/offresList', function (req, res) {
-    let tri = req.body.tri;
+    let body = req.body;
+    let tri = body.tri;
     if(tri < 1 || tri > 2){
         tri = 1;
     }
@@ -122,7 +123,7 @@ router.post('/offresList', function (req, res) {
         etatOffre = undefined;  //dans l'appel au model, etatOffre prend la valeur par défaut ("%%")
     }
     let siren = req.session.siren;
-    offreModel.getProfilsOffres(role, siren, etatOffre, tri, function (rows) {
+    offreModel.getProfilsOffresFiltres(role, siren, etatOffre, tri, body, function (rows) {
         let render = (role === 1) ? "../partials/offres-candidat" : "../partials/offres-recruteur";
         res.status(200).render(render, { offres: rows });
     })
