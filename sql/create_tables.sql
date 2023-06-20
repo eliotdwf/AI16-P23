@@ -33,7 +33,7 @@ create table PieceDossier
         primary key,
     candidature_id      int          not null,
     chemin_fichier      varchar(100) not null,
-    description_fichier varchar(500) null,
+    description_fichier varchar(500),
     constraint PieceDossier_ibfk_1
         foreign key (candidature_id) references Candidature (candidature_id)
 );
@@ -86,11 +86,11 @@ create table Utilisateur
     mdp    varchar(72) not null,
     nom    varchar(50) not null,
     prenom varchar(50) not null,
-    tel    varchar(50) null,
+    tel    varchar(50),
     date_creation date       default curdate() not null,
     actif         tinyint(1) default 1         null,
     id_role       int                          not null,
-    siren         varchar(50)                  null,
+    siren         varchar(50)                  ,
     constraint siren
         unique (siren),
     constraint Utilisateur_ibfk_1
@@ -144,7 +144,7 @@ create table Candidature
 (
     candidature_id   int auto_increment primary key,
     email            varchar(50) not null,
-    id_offre         int         not null,
+    id_offre         int         ,
     date_candidature date        not null,
     constraint Candidature_ibfk_1
         foreign key (email) references Utilisateur (email)
