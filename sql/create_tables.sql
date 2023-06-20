@@ -21,12 +21,25 @@ CREATE TABLE TypeOrganisation(
     nom VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE PieceDossier(
+/*CREATE TABLE PieceDossier(
     piece_dossier INT,
     chemin_fichier VARCHAR(100) NOT NULL,
     description_fichier VARCHAR(500),
     PRIMARY KEY(piece_dossier)
+);*/
+create table PieceDossier
+(
+    piece_dossier       int auto_increment
+        primary key,
+    candidature_id      int          not null,
+    chemin_fichier      varchar(100) not null,
+    description_fichier varchar(500) null,
+    constraint PieceDossier_ibfk_1
+        foreign key (candidature_id) references Candidature (candidature_id)
 );
+
+create index fk_candidature
+    on PieceDossier (candidature_id);
 
 CREATE TABLE Role(
     id_role INT PRIMARY KEY,
@@ -50,8 +63,8 @@ CREATE TABLE Organisation(
     PRIMARY KEY(siren),
     FOREIGN KEY(id_type_organisation) REFERENCES TypeOrganisation(id_type_organisation)
 );
-
-CREATE TABLE Utilisateur(
+/*PRemière version*/
+/*CREATE TABLE Utilisateur(
     email VARCHAR(50),
     mdp VARCHAR(50) NOT NULL,
     nom VARCHAR(50) NOT NULL,
@@ -64,7 +77,30 @@ CREATE TABLE Utilisateur(
     PRIMARY KEY(email),
     FOREIGN KEY(siren) REFERENCES Organisation(siren),
     FOREIGN KEY(id_role) REFERENCES Role(id_role)
+);*/
+
+create table Utilisateur
+(
+    email varchar(50) not null
+        primary key,
+    mdp    varchar(72) not null,
+    nom    varchar(50) not null,
+    prenom varchar(50) not null,
+    tel    varchar(50) null,
+    date_creation date       default curdate() not null,
+    actif         tinyint(1) default 1         null,
+    id_role       int                          not null,
+    siren         varchar(50)                  null,
+    constraint siren
+        unique (siren),
+    constraint Utilisateur_ibfk_1
+        foreign key (siren) references Organisation (siren),
+    constraint Utilisateur_ibfk_2
+        foreign key (id_role) references Role (id_role)
 );
+
+create index id_role
+    on Utilisateur (id_role);
 
 CREATE TABLE TypeContrat(
     id_type_contrat INT PRIMARY KEY,
@@ -96,14 +132,26 @@ CREATE TABLE OffreEmploi(
     FOREIGN KEY(id_type_contrat) REFERENCES TypeContrat(id_type_contrat)
 );
 
-CREATE TABLE Candidature(
+/*CREATE TABLE Candidature(
     email VARCHAR(50),
     id_offre INT,
     date_candidature DATE NOT NULL,
     PRIMARY KEY(email, id_offre),
     FOREIGN KEY(email) REFERENCES Utilisateur(email),
     FOREIGN KEY(id_offre) REFERENCES OffreEmploi(id_offre)
+);*/
+create table Candidature
+(
+    candidature_id   int auto_increment primary key,
+    email            varchar(50) not null,
+    id_offre         int         not null,
+    date_candidature date        not null,
+    constraint Candidature_ibfk_1
+        foreign key (email) references Utilisateur (email)
 );
+
+create index id_offre
+    on Candidature (id_offre);
 
 CREATE TABLE DemandeCreationOrga(
     email VARCHAR(50),

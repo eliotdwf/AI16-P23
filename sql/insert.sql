@@ -1,7 +1,7 @@
 INSERT INTO Role VALUES (1, "Candidat");
 INSERT INTO Role VALUES (2, "Recruteur");
 INSERT INTO Role VALUES (3, "Administrateur");
-INSERT INTO Utilisateur VALUES("candidat@mail.fr", "mdp", "toto", "francis", "0606060606", curdate(), 1, 1, NULL);
+/*INSERT INTO Utilisateur VALUES("candidat@mail.fr", "mdp", "toto", "francis", "0606060606", curdate(), 1, 1, NULL);
 INSERT INTO Utilisateur VALUES("candidat2@mail.fr", "mdp", "albert", "Vandam", "0606060606", curdate(), 1, 1, NULL);
 INSERT INTO Utilisateur VALUES("candidat3@mail.fr", "mdp", "Bidule", "Farfadet", "0606060606", curdate(), 1, 1, NULL);
 INSERT INTO Utilisateur VALUES("candidat4@mail.fr", "mdp", "Zigzag", "Zinzin", "0606060606", curdate(), 1, 1, NULL);
@@ -9,6 +9,17 @@ INSERT INTO Utilisateur VALUES("candidat5@mail.fr", "mdp", "Totoche", "Trouillar
 INSERT INTO Utilisateur VALUES("candidat6@mail.fr", "mdp", "Gribouille", "Vandam", "0606060606", curdate(), 1, 1, NULL);
 INSERT INTO Utilisateur VALUES("eliot@mail.fr", "mdp", "Dewulf", "Eliot", "0606060606", curdate(), 1, 3, NULL);
 INSERT INTO Utilisateur VALUES("admin@mail.fr", "mdp", "Admin", "Admin", "0606060606", curdate(), 1, 3, null);
+*/
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('admin@mail.fr', '$2b$10$HnZUNy90/3Jm6j8s315wQ.CCtxI7xmSD..Xza0KL8stJNLkCoU4ee', 'Admin', 'Admin', '0011223344', '2023-06-19', 1, 3, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('amazon@mail.fr', '$2b$10$3j6Vc9EkSs4SKgu6wy6quueSvsQ2yoMSyqbwxMa0pP9dTuE.TFdna', 'Amazon', 'Recruteur', '0504050601', '2023-06-20', 1, 2, '5678');
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat2@mail.fr', '$2b$10$Nj0eKLQXwN3B5CB7.X/A6uWz8/PmPmwMc8rg096GS1ArJ6DH3Kp0S', 'Dubru', 'Antoine', '0102010201', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat3@mail.fr', '$2b$10$DIPRgp.T0EDqqbaxlKXrr.VueoH170YkCxrbf8EisYG5W1/Wzmg.6', 'Kunicki', 'Wojtek', '0203010405', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat4@mail.fr', '$2b$10$JHrpZ2TwUuq7SIpYiEjNVuNOFKOvg4wAZt/rxKWBOt3Tn7nqjR0aS', 'Ping', 'Pong', '0204050605', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat5@mail.fr', '$2b$10$eQClr8bb6vVwkP9RHGoZ5.RDoeXmJehwNoQvxly9QjCcG5ap9nRy.', 'Amélie', 'Catherine', '0205040605', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat6@mail.fr', '$2b$10$qTI2MzpOTcsFzbwLFBiV5eYVP72IKotDZjJS9.onJGCcKs2uzde4i', 'Rubrueil', 'Marie', '05040605440', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat@mail.fr', '$2b$10$Ajj6mLzeJE/Arcg/QGOMueG/qRWb/nJSX90Bd7JmMxD4M/ZgcLly.', 'François', 'Bellière', '0102030405', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('carrefour@mail.fr', '$2b$10$xvivBZ2RUcoS4JULJmFvv.7F8OoD4SEE.j/V2IpiPUdzGS37U7HfG', 'Carrefour', 'Recruteur', '0102030405', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('yohan.folliot@gmail.com', '$2b$10$EgnecP8wDZtthTXoZrrWle1etlw5gT.sOAOCIJOYFi2w4mqneNHxu', 'Folliot', 'Yohan', '0786456572', '2023-06-19', 1, 1, null);
 
 INSERT INTO TypeOrganisation VALUES(1, "entreprise");
 INSERT INTO TypeOrganisation VALUES(2, "association");
