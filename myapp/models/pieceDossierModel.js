@@ -50,12 +50,12 @@ module.exports = {
         })
     },
     getAllPiece(candidatureId, callback) {
-        const sql = `SELECT piece_dossier FROM PieceDossier WHERE candidature_id = ?;`;
+        const sql = `SELECT piece_dossier, chemin_fichier FROM PieceDossier WHERE candidature_id = ?;`;
         db.query(sql, candidatureId, function(err, results) {
             if(err){
                 callback(false)
             } else {
-                callback(results.map((obj) => obj.piece_dossier))
+                callback(results)
             }
         })
     }

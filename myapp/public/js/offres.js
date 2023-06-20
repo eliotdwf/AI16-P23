@@ -70,7 +70,7 @@ function downloadPiece(email, idOffre) {
         .then(response => response.json())
         .then(data => {
             for(let piece of data.pieces) {
-                fetch("/candidatures/download/"+piece)
+                fetch("/candidatures/download/"+piece.piece_dossier)
                 .then(resp => resp.blob())
                 .then(blob => {
                     const url = window.URL.createObjectURL(blob);
@@ -78,7 +78,7 @@ function downloadPiece(email, idOffre) {
                     a.style.display = 'none';
                     a.href = url;
                     // the filename you want
-                    a.download = piece;
+                    a.download = piece.chemin_fichier;
                     document.body.appendChild(a);
                     a.click();
                     window.URL.revokeObjectURL(url);
