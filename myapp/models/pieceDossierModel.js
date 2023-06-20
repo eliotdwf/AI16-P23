@@ -38,5 +38,25 @@ module.exports = {
                 callback(results)
             }
         })
+    },
+    getPieceOffre(pieceId, callback) {
+        const sql = `SELECT chemin_fichier FROM PieceDossier WHERE piece_dossier = ?;`;
+        db.query(sql, pieceId, function(err, results) {
+            if(err){
+                callback(false)
+            } else {
+                callback(results.map((obj) => obj.chemin_fichier))
+            }
+        })
+    },
+    getAllPiece(candidatureId, callback) {
+        const sql = `SELECT piece_dossier FROM PieceDossier WHERE candidature_id = ?;`;
+        db.query(sql, candidatureId, function(err, results) {
+            if(err){
+                callback(false)
+            } else {
+                callback(results.map((obj) => obj.piece_dossier))
+            }
+        })
     }
 }

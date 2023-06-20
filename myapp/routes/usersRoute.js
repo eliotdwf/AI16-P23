@@ -140,7 +140,7 @@ router.post('/create', function(req, res) {
 //TODO : à supprimer, utile pour les tests
 router.get("/candidat", (req, res) => {
   let mail = "candidat@mail.fr";
-  let mdp = "mdp";
+  let mdp = "123456789";
   userModel.isValid(mail, mdp, function(role) {
     if(role === 1 || role === 2 || role === 3) {
       req.session.role = role;
@@ -159,7 +159,7 @@ router.get("/candidat", (req, res) => {
 //TODO : à supprimer, utile pour les tests
 router.get("/recruteur", (req, res) => {
   let mail = "amazon@mail.fr";
-  let mdp = "mdp";
+  let mdp = "amazonRecruteur";
   userModel.isValid(mail, mdp, function(role) {
     if(role === 1 || role === 2 || role === 3) {
       req.session.role = role;
@@ -189,7 +189,7 @@ router.get("/recruteur", (req, res) => {
 //TODO : à supprimer, utile pour les tests
 router.get("/admin", (req, res) => {
   let mail = "admin@mail.fr";
-  let mdp = "mdp";
+  let mdp = "administrateur";
   userModel.isValid(mail, mdp, function(role) {
     if(role === 1 || role === 2 || role === 3) {
       req.session.role = role;

@@ -5,6 +5,9 @@ let candidatureModel = require("../models/candidatureModel");
 let userModel = require("../models/utilisateurModel");
 const db = require("../models/db");
 let pieceDossierModel = require("../models/pieceDossierModel");
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 
 let router = express.Router();
 
@@ -26,6 +29,22 @@ router.delete("/supprimer/:id", (req, res) => {
     });
 })
 
+router.get("/get-pieces/:idCandidat/:idOffre", (req, res) => {
+    candidatureModel.find(req.params.idOffre, req.params.idCandidat, function(candidatureId) {
+        pieceDossierModel.getAllPiece(candidatureId, function(pieces) {
+            res.send({pieces: pieces});
+        })
+    })
+});
+
+router.get("/download/:idPiece", (req, res) => {
+    pieceDossierModel.getPieceOffre(req.params.idPiece, function(results) {
+        if(results) {
+            console.log(__dirname + "/public/files/"+results)
+            res.download(__dirname + "/../public/files/"+results)
+        }
+    })
+})
 router.post("/candidater/:idOffre", (req, res) => {
     const candidat = req.session.userid;
     const offre = req.params.idOffre;

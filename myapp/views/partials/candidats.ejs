@@ -17,18 +17,22 @@
         </tr>
         </thead>
         <tbody class="table-group-divider">
-        <tr>
-            <td>candidat@mail.fr</td>
-            <td>Francis</td>
-            <td>Toto</td>
-            <td>0606060606</td>
-            <td>
-                <a class="btn btn-role-outline">
-                    Télécharger <i class="bi bi-download"></i>
-                </a>
+        <% if(candidats != null && candidats.length > 0) { %>
+            <% for(var el of candidats) { %>
+                <tr>
+                    <td><%=el.email%></td>
+                    <td><%=el.nom%></td>
+                    <td><%=el.prenom%></td>
+                    <td><%=el.tel%></td>
+                    <td>
+                        <button class="btn btn-role-outline" onclick="downloadPiece('<%=el.email%>',<%=offre%>)">
+                            Télécharger <i class="bi bi-download"></i>
+                        </button>
 
-            </td>
-        </tr>
+                    </td>
+                </tr>
+            <% } %>
+        <% } %>
         </tbody>
     </table>
     </div>

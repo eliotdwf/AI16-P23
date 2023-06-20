@@ -46,6 +46,22 @@ module.exports = {
             if(err) callback(null);
             else callback(results)
         })
+    },
+    getCandidatsParOffre: function(idOffre, callback) {
+        let sql = `select email FROM Candidature WHERE id_offre = ?`;
+        db.query(sql, idOffre, function (err, results) {
+            if(err) callback(null);
+            sql = `SELECT email, nom, prenom, tel FROM Utilisateur `;
+            if(results !== null && results.length > 0) {
+                sql += "WHERE email IN (" + results.map((obj) => "'" + obj.email + "'").join(",") + ")";
+            } else {
+                sql += "WHERE email IS NULL";
+            }
+            db.query(sql, function (err, results2) {
+                if(err) callback(null);
+                callback(results2);
+            })
+        })
     }
 }
 

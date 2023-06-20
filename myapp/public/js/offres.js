@@ -64,6 +64,20 @@ function afficherCandidats(idOffre){
         })
 }
 
+function downloadPiece(email, idOffre) {
+    let list;
+    fetch("/candidatures/get-pieces/"+email+"/"+idOffre)
+        .then(response => response.json())
+        .then(data => {
+            for(let piece of data.pieces) {
+                fetch("/candidatures/download/"+piece)
+                    .then(response => {
+
+                    })
+            }
+    })
+
+}
 function afficherOrganisation(siren) {
     fetch("/organisations/description/" + siren)
         .then(response => {

@@ -38,8 +38,9 @@ router.get("/", requireRecruteurOrCandidat, (req, res) => {
 })
 
 router.get("/candidatsList/:id", (req, res) => {
-    // TODO : aller récupérer les candidats dans la bdd
-    res.render("../partials/candidats");
+    candidatureModel.getCandidatsParOffre(req.params.id, function(results) {
+        res.render("../partials/candidats", {candidats: results, offre: req.params.id});
+    })
 })
 
 router.get("/:id", requireRecruteurOrCandidat, (req, res) => {

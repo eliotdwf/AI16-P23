@@ -1,4 +1,5 @@
 const db = require('./db.js');
+const bcrypt = require('bcrypt')
 
 module.exports = {
     findById: function (email, callback) {
@@ -33,11 +34,14 @@ module.exports = {
         });
     },
     isValid: function (email, mdp, callback) {
-        let sql = "SELECT id_role FROM Utilisateur WHERE email = ? AND mdp = ? AND actif = True";
+        let sql = "SELECT id_role, mdp FROM Utilisateur WHERE email = ? AND actif = True";
         db.query(sql, [email, mdp], function (err, result) {
             if (err) throw err;
             if(result[0]){
-                callback(result[0].id_role);
+                bcrypt.compare(mdp, result[0].mdp, function(err, ok) {
+                    if(ok) callback(result[0].id_role);
+                    else callback(undefined)
+                });
             }
             else {
                 callback(undefined);
@@ -52,10 +56,12 @@ module.exports = {
         });
     },
     create: function (email, pwd, nom, prenom, tel, callback) {
-        let sql = "INSERT INTO Utilisateur VALUES(?, ?, ?, ?, ?, curdate(), 1, 1, null)";
-        db.query(sql, [email, pwd, nom, prenom, tel], function (err) {
-            if(err) throw err;
-            callback(true);
+        bcrypt.hash(pwd, 10, function(err, hash) {
+            let sql = "INSERT INTO Utilisateur VALUES(?, ?, ?, ?, ?, curdate(), 1, 1, null)";
+            db.query(sql, [email, hash, nom, prenom, tel], function (err) {
+                if(err) throw err;
+                callback(true);
+            })
         })
 
     },
