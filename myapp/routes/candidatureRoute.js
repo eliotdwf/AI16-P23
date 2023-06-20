@@ -8,6 +8,7 @@ let pieceDossierModel = require("../models/pieceDossierModel");
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
+const mime = require('mime');
 
 let router = express.Router();
 
@@ -40,8 +41,21 @@ router.get("/get-pieces/:idCandidat/:idOffre", (req, res) => {
 router.get("/download/:idPiece", (req, res) => {
     pieceDossierModel.getPieceOffre(req.params.idPiece, function(results) {
         if(results) {
-            console.log(__dirname + "/public/files/"+results)
-            res.download(__dirname + "/../public/files/"+results)
+            // console.log(__dirname + "/public/files/"+results)
+            // res.download(__dirname + "/../public/files/"+results)
+            let file = __dirname + "/../public/files/"+results;
+            console.log(__dirname + "/../public/files/"+results)
+
+            let filename = path.basename(file);
+            let mimetype = mime.getType(file);
+
+            res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+            res.setHeader('Content-type', mimetype);
+            res.setHeader("Cache-Control", "no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0")
+
+            let filestream = fs.createReadStream(file);
+            filestream.pipe(res);
+
         }
     })
 })
