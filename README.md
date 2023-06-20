@@ -61,6 +61,7 @@ AI16-P23/
 |   |-- models/                 # modèles du MVC. Pour faire la liaison entre les controlleurs et la base de données
 |   |-- node_modules/           # modules npm utilisés
 |   |-- public/                 # éléments publics nécéssaires au fonctionnement du site
+|   |   |-- files               # fichiers envoyés par les candidats comme pièces de leur dossier de candidature
 |   |   |-- img                 # images nécessaires au site (logos, icones, ...)
 |   |   |-- js                  # scripts js côté client
 |   |   |-- stylesheets         # feuilles de style css
