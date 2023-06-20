@@ -5,35 +5,37 @@
     <div class="col-4"><hr class="m-0 role-color drop-shadow"></div>
 </div>
 <div class="mt-4 mb-5" style="text-align: justify;">
-    <div class="table-responsive">
-        <table class="table align-middle">
-        <thead>
-        <tr>
-            <th scope="col">Email</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Prenom</th>
-            <th scope="col">Téléphone</th>
-            <th scope="col">Candidature</th>
-        </tr>
-        </thead>
-        <tbody class="table-group-divider">
-        <% if(candidats != null && candidats.length > 0) { %>
-            <% for(var el of candidats) { %>
+    <% if(candidats != null && candidats.length > 0) { %>
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
                 <tr>
-                    <td><%=el.email%></td>
-                    <td><%=el.nom%></td>
-                    <td><%=el.prenom%></td>
-                    <td><%=el.tel%></td>
-                    <td>
-                        <button class="btn btn-role-outline" onclick="downloadPiece('<%=el.email%>',<%=offre%>)">
-                            Télécharger <i class="bi bi-download"></i>
-                        </button>
-
-                    </td>
+                    <th scope="col">Email</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Candidature</th>
                 </tr>
-            <% } %>
-        <% } %>
-        </tbody>
-    </table>
-    </div>
+                </thead>
+                <tbody class="table-group-divider">
+                    <% for(var el of candidats) { %>
+                        <tr>
+                            <td><%=el.email%></td>
+                            <td><%=el.nom%></td>
+                            <td><%=el.prenom%></td>
+                            <td><%=el.tel%></td>
+                            <td>
+                                <button class="btn btn-role-outline" onclick="downloadPiece('<%=el.email%>',<%=offre%>)">
+                                    Télécharger <i class="bi bi-download"></i>
+                                </button>
+
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+            <p class="font-weight-light font-italic text-danger" style="font-size: 1.5em;text-align: center;"><i>Aucun candidat pour cette offre</i></p>
+    <% } %>
 </div>
