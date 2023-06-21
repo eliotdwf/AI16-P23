@@ -91,8 +91,6 @@ create table Utilisateur
     actif         tinyint(1) default 1         null,
     id_role       int                          not null,
     siren         varchar(50)                  ,
-    constraint siren
-        unique (siren),
     constraint Utilisateur_ibfk_1
         foreign key (siren) references Organisation (siren),
     constraint Utilisateur_ibfk_2
@@ -110,8 +108,8 @@ CREATE TABLE TypeContrat(
 CREATE TABLE OffreEmploi(
     id_offre INT AUTO_INCREMENT,
     intitule VARCHAR(75) NOT NULL,
-    statut_poste VARCHAR(50),
-    resp_hierarchique VARCHAR(50),
+    statut_poste VARCHAR(50) DEFAULT ('Non renseigné'),
+    resp_hierarchique VARCHAR(50) DEFAULT ('Non renseigné'),
     lieu_mission VARCHAR(100) NOT NULL,
     rythme VARCHAR(50) NOT NULL,
     salaire VARCHAR(50) NOT NULL,
@@ -119,12 +117,12 @@ CREATE TABLE OffreEmploi(
     id_etat_offre INT NOT NULL,
     date_validite DATE NOT NULL,
     pieces_requises_candidature VARCHAR(50) NOT NULL,
-    nb_pieces_dossier_candidature INT,
+    nb_pieces_dossier_candidature INT DEFAULT 0,
     date_creation DATE NOT NULL DEFAULT curdate(),
     date_publication DATE,
     siren VARCHAR(50) NOT NULL,
-    id_type_metier INT,
-    id_type_contrat INT,
+    id_type_metier INT NOT NULL,
+    id_type_contrat INT NOT NULL,
     PRIMARY KEY(id_offre),
     FOREIGN KEY(siren) REFERENCES Organisation(siren),
     FOREIGN KEY(id_type_metier) REFERENCES TypeMetier(id_type_metier),
