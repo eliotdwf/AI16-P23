@@ -3,10 +3,7 @@
 P23 - Projet AI16 : Application web de recrutement  
 Membres du binôme : Eliot DEWULF et Yohan FOLLIOT
 
-
-## Use Case
-
-### Diagramme de cas d'utilisation
+## Use Case : Diagramme de cas d'utilisation
 
 ![Use Case Diagram](conception/Usecase.svg)
 Lien vers le diagramme de cas d'utilisation LucidChart [ici](https://lucid.app/lucidchart/ffa23c81-deb0-4253-a641-4117829dddff/edit?viewport_loc=-889%2C-50%2C4847%2C2298%2C0_0&invitationId=inv_a2330c3b-7f48-4643-b885-6ce8ba29d6a0)
@@ -23,10 +20,6 @@ Lien vers le diagramme de cas d'utilisation LucidChart [ici](https://lucid.app/l
 | Gérer des offres | Recruteur | Permet de Créer, Modifier et Supprimer des offres, ainsi que de Voir les candidats et télécharger leur dossier |
 | Ajouter une organisation | Administrateur | Permet d'ajouter une organisation |
 | Accorder des droits d'administrateurs | Administrateur | Permet d'accorder des droits d'administrateurs à un compte utilisateur |
-
-
-### Questions/Précisions
-- Y-a t'il un recruteur principal qui lui seul pourra valider les ajouts de recruteurs ? Ou tout recruteur validé pourra en accepter d'autres ? => Tous les recruteurs peuvent accepter la demande de rejoindre l'organisation d'un utilisateur
 
 ## MCD UML
 
