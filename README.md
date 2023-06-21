@@ -80,6 +80,21 @@ AI16-P23/
 | **Violation de contrôle d'accès**   | Manque de contrôle d’accès au niveau fonctionnel : les applications doivent vérifier les droits d'accès au niveau fonctionnel sur le serveur lors de l'accès à chaque fonction. Si les demandes ne sont pas vérifiées, les attaquants seront en mesure de forger des demandes afin d'accéder à une fonctionnalité non autorisée. | L'application expose de nombreuses fonctionnalités à travers des routes qui sont propres au rôle de chaque utilisateur (candidat/recruteur/admin). Il ne faudrait pas qu'un utilisateur puisse accèder à des fonctionnalités auxquelles il ne devrait pas avoir le droit.                                                   | Stratégie préventive, ajouter grâce au middleware RequireAuth une vérification du rôle de l'utilisateur sur chaque route. Par exemple, la route _/organisations/valider-nouveau-recruteur_ requiert un utilisateur authentifié avec le rôle de recruteur.                                                                                                                                                                                                              |
 | **Exposition de données sensibles** | Lorsque les données sensibles ne sont pas chiffrées et stockées en clair dans la base de données                                                                                                                                                                                                                                 | L'application sauvegarde de nombreuses données dans la Base de données, dont certaines très sensibles (mot de passe des utilisateurs). Si jamais grâce à une faille de sécurité un pirate venait à récupérer le contenu de la base de données, il ne faudrait pas qu'il puisse avoir accès à toutes les données sensibles.  | Stratégie corrective, ajout d'un système de chiffrement des mots de passes avant écriture et lecture dans la base de données. Le chiffrement est réalisé avec bcrypt, et transcrit les mot de passe en un hash de 72 caractères. C'est ce hash qui est stocké dans la base de donnée. Et lors de la connexion, la fonction **compare()** traduira le mot de passe entré par l'utilisateur en un hash via le même algorithme. Et comparera ce dernier et celui en base. | 
 
+### Scénario de Test d'Injection SQL 1
+Pour Tester l'injection SQL
+- Aller dans la page de création de compte
+- Rentrez par exemple le texte suivant dans la case prénom :
+``'a', 'b', '0', curdate(), 1, 1, null);DROP TABLE Test;INSERT INTO Utilisateur VALUES('mail@maile.fr','$2b$10$FBYdzEBx4JXe1qn9/9yJGeu6meIToffnNbmrk6uJRJ07XDAa4OsDW','a',``
+- Valider le formulaire
+- Une erreur s'affichera et la création sera refusée
+
+### Scénario de Test d'Injection SQL 2
+Pour Tester l'injection SQL
+- Aller dans la page de création de compte
+- Rentrez par exemple le texte suivant dans la case prénom : 
+``DROP TABLE Test;``
+- Valider le formulaire
+- Aller voir dans la table **Utilisateur** et voir que le ``DROP TABLE Test`` a été enregistré comme texte 
 ## Fonctionnalité REST
 
 Nous avons choisi d'implémenter le Web Service REST pour afficher les organisations qu'un candidat peut rejoindre depuis la route _/rejoindre-organisation_.  

@@ -123,16 +123,23 @@ router.post('/create', function(req, res) {
   let phone = req.body.phone;
   userModel.isUsedEmail(email, function (isUsed) {
     console.log("isUsed : " + isUsed);
-    if (isUsed != undefined) {
+    if (isUsed !== undefined) {
       console.log("Email déjà utilisé !");
       res.sendStatus(403);
     }
     else {
       userModel.create(email, pwd, lastname, firstname, phone, (created) => {
-        let status = (created != undefined) ? 201 : 500;
-        res.sendStatus(status);
+        if(created === null)
+        {
+          res.redirect("/404")
+        }
+        else {
+          let status = (created !== undefined) ? 201 : 500;
+          res.sendStatus(status);
+        }
       });
     }
+
   })
 });
 

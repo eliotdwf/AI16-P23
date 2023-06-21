@@ -51,16 +51,19 @@ module.exports = {
     isUsedEmail: function (email, callback) {
         let sql = "SELECT 1 FROM Utilisateur WHERE email = ?";
         db.query(sql, email, function (err, result) {
-            if (err) throw err;
+            if (err) callback(null);
             callback(result[0]);
         });
     },
     create: function (email, pwd, nom, prenom, tel, callback) {
         bcrypt.hash(pwd, 10, function(err, hash) {
             let sql = "INSERT INTO Utilisateur VALUES(?, ?, ?, ?, ?, curdate(), 1, 1, null)";
-            db.query(sql, [email, hash, nom, prenom, tel], function (err) {
-                if(err) throw err;
-                callback(true);
+            db.query(sql, [email, hash, nom, prenom, tel], function (err, results) {
+                if(err) {
+                    callback(null);
+                } else {
+                    callback(true);
+                }
             })
         })
 
