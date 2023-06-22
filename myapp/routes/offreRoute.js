@@ -49,6 +49,7 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
     offreModel.getPieceOffre(id, function(results) {
         if(!results) res.redirect("../404");
         else {
+            pieces = results;
             if(req.session.role === 1) {
                 offreModel.findById(id, function(rows) {
                     if(!rows){
