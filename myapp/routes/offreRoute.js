@@ -64,7 +64,7 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
                             res.render('detailOffre', {
                                 role: req.session.role,
                                 offre: rows[0],
-                                pieces: pieces,
+                                piecesOffre: pieces,
                                 dejaCandidat: results
                             });
                         })
@@ -82,7 +82,7 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
                                 res.render('detailOffre', {
                                     role: req.session.role,
                                     offre: rows[0],
-                                    pieces: pieces
+                                    piecesOffre: pieces
                                 });
                             }
                             else {

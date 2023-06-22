@@ -38,6 +38,9 @@ app.use('/users', usersRouter);
 app.use('/organisations', organisationRouter);
 app.use('/offres', offresRouter);
 app.use('/candidatures', candidatureRouter);
+app.use((req, res) => {
+  res.redirect('/404');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
