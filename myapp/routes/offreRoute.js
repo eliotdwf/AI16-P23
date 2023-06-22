@@ -47,35 +47,53 @@ router.get("/:id", requireRecruteurOrCandidat, (req, res) => {
     const id = req.params.id;
     let pieces;
     offreModel.getPieceOffre(id, function(results) {
-        pieces = results;
-    });
-    if(req.session.role === 1) {
-        offreModel.findById(id, function(rows) {
-            candidatureModel.checkAlreadyCandidat(req.session.userid, rows[0].id_offre, function (results)  {
-                res.render('detailOffre', {
-                    role: req.session.role,
-                    offre: rows[0],
-                    pieces: pieces,
-                    dejaCandidat: results
-                });
-            })
-        })
-    }
-    else {
-        checkSirenOffreUser(id, req.session.siren, function(error, sirenUser, sirenOffre) {
-            if (error) {
-                res.redirect("../" + error);
-            } else {
+        if(!results) res.redirect("../404");
+        else {
+            if(req.session.role === 1) {
                 offreModel.findById(id, function(rows) {
-                    res.render('detailOffre', {
-                        role: req.session.role,
-                        offre: rows[0],
-                        pieces: pieces
-                    });
+                    if(!rows){
+                        //si l'offre n'existe pas, on redirige vers 404
+                        res.redirect("../404");
+                    }
+                    else if(rows[0].id_etat_offre != 2){
+                        //si le candidat essaye d'accéder à une offre non publiée, on le redirige vers la page 403
+                        res.redirect("../403");
+                    }
+                    else {
+                        candidatureModel.checkAlreadyCandidat(req.session.userid, rows[0].id_offre, function (results)  {
+                            res.render('detailOffre', {
+                                role: req.session.role,
+                                offre: rows[0],
+                                pieces: pieces,
+                                dejaCandidat: results
+                            });
+                        })
+                    }
+                })
+            }
+            else {  // l'utilisateur est recruteur
+                //on vérifie que l'offre appartient à la meme orga que le recruteur
+                checkSirenOffreUser(id, req.session.siren, function(error, sirenUser, sirenOffre) {
+                    if (error) {
+                        res.redirect("../" + error);
+                    } else {
+                        offreModel.findById(id, function(rows) {
+                            if(rows){
+                                res.render('detailOffre', {
+                                    role: req.session.role,
+                                    offre: rows[0],
+                                    pieces: pieces
+                                });
+                            }
+                            else {
+                                res.redirect("../404") //si l'offre n'existe pas, on redirige le recruteur vers la page 404
+                            }
+                        });
+                    }
                 });
             }
-        });
-    }
+        }
+    });
 })
 
 function checkSirenOffreUser(offreId, sirenUser, callback) {

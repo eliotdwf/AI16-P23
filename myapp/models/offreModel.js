@@ -102,7 +102,14 @@ module.exports = {
             console.log(sql + " " + id)
             console.log("RESULTATS " + result)
             if (err) throw err;
-            callback(result[0]["pieces_requises_candidature"].split(","));
+            if(result.length === 0){
+                callback(undefined);
+            }
+            else {
+                console.log(result);
+                callback(result[0]["pieces_requises_candidature"].split(","));
+            }
+
         });
     },
     isUsedId: function (id, callback) {
