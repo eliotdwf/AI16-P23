@@ -128,4 +128,46 @@ router.get("/creer-offre", requireRecruteur, (req, res) => {
     });
 })
 
+router.get("/test", (req, res) => {
+    res.render("test", {role: 4});
+})
+
+router.get("/test-form-creer-compte", (req, res) => {
+    res.render("test-creer-compte.ejs");
+})
+
+router.get("/test-form-connexion", (req, res) => {
+    res.render("test-connexion.ejs");
+})
+
+router.post("/test-creer-compte", (req, res) => {
+    console.log("mot de passe du body : " + req.body.password);
+    res.sendStatus(201);
+})
+
+router.post("/authent", (req, res) => {
+    res.status(401).json({ "message" : "Le mot de passe ou l'email est incorrect !"});
+})
+
+router.get("/test-mon-compte", (req, res) => {
+    res.render("test-mon-compte", {role: 4});
+})
+
+router.get("/form-maj-compte", (req, res) => {
+    res.status(200).render("test-maj-compte");
+})
+
+router.get("/infos-compte", (req, res) => {
+    res.status(200).render("test-infos-compte");
+})
+
+router.put("/maj-infos-compte", (req, res) => {
+    console.log("nom : " + req.body.nom);
+    console.log("prenom : " + req.body.prenom);
+    console.log("mdp : " + req.body.password);
+
+    res.sendStatus(204); // succès, rien à retourner
+
+})
+
 module.exports = router;

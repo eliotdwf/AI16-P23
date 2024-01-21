@@ -1,3 +1,4 @@
+use ai16_p23;
 INSERT INTO Role VALUES (1, "Candidat");
 INSERT INTO Role VALUES (2, "Recruteur");
 INSERT INTO Role VALUES (3, "Administrateur");
@@ -10,16 +11,6 @@ INSERT INTO Utilisateur VALUES("candidat6@mail.fr", "mdp", "Gribouille", "Vandam
 INSERT INTO Utilisateur VALUES("eliot@mail.fr", "mdp", "Dewulf", "Eliot", "0606060606", curdate(), 1, 3, NULL);
 INSERT INTO Utilisateur VALUES("admin@mail.fr", "mdp", "Admin", "Admin", "0606060606", curdate(), 1, 3, null);
 */
-INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('admin@mail.fr', '$2b$10$HnZUNy90/3Jm6j8s315wQ.CCtxI7xmSD..Xza0KL8stJNLkCoU4ee', 'Admin', 'Admin', '0011223344', '2023-06-19', 1, 3, null);
-INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('amazon@mail.fr', '$2b$10$3j6Vc9EkSs4SKgu6wy6quueSvsQ2yoMSyqbwxMa0pP9dTuE.TFdna', 'Amazon', 'Recruteur', '0504050601', '2023-06-20', 1, 2, '5678');
-INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat2@mail.fr', '$2b$10$Nj0eKLQXwN3B5CB7.X/A6uWz8/PmPmwMc8rg096GS1ArJ6DH3Kp0S', 'Dubru', 'Antoine', '0102010201', '2023-06-20', 1, 1, null);
-INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat3@mail.fr', '$2b$10$DIPRgp.T0EDqqbaxlKXrr.VueoH170YkCxrbf8EisYG5W1/Wzmg.6', 'Kunicki', 'Wojtek', '0203010405', '2023-06-20', 1, 1, null);
-INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat4@mail.fr', '$2b$10$JHrpZ2TwUuq7SIpYiEjNVuNOFKOvg4wAZt/rxKWBOt3Tn7nqjR0aS', 'Ping', 'Pong', '0204050605', '2023-06-20', 1, 1, null);
-INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat5@mail.fr', '$2b$10$eQClr8bb6vVwkP9RHGoZ5.RDoeXmJehwNoQvxly9QjCcG5ap9nRy.', 'Amélie', 'Catherine', '0205040605', '2023-06-20', 1, 1, null);
-INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat6@mail.fr', '$2b$10$qTI2MzpOTcsFzbwLFBiV5eYVP72IKotDZjJS9.onJGCcKs2uzde4i', 'Rubrueil', 'Marie', '05040605440', '2023-06-20', 1, 1, null);
-INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat@mail.fr', '$2b$10$Ajj6mLzeJE/Arcg/QGOMueG/qRWb/nJSX90Bd7JmMxD4M/ZgcLly.', 'François', 'Bellière', '0102030405', '2023-06-20', 1, 1, null);
-INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('carrefour@mail.fr', '$2b$10$xvivBZ2RUcoS4JULJmFvv.7F8OoD4SEE.j/V2IpiPUdzGS37U7HfG', 'Carrefour', 'Recruteur', '0102030405', '2023-06-20', 1, 1, null);
-INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('yohan.folliot@gmail.com', '$2b$10$EgnecP8wDZtthTXoZrrWle1etlw5gT.sOAOCIJOYFi2w4mqneNHxu', 'Folliot', 'Yohan', '0786456572', '2023-06-19', 1, 1, null);
 
 INSERT INTO TypeOrganisation VALUES(1, "entreprise");
 INSERT INTO TypeOrganisation VALUES(2, "association");
@@ -66,6 +57,18 @@ INSERT INTO TypeMetier VALUES
 INSERT INTO EtatOffre VALUES (1, 'Non publiée'), (2, 'Publiée'), (3, 'Expirée');
 INSERT INTO TypeContrat VALUES (1, 'CDI'), (2, 'CDD'), (3, 'Stage'), (4, 'Alternance'), (5, 'Interim');
 
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('admin@mail.fr', '$2b$10$HnZUNy90/3Jm6j8s315wQ.CCtxI7xmSD..Xza0KL8stJNLkCoU4ee', 'Admin', 'Admin', '0011223344', '2023-06-19', 1, 3, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('amazon@mail.fr', '$2b$10$3j6Vc9EkSs4SKgu6wy6quueSvsQ2yoMSyqbwxMa0pP9dTuE.TFdna', 'Amazon', 'Recruteur', '0504050601', '2023-06-20', 1, 2, '5678');
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat2@mail.fr', '$2b$10$Nj0eKLQXwN3B5CB7.X/A6uWz8/PmPmwMc8rg096GS1ArJ6DH3Kp0S', 'Dubru', 'Antoine', '0102010201', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat3@mail.fr', '$2b$10$DIPRgp.T0EDqqbaxlKXrr.VueoH170YkCxrbf8EisYG5W1/Wzmg.6', 'Kunicki', 'Wojtek', '0203010405', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat4@mail.fr', '$2b$10$JHrpZ2TwUuq7SIpYiEjNVuNOFKOvg4wAZt/rxKWBOt3Tn7nqjR0aS', 'Ping', 'Pong', '0204050605', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat5@mail.fr', '$2b$10$eQClr8bb6vVwkP9RHGoZ5.RDoeXmJehwNoQvxly9QjCcG5ap9nRy.', 'Amélie', 'Catherine', '0205040605', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat6@mail.fr', '$2b$10$qTI2MzpOTcsFzbwLFBiV5eYVP72IKotDZjJS9.onJGCcKs2uzde4i', 'Rubrueil', 'Marie', '05040605440', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('candidat@mail.fr', '$2b$10$Ajj6mLzeJE/Arcg/QGOMueG/qRWb/nJSX90Bd7JmMxD4M/ZgcLly.', 'François', 'Bellière', '0102030405', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('carrefour@mail.fr', '$2b$10$xvivBZ2RUcoS4JULJmFvv.7F8OoD4SEE.j/V2IpiPUdzGS37U7HfG', 'Carrefour', 'Recruteur', '0102030405', '2023-06-20', 1, 1, null);
+INSERT INTO Utilisateur (email, mdp, nom, prenom, tel, date_creation, actif, id_role, siren) VALUES ('yohan.folliot@gmail.com', '$2b$10$EgnecP8wDZtthTXoZrrWle1etlw5gT.sOAOCIJOYFi2w4mqneNHxu', 'Folliot', 'Yohan', '0786456572', '2023-06-19', 1, 1, null);
+
+
 INSERT INTO OffreEmploi (id_offre, intitule, statut_poste, resp_hierarchique, lieu_mission, rythme, salaire, description, id_etat_offre, date_validite, pieces_requises_candidature, nb_pieces_dossier_candidature, date_creation, date_publication, siren, id_type_metier, id_type_contrat)
 VALUES
 (1, 'Assistant(e) logistique', 'Cadre', 'Responsable logistique', 'Paris', 'Temps plein', 'À discuter', 'Nous recherchons un(e) assistant(e) logistique pour soutenir nos opérations logistiques à Paris. Le candidat idéal doit avoir une connaissance des procédures logistiques et être capable de travailler dans un environnement dynamique.', 2, '2024-09-30', 'CV, lettre de motivation', 2, '2023-01-12', '2023-01-13','5678', 13, 1),
@@ -78,8 +81,9 @@ VALUES
 (8, 'Infirmier(ère) en santé au travail', 'Salarié', 'Médecin du travail', 'Lyon', 'Temps plein', 'À discuter', 'Nous recherchons un(e) infirmier(ère) en santé au travail qualifié(e) pour assurer le suivi médical de nos employés à Lyon. Le candidat idéal doit avoir une connaissance approfondie des pratiques de santé au travail et être titulaire d''un diplôme d''infirmier(ère).', 1, '2023-11-05', 'CV, lettre de motivation', 2, curdate(), null, '5678', 9, 1);
 
 
-INSERT INTO Utilisateur VALUES("carrefour@mail.fr", "mdp", "Recruteur", "Carrefour", "0606060606", curdate(), 1, 2, "1234");
-INSERT INTO Utilisateur VALUES("amazon@mail.fr", "mdp", "Recruteur", "Amazon", "0606060606", curdate(), 1, 2, "5678");
+
+/*INSERT INTO Utilisateur VALUES("carrefour@mail.fr", "mdp", "Recruteur", "Carrefour", "0606060606", curdate(), 1, 2, "1234");
+INSERT INTO Utilisateur VALUES("amazon@mail.fr", "mdp", "Recruteur", "Amazon", "0606060606", curdate(), 1, 2, "5678");*/
 
 INSERT INTO DemandeCreationOrga VALUES("candidat2@mail.fr", curdate(), "1234");
 INSERT INTO DemandeDevenirRecruteur VALUES ("candidat2@mail.fr", curdate(), "5678");

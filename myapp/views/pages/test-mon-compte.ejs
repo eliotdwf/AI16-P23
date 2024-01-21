@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', title='Test'); %>
+<body>
+<%- include('../partials/headers/header', role=role); %>
+
+<div class="container">
+    <div class="card">
+        <h3 class="card-header">Informations du compte</h3>
+        <div class="card-body">
+            <div class="d-flex mt-2 mb-1 flex-column justify-content-center align-items-center" id="form-infos-compte">
+                <%- include("test-infos-compte"); %>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <h3 class="card-header">Commentaires</h3>
+        <div class="card-body">
+            <div class="accordion accordion-flush" id="accordionExample">
+                <div class="alert alert-primary d-flex align-items-center" role="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                        </svg>
+                        <div>
+                            Aucun commentaire n'a encore été envoyé ! (Voir <a class="alert-link" href="/contact">la page de contact</a>)
+                        </div>
+                </div>
+                <div class="alert alert-success d-flex align-items-center mb-2 alert-dismissible fade show" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                    <div>
+                        Ceci est un message de succès qui peut disparaître !
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div class="accordion-item" id="">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Ceci est le titre du commentaire
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="card-body">
+                                <p class="card-text">J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte </p>
+                                <button type="button" class="btn btn-primary" onclick="formMajCommentaire('{{commentaire.id')">
+                                    Editer
+                                </button>
+                                <button type="button" class="btn btn-danger" onclick="supprimerCommentaire('{{commentaire.id}}')">
+                                    Supprimer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function supprimerCommentaire(id) {
+                        fetch("/supprimer-commentaire/" + id, {
+                            method: 'DELETE'
+                        })
+                            .then(response => {
+                                if(response.status === 204) {
+                                    reloadCommentaires();
+                                }
+                                else {
+                                    console.log("Une erreur inconnue est survenue, statut erreur : " + response.status);
+                                }
+                            })
+                    }
+                    function reloadCommentaires() {
+                        fetch("/commentaires", {
+                            method: 'GET'
+                        })
+                            .then(response => {
+                                if(response.status === 200) {
+                                    response.text().then(content => {
+                                        document.getElementById("accordion-commentaires").innerHTML = content;
+                                    })
+                                }
+                                else {
+                                    console.log("Une erreur inconnue est survenue, statut erreur : " + response.status);
+                                }
+                            })
+                    }
+
+                    function formMajCommentaire(id) {
+                        fetch("/commentaires/maj/" + id)
+                            .then(response => {
+                                if(response.status === 200) {
+                                    response.text().then(content => {
+                                        document.getElementById("commentaire-" + id).innerHTML = content;
+
+                                        let accordionButton = document.getElementById("accordion-button-commentaire-" + id);
+                                        accordionButton.classList.remove("collapsed");
+                                        accordionButton.setAttribute("aria-expanded", "true");
+
+                                        let collapseDiv = document.getElementById("collapse-" + id);
+                                        collapseDiv.classList.add("show");
+                                    })
+                                }
+                                else {
+                                    response.text().then(jsonData => {
+                                        let error = JSON.parse(jsonData);
+                                        if(error.message) afficherErreur(error.message);
+                                        else afficherErreur("Une erreur inconnue est survenue !");
+                                    })
+                                }
+                            })
+                            .catch(error => {
+                                console.log("Impossible de modifier le commentaire !\n" + error);
+                            })
+                    }
+
+                    function majCommentaire(id) {
+                        fetch("/commentaires/maj/" + id, {
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            method: 'POST',
+                            body: JSON.stringify({
+                                commentaire: document.getElementById("commentaire-input-" + id).value
+                            })
+                        })
+                            .then(response => {
+                                if(response.status === 204) {
+                                    getCommentaire(id);
+                                }
+                                else {
+                                    response.text().then(jsonData => {
+                                        let error = JSON.parse(jsonData);
+                                        if(error.message) afficherErreur(error.message);
+                                        else afficherErreur("Une erreur inconnue est survenue !");
+                                    })
+                                }
+                            })
+                            .catch(error => {
+                                console.log("Impossible de modifier le commentaire !\n" + error);
+                            })
+                    }
+
+                    function getCommentaire(id) {
+                        fetch("/commentaires/" + id)
+                            .then(response => {
+                                if(response.status === 200) {
+                                    response.text().then(content => {
+                                        document.getElementById("commentaire-" + id).innerHTML = content;
+                                    });
+                                }
+                                else {
+                                    response.text().then(jsonData => {
+                                        let error = JSON.parse(jsonData);
+                                        if(error.message) afficherErreur(error.message);
+                                        else afficherErreur("Une erreur inconnue est survenue !");
+                                    })
+                                }
+                            })
+                    }
+
+
+                </script>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="card-body">
+                                <textarea class="form-control mb-3 autoresize" rows="1" id="commentaire-textarea-{{commentaire.id}}">J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte</textarea>
+                                <button type="button" class="btn btn-danger" onclick="getCommentaire('{{commentaire.id}}')">
+                                    Annuler
+                                </button>
+                                <button type="button" class="btn btn-success" onclick="majCommentaire('{{commentaire.id}}')">
+                                    Enregistrer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    // Sélectionnez tous les textarea avec la classe "autoresize"
+                    const textareas = document.querySelectorAll('.autoresize');
+
+                    // Fonction pour ajuster la hauteur du textarea
+                    function adjustTextareaHeight(textarea) {
+                        textarea.style.height = 'auto'; // Réinitialiser la hauteur du textarea
+                        textarea.style.height = textarea.scrollHeight + 'px'; // Ajuster la hauteur en fonction du contenu
+                    }
+
+                    // Appliquer l'ajustement de la hauteur pour chaque textarea lors de l'événement input
+                    textareas.forEach(textarea => {
+                        textarea.addEventListener('input', () => {
+                            adjustTextareaHeight(textarea);
+                        });
+                    });
+
+                    // Ajuster la hauteur initiale pour chaque textarea au chargement de la page
+                    textareas.forEach(textarea => {
+                        adjustTextareaHeight(textarea);
+                    });
+
+                </script>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Commentaire n°3
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/utilsForm.js"></script>
+<script src="/js/pageMonCompte.js"></script>
+<script src="/js/majInfosCompte.js"></script>
+
+</body>
+</html>

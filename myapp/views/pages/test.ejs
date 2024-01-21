@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', title='Test'); %>
+<body>
+<%- include('../partials/headers/header', role=role); %>
+
+<div class="container">
+    <!--<div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
+                <th scope="col">Commentaire</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr>
+                <th scope="row">1</th>
+                <td>exemple@gmail.com</td>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>J'ai remarqué une erreur au niveau de l'affichage de la carte</td>
+                <td>
+                    <button class="btn btn-danger">Supprimer</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>exemple@gmail.com</td>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>J'ai remarqué une erreur au niveau de l'affichage de la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte </td>
+                <td>
+                    <button class="btn btn-danger">Supprimer</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>exemple@gmail.com</td>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>J'ai remarqué une erreur au niveau de l'affichage de la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte</td>
+                <td>
+                    <button class="btn btn-danger">Supprimer</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>-->
+
+    <!-- Commentaires des utilisateurs-->
+    <h2>Commentaires des utilisateurs</h2>
+    <div class="d-flex flex-column">
+        <div class="card mb-3">
+            <div class="card-header">Commentaire n°1</div>
+            <div class="card-body">
+                <h5 class="card-title">francis.truc@gmail.com</h5>
+                <p class="card-text">J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte J'ai remarqué une erreur sur l'affichage des points sur la carte </p>
+                <a href="#" class="btn btn-danger">Supprimer</a>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">Commentaire n°2</div>
+            <div class="card-body">
+                <h5 class="card-title">toto.michel@gmail.com</h5>
+                <p class="card-text">Je souhaitais féliciter la développeuse de ce site pour son travail incroyable !</p>
+                <a href="#" class="btn btn-danger">Supprimer</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 70vh; display: flex; align-items: center; justify-content: center;">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Test connexion/inscription
+        </button>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn-close m-2" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center" id="formulaire-compte">
+                        <%- include("test-connexion"); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/utilsForm.js"></script>
+    <script src="/js/form-connexion.js"></script>
+    <script src="/js/form-creer-compte.js"></script>
+    <script src="/js/popup-compte.js"></script>
+
+</div>
+
+</body>
+</html>

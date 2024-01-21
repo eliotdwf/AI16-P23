@@ -1,10 +1,11 @@
+use ai16_p23;
 DROP TABLE IF EXISTS DemandeDevenirRecruteur;
 DROP TABLE IF EXISTS DemandeCreationOrga;
-DROP TABLE IF EXISTS Candidature;
 DROP TABLE IF EXISTS OffreEmploi;
 DROP TABLE IF EXISTS EtatOffre;
 DROP TABLE IF EXISTS TypeContrat;
 DROP TABLE IF EXISTS PieceDossier;
+DROP TABLE IF EXISTS Candidature;
 DROP TABLE IF EXISTS Utilisateur;
 DROP TABLE IF EXISTS Role;
 DROP TABLE IF EXISTS Organisation;
@@ -27,19 +28,8 @@ CREATE TABLE TypeOrganisation(
     description_fichier VARCHAR(500),
     PRIMARY KEY(piece_dossier)
 );*/
-create table PieceDossier
-(
-    piece_dossier       int auto_increment
-        primary key,
-    candidature_id      int          not null,
-    chemin_fichier      varchar(100) not null,
-    description_fichier varchar(500),
-    constraint PieceDossier_ibfk_1
-        foreign key (candidature_id) references Candidature (candidature_id)
-);
 
-create index fk_candidature
-    on PieceDossier (candidature_id);
+
 
 CREATE TABLE Role(
     id_role INT PRIMARY KEY,
@@ -57,7 +47,7 @@ CREATE TABLE Organisation(
     siege_social VARCHAR(100) NOT NULL,
     description VARCHAR(5000) NOT NULL,
     chemin_logo VARCHAR(100) NOT NULL,
-    date_creation DATE NOT NULL DEFAULT curdate(),
+    date_creation DATE NOT NULL DEFAULT (CURRENT_DATE),
     creation_confirmee BOOLEAN NOT NULL DEFAULT false,
     id_type_organisation INT NOT NULL,
     PRIMARY KEY(siren),
@@ -79,6 +69,7 @@ CREATE TABLE Organisation(
     FOREIGN KEY(id_role) REFERENCES Role(id_role)
 );*/
 
+
 create table Utilisateur
 (
     email varchar(50) not null
@@ -87,7 +78,7 @@ create table Utilisateur
     nom    varchar(50) not null,
     prenom varchar(50) not null,
     tel    varchar(50),
-    date_creation date       default curdate() not null,
+    date_creation date       default (current_date) not null,
     actif         tinyint(1) default 1         null,
     id_role       int                          not null,
     siren         varchar(50)                  ,
@@ -118,7 +109,7 @@ CREATE TABLE OffreEmploi(
     date_validite DATE NOT NULL,
     pieces_requises_candidature VARCHAR(50) NOT NULL,
     nb_pieces_dossier_candidature INT DEFAULT 0,
-    date_creation DATE NOT NULL DEFAULT curdate(),
+    date_creation DATE NOT NULL DEFAULT (CURRENT_DATE),
     date_publication DATE,
     siren VARCHAR(50) NOT NULL,
     id_type_metier INT NOT NULL,
@@ -150,6 +141,20 @@ create table Candidature
 
 create index id_offre
     on Candidature (id_offre);
+
+create table PieceDossier
+(
+    piece_dossier       int auto_increment
+        primary key,
+    candidature_id      int          not null,
+    chemin_fichier      varchar(100) not null,
+    description_fichier varchar(500),
+    constraint PieceDossier_ibfk_1
+        foreign key (candidature_id) references Candidature (candidature_id)
+);
+
+create index fk_candidature
+    on PieceDossier (candidature_id);
 
 CREATE TABLE DemandeCreationOrga(
     email VARCHAR(50),
