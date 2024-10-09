@@ -1,6 +1,6 @@
 # AI16-P23
 
-P23 - Projet AI16 : Application web de recrutement dans le cadre de l'UV AI16 à l'UTC.
+P23 - Projet AI16 : Application web de recrutement dans le cadre de l'UV AI16 à l'UTC.  
 Membres du binôme : Eliot DEWULF et Yohan FOLLIOT
 
 ## Use Case : Diagramme de cas d'utilisation
